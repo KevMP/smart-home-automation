@@ -8,7 +8,7 @@ data = [
     house_temperature,
     energy_runtime, ## we also have to make this into an array and append to itself,
                     ## if we want the program to survive, probably.
-    ## and
-    ## [desired_temperature * length of the house_temperature or area_temperature],
-    ## keep the size equal so our program doesn't blank itself.
+                    ## and
+                    ## [desired_temperature * length of the house_temperature or area_temperature],
+                    ## keep the size equal so our program doesn't blank itself.
 ]
