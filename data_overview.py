@@ -14,7 +14,7 @@ data = [
 ]
 
 ## we could also just make it into one line,
-## could be easier, maybe. anyhow here's an example.
+## could be easier to implement, maybe. anyhow here's an example.
 
 input_data = [65, 68, 60, 20]
 
