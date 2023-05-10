@@ -12,3 +12,8 @@ data = [
                     ## [desired_temperature * length of the house_temperature or area_temperature],
                     ## keep the size equal so our program doesn't blank itself.
 ]
+
+## we could also just make it into one line,
+## could be easier, maybe. anyhow here's an example.
+
+input_data = [65, 68, 60, 20]
