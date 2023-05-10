@@ -17,3 +17,6 @@ data = [
 ## could be easier, maybe. anyhow here's an example.
 
 input_data = [65, 68, 60, 20]
+
+## we turn the data into a single array with numbers following this sequence
+## temperatre outside, temperature inside, energy run time, and cost per minute or w/e.
