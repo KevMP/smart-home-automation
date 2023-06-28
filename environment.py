@@ -1,5 +1,6 @@
 def detectPerson(room):
-    return 1
+    if room == True:
+        return 1
 
 def getTemperature():
     temperature = 0
