@@ -1,4 +1,4 @@
-def detectPerson():
+def detectPerson(room):
     return True
 
 def getTemperature():
@@ -6,3 +6,6 @@ def getTemperature():
 
 def getHumidity():
     pass
+
+def checkRoom(room):
+    detectPerson(room)
