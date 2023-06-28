@@ -13,3 +13,6 @@ def checkRooms(rooms):
     for room in rooms:
         count = detectPerson(room)
     return count
+
+def readData(file):
+    pass
