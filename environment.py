@@ -3,3 +3,6 @@ def detectPerson():
 
 def getTemperature():
     pass
+
+def getHumidity():
+    pass
