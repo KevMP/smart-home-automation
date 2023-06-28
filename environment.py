@@ -7,5 +7,7 @@ def getTemperature():
 def getHumidity():
     pass
 
-def checkRoom(room):
-    detectPerson(room)
+def checkRoom(rooms):
+    for room in rooms:
+        count = detectPerson(room)
+    return count
