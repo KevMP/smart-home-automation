@@ -11,6 +11,6 @@ def getHumidity():
     return humidity
 
 def initializeData(rooms):
-    humidity = []
-    temperature = []
-    return [rooms, humidity, temperature]
+    humidities = []
+    temperatures = []
+    return [rooms, humidities, temperatures]
