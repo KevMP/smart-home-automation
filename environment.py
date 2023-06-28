@@ -8,10 +8,3 @@ def getTemperature():
 def getHumidity():
     humidity = 0
     return humidity
-
-def readData(file):
-    return ["array of data"]
-    """
-    i.e.
-    [humidity, temperature, etc]
-    """
