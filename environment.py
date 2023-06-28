@@ -15,4 +15,4 @@ def checkRooms(rooms):
     return count
 
 def readData(file):
-    pass
+    return ["array of data"]
