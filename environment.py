@@ -1,3 +1,3 @@
-def getPeopleCount():
-    pass
+def detectPerson():
+    return True
 
