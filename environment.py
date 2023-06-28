@@ -12,7 +12,7 @@ def getHumidity():
 def checkRooms(rooms):
     for room in rooms:
         count = detectPerson(room)
-    return count
+    return [count, "each room a person was detected in"]
 
 def readData(file):
     return ["array of data"]
