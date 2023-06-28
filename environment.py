@@ -16,3 +16,7 @@ def checkRooms(rooms):
 
 def readData(file):
     return ["array of data"]
+    """
+    i.e.
+    [humidity, temperature, etc]
+    """
