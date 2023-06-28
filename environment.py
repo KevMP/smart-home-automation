@@ -2,10 +2,12 @@ def detectPerson(room):
     return True
 
 def getTemperature():
-    pass
+    temperature = 0
+    return temperature
 
 def getHumidity():
-    pass
+    humidity = 0
+    return humidity
 
 def checkRoom(rooms):
     for room in rooms:
