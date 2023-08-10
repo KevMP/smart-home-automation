@@ -31,7 +31,9 @@ def view_data(table):
         print(row)
 
 def delete_data(table):
-    pass
+    delete_query = f"DELETE FROM {table}"
+    cursor.execute(delete_query)
+    connection.commit()
 
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
