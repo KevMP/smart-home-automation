@@ -30,6 +30,9 @@ def view_data(table):
     for row in rows:
         print(row)
 
+def delete_data(table):
+    pass
+
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
 
