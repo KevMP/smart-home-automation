@@ -10,3 +10,4 @@ def add_data(field, data):
     pass
 
 connection = sqlite3.connect(DATABASE)
+cursor = connection.cursor()
