@@ -15,6 +15,10 @@ def add_data():
     cursor.execute(insert_query, (NEW_TEMPERATURE, USER_ID, TIME_STAMP))
     connection.commit()
 
+def view_data(table):
+    select_query = f"SELECT * FROM {table}"
+    cursor.execute(select_query)
+
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
 
