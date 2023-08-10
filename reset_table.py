@@ -6,6 +6,9 @@ TABLE_SYSTEM_DATA = 'acSystemData'
 TABLE_SENSOR_DATA = 'sensorData'
 TABLE_USER_DATA = 'userData'
 
+def drop_existing_table(table):
+    pass
+
 def create_sensor_data_table():
     create_table_query = '''
     CREATE TABLE IF NOT EXISTS {} (
