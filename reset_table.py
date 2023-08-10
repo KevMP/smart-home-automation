@@ -26,6 +26,5 @@ cursor = connection.cursor()
 
 drop_existing_table()
 
-
 cursor.close()
 connection.close()
