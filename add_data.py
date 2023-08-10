@@ -6,5 +6,5 @@ TABLE_SYSTEM_DATA = 'acSystemData'
 TABLE_SENSOR_DATA = 'sensorData'
 TABLE_USER_DATA = 'userData'
 
-def add_data(field):
+def add_data(field, data):
     pass
