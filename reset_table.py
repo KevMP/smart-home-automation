@@ -24,7 +24,7 @@ def create_sensor_data_table():
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
 
-drop_existing_table()
+drop_existing_table(TABLE_SENSOR_DATA)
 create_sensor_data_table()
 
 cursor.close()
