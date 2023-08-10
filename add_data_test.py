@@ -46,7 +46,5 @@ for iterator in range(10):
     view_data(TABLE_SENSOR_DATA)
     print('')
 
-delete_data(TABLE_SENSOR_DATA)
-
 cursor.close()
 connection.close()
