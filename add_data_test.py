@@ -18,6 +18,17 @@ def add_data():
 def view_data(table):
     select_query = f"SELECT * FROM {table}"
     cursor.execute(select_query)
+    
+    ## Need to retrieve all the data first before
+    ## viewing it. This is done using the .fetchall()
+    ## method shown below.
+
+    rows = cursor.fetchall()
+
+    ## Now we need to iterate through the data, this
+    ## could be done simply with a for loop.
+    for row in rows:
+        print(row)
 
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
