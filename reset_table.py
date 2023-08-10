@@ -6,5 +6,12 @@ TABLE_SYSTEM_DATA = 'acSystemData'
 TABLE_SENSOR_DATA = 'sensorData'
 TABLE_USER_DATA = 'userData'
 
-def reset_sensor_data_table():
-    pass
+def create_sensor_data_table():
+    create_table_query = '''
+    CREATE TABLE IF NOT EXISTS {} (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    temperature NUMERIC,
+    userId TEXT,
+    timestamp TEXT
+    )
+'''.format(TABLE_SENSOR_DATA)
