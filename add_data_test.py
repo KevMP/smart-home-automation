@@ -7,7 +7,7 @@ TABLE_SENSOR_DATA = 'sensorData'
 TABLE_USER_DATA = 'userData'
 
 def add_data(table, field, data):
-    pass
+    query = f"INSERT INTO {table} ({field}) VALUES ({data})"
 
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
