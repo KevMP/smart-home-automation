@@ -38,9 +38,6 @@ def delete_data(table):
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
 
-## The for loop would insert data to the table sensorData
-## range n amount of times.
-
 for iterator in range(5):
     add_data()
 
