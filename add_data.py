@@ -8,3 +8,5 @@ TABLE_USER_DATA = 'userData'
 
 def add_data(field, data):
     pass
+
+connection = sqlite3.connect(DATABASE)
