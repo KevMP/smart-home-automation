@@ -41,7 +41,7 @@ cursor = connection.cursor()
 ## The for loop would insert data to the table sensorData
 ## range n amount of times.
 
-for iterator in range(10):
+for iterator in range(5):
     add_data()
 
 view_data(TABLE_SENSOR_DATA)
