@@ -11,3 +11,6 @@ def add_data(field, data):
 
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
+
+cursor.close()
+connection.close()
