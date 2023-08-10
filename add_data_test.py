@@ -10,13 +10,16 @@ NEW_TEMPERATURE = 94.0
 USER_ID = '1'
 TIME_STAMP = '14'
 
+def add_data():
+    insert_query = f"INSERT INTO {TABLE_SENSOR_DATA} (temperature, userId, timestamp) VALUES (?, ?, ?)"
+    cursor.execute(insert_query, (NEW_TEMPERATURE, USER_ID, TIME_STAMP))
+    connection.commit()
+
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
 
-insert_query = f"INSERT INTO {TABLE_SENSOR_DATA} (temperature, userId, timestamp) VALUES (?, ?, ?)"
 
-cursor.execute(insert_query, (NEW_TEMPERATURE, USER_ID, TIME_STAMP))
-connection.commit()
+
 
 cursor.close()
 connection.close()
