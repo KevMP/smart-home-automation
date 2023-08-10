@@ -21,5 +21,7 @@ def create_sensor_data_table():
 '''.format(TABLE_SENSOR_DATA)
 
 connection = sqlite3.connect(DATABASE)
+cursor = connection.cursor()
 
+cursor.close()
 connection.close()
