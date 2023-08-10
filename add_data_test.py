@@ -18,8 +18,11 @@ def add_data():
 connection = sqlite3.connect(DATABASE)
 cursor = connection.cursor()
 
+## The for loop would insert data to the table sensorData
+## range n amount of times.
 
-
+for iterator in range(10):
+    add_data()
 
 cursor.close()
 connection.close()
