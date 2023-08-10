@@ -19,3 +19,7 @@ def create_sensor_data_table():
     timestamp TEXT
     )
 '''.format(TABLE_SENSOR_DATA)
+
+connection = sqlite3.connect(DATABASE)
+
+connection.close()
