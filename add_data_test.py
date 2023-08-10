@@ -42,6 +42,7 @@ cursor = connection.cursor()
 for iterator in range(10):
     add_data()
     view_data(TABLE_SENSOR_DATA)
+    print('')
 
 cursor.close()
 connection.close()
