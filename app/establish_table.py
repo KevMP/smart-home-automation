@@ -15,6 +15,9 @@ class Table():
         table_query.format(table_name)
         return table_query
     
+    ## The following will read data and return the
+    ## query to its function call.
+
     def read_file(self, file_path):
         self.file = open(file_path, 'r')
         self.data = self.file.read()
