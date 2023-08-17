@@ -52,7 +52,7 @@ class Table():
     ## in terms of creating and dropping tables.
 
     def drop_ac_system_table(self):
-        pass
+        return self.drop_table(self.AC_SYSTEM_DATA_TABLE)
 
     def create_ac_system_table(self):
         pass
