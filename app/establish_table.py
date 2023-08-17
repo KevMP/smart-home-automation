@@ -7,6 +7,13 @@ class Table():
     BACKUP_SCHEMAS_FOLDER = os.path.join(DATABASES_FOLDER, 'backup_schemas')
     SENSOR_DATA_TABLE_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'sensor_data_table_creation_query.txt')
 
+    ## The drop table function will 'delete' the database, create
+    ## table will create a new database.
+
+    ## By keeping track of the creation schemas we can create the
+    ## databases from scratch if we were to ever accidentally delete
+    ## them, or needed a fresh start.
+
     def drop_table(self, table):
         self.drop_table_query = f"DROP TABLE IF EXISTS {table}"
         return self.drop_table_query
