@@ -20,7 +20,7 @@ class Table():
     USER_DATA_TABLE = 'userData'
 
     ## The drop table function will 'delete' the database, create
-    ## table will create a new database.
+    ## table query will create a query to make a new database.
 
     ## By keeping track of the creation schemas we can create the
     ## databases from scratch if we were to ever accidentally delete
