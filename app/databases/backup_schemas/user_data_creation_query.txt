@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS {} (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    userID INTEGER PRIMARY KEY AUTOINCREMENT,
     preferredTemperature NUMERIC,
-    numberOfResidents INTEGER,
+    numberOfResidents INTEGER
 )
