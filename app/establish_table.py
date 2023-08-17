@@ -23,4 +23,4 @@ class Table():
         return self.data
 
     def get_query(self, file_path):
-        pass
+        return self.read_file(file_path)
