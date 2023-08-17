@@ -61,4 +61,5 @@ class Table():
         return self.drop_table(self.USER_DATA_TABLE)
 
     def create_user_table(self):
-        pass
+        self.creation_query = self.get_query(self.USER_DATA_CREATION_QUERY)
+        self.create_table(self.creation_query, self.USER_DATA_TABLE)
