@@ -30,7 +30,7 @@ class Table():
         self.drop_table_query = f"DROP TABLE IF EXISTS {table}"
         return self.drop_table_query
     
-    def create_table(self, table_query, table_name):
+    def create_table_query(self, table_query, table_name):
         table_query.format(table_name)
         return table_query
     
@@ -55,11 +55,11 @@ class Table():
 
     def create_sensor_table(self):
         self.creation_query = self.get_query(self.SENSOR_DATA_CREATION_QUERY)
-        self.create_table(self.creation_query, self.SENSOR_DATA_TABLE)
+        self.create_table_query(self.creation_query, self.SENSOR_DATA_TABLE)
     
     def drop_user_table(self):
         return self.drop_table(self.USER_DATA_TABLE)
 
     def create_user_table(self):
         self.creation_query = self.get_query(self.USER_DATA_CREATION_QUERY)
-        self.create_table(self.creation_query, self.USER_DATA_TABLE)
+        self.create_table_query(self.creation_query, self.USER_DATA_TABLE)
