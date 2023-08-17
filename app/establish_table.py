@@ -17,6 +17,7 @@ class Table():
     
     def read_file(self, file_path):
         self.file = open(file_path, 'r')
+        self.data = self.file.read()
         self.file.close()
 
     def get_query(self, file_path):
