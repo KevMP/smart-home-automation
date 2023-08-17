@@ -2,4 +2,5 @@ import sqlite3
 
 class Table():
     def drop_table(table):
-        pass
+        drop_table_query = f"DROP TABLE IF EXISTS {table}"
+        cursor.execute(drop_table_query)
