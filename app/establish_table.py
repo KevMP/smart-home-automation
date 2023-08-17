@@ -54,19 +54,19 @@ class Table():
     def drop_ac_system_table(self):
         return self.drop_table(self.AC_SYSTEM_DATA_TABLE)
 
+    def drop_sensor_table(self):
+        return self.drop_table(self.SENSOR_DATA_TABLE)
+    
+    def drop_user_table(self):
+        return self.drop_table(self.USER_DATA_TABLE)
+    
     def create_ac_system_table(self):
         self.creation_query = self.get_query(self.AC_SYSTEM_DATA_CREATION_QUERY)
         return self.create_table_query(self.creation_query, self.AC_SYSTEM_DATA_TABLE)
 
-    def drop_sensor_table(self):
-        return self.drop_table(self.SENSOR_DATA_TABLE)
-
     def create_sensor_table(self):
         self.creation_query = self.get_query(self.SENSOR_DATA_CREATION_QUERY)
         return self.create_table_query(self.creation_query, self.SENSOR_DATA_TABLE)
-    
-    def drop_user_table(self):
-        return self.drop_table(self.USER_DATA_TABLE)
 
     def create_user_table(self):
         self.creation_query = self.get_query(self.USER_DATA_CREATION_QUERY)
