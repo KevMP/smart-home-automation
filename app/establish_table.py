@@ -34,3 +34,6 @@ class Table():
 
     def get_query(self, file_path):
         return self.read_file(file_path)
+    
+    ## The following will be functions to a table
+    ## in terms of creating and dropping tables.
