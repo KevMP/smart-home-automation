@@ -1,5 +1,5 @@
 import sqlite3
 
 class Table():
-    def drop_existing_table(table):
+    def drop_table(table):
         pass
