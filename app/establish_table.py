@@ -15,6 +15,10 @@ class Table():
     ## is established in case we want to change the name of the tables,
     ## or include new ones.
 
+    AC_SYSTEM_DATA_TABLE = 'acSystemData'
+    SENSOR_DATA_TABLE = 'sensorData'
+    USER_DATA_TABLE = 'userData'
+
     ## The drop table function will 'delete' the database, create
     ## table will create a new database.
 
