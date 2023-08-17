@@ -3,13 +3,17 @@ import os
 
 class Table():
     ## The following are the file paths for the database.
-    
+
     APPLICATION_FOLDER = 'app'
     DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
     BACKUP_SCHEMAS_FOLDER = os.path.join(DATABASES_FOLDER, 'backup_schemas')
 
     SENSOR_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'sensor_data_creation_query.txt')
     USER_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'user_data_creation_query.txt')
+
+    ## The following are the constants for the table names. This
+    ## is established in case we want to change the name of the tables,
+    ## or include new ones.
 
     ## The drop table function will 'delete' the database, create
     ## table will create a new database.
