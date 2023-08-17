@@ -20,5 +20,7 @@ class Table():
         self.data = self.file.read()
         self.file.close()
 
+        return self.data
+
     def get_query(self, file_path):
         pass
