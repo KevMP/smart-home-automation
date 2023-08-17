@@ -16,7 +16,8 @@ class Table():
         return table_query
     
     def read_file(self, file_path):
-        self.ifle
+        self.file = open(file_path, 'r')
+        self.file.close()
 
     def get_query(self, file_path):
         pass
