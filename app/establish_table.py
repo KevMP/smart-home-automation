@@ -2,13 +2,26 @@ import sqlite3
 import os
 
 class Table():
+    ## The following are the constant file paths for the database.
+
     APPLICATION_FOLDER = 'app'
     DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
     BACKUP_SCHEMAS_FOLDER = os.path.join(DATABASES_FOLDER, 'backup_schemas')
-    SENSOR_DATA_TABLE_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'sensor_data_table_creation_query.txt')
+
+    AC_SYSTEM_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'ac_system_data_creation_query.txt')
+    SENSOR_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'sensor_data_creation_query.txt')
+    USER_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'user_data_creation_query.txt')
+
+    ## The following are the constants for the table names. This
+    ## is established in case we want to change the name of the tables,
+    ## or include new ones.
+
+    AC_SYSTEM_DATA_TABLE = 'acSystemData'
+    SENSOR_DATA_TABLE = 'sensorData'
+    USER_DATA_TABLE = 'userData'
 
     ## The drop table function will 'delete' the database, create
-    ## table will create a new database.
+    ## table query will create a query to make a new database.
 
     ## By keeping track of the creation schemas we can create the
     ## databases from scratch if we were to ever accidentally delete
@@ -18,7 +31,7 @@ class Table():
         self.drop_table_query = f"DROP TABLE IF EXISTS {table}"
         return self.drop_table_query
     
-    def create_table(self, table_query, table_name):
+    def create_table_query(self, table_query, table_name):
         table_query.format(table_name)
         return table_query
     
@@ -35,9 +48,26 @@ class Table():
     def get_query(self, file_path):
         return self.read_file(file_path)
     
-    ## The following will be functions to a table
-    ## in terms of creating and dropping tables.
+    ## The following will be functions to create
+    ## or drop a table.
+
+    def drop_ac_system_table(self):
+        return self.drop_table(self.AC_SYSTEM_DATA_TABLE)
+
+    def drop_sensor_table(self):
+        return self.drop_table(self.SENSOR_DATA_TABLE)
+    
+    def drop_user_table(self):
+        return self.drop_table(self.USER_DATA_TABLE)
+    
+    def create_ac_system_table(self):
+        self.creation_query = self.get_query(self.AC_SYSTEM_DATA_CREATION_QUERY)
+        return self.create_table_query(self.creation_query, self.AC_SYSTEM_DATA_TABLE)
 
     def create_sensor_table(self):
-        self.creation_query = self.get_query(self.SENSOR_DATA_TABLE_CREATION_QUERY)
-        self.create_table(self.creation_query, 'sensorData')
+        self.creation_query = self.get_query(self.SENSOR_DATA_CREATION_QUERY)
+        return self.create_table_query(self.creation_query, self.SENSOR_DATA_TABLE)
+
+    def create_user_table(self):
+        self.creation_query = self.get_query(self.USER_DATA_CREATION_QUERY)
+        return self.create_table_query(self.creation_query, self.USER_DATA_TABLE)
