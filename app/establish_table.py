@@ -6,8 +6,8 @@ class Table():
     DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
     BACKUP_SCHEMAS_FOLDER = os.path.join(DATABASES_FOLDER, 'backup_schemas')
 
-    SENSOR_DATA_TABLE_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'sensor_data_creation_query.txt')
-    USER_DATA_TABLE_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'user_data_creation_query.txt')
+    SENSOR_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'sensor_data_creation_query.txt')
+    USER_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'user_data_creation_query.txt')
 
     ## The drop table function will 'delete' the database, create
     ## table will create a new database.
@@ -44,5 +44,5 @@ class Table():
         return self.drop_table('sensorData')
 
     def create_sensor_table(self):
-        self.creation_query = self.get_query(self.SENSOR_DATA_TABLE_CREATION_QUERY)
+        self.creation_query = self.get_query(self.SENSOR_DATA_CREATION_QUERY)
         self.create_table(self.creation_query, 'sensorData')
