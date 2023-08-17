@@ -9,5 +9,8 @@ class Table():
         table_query.format(table_name)
         return table_query
     
+    def read_file(file_path):
+        pass
+
     def get_query(file_path):
         pass
