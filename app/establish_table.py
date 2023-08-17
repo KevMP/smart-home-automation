@@ -8,8 +8,8 @@ class Table():
     SENSOR_DATA_TABLE_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'sensor_data_table_creation_query.txt')
 
     def drop_table(self, table):
-        drop_table_query = f"DROP TABLE IF EXISTS {table}"
-        return drop_table_query
+        self.drop_table_query = f"DROP TABLE IF EXISTS {table}"
+        return self.drop_table_query
     
     def create_table(self, table_query, table_name):
         table_query.format(table_name)
