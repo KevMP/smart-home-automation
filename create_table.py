@@ -6,4 +6,4 @@ class Table():
         cursor.execute(drop_table_query)
     
     def create_table(table_query, table_name):
-        pass
+        table_query.format(table_name)
