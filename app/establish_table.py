@@ -37,3 +37,6 @@ class Table():
     
     ## The following will be functions to a table
     ## in terms of creating and dropping tables.
+
+    def create_sensor_table(self):
+        pass
