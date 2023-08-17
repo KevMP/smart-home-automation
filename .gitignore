@@ -161,3 +161,6 @@ cython_debug/
 
 ## Databases
 SHAS_BACKUP.db
+
+## Applications
+/app/testing.py
