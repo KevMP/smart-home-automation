@@ -61,6 +61,9 @@ class Table():
     def drop_user_table(self):
         return self.drop_table(self.USER_DATA_TABLE)
     
+    ## The following are for creating the tables using
+    ## the stored creation queries.
+
     def create_ac_system_table(self):
         self.creation_query = self.get_query(self.AC_SYSTEM_DATA_CREATION_QUERY)
         return self.create_table_query(self.creation_query, self.AC_SYSTEM_DATA_TABLE)
