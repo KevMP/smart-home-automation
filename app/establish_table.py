@@ -48,7 +48,7 @@ class Table():
         self.create_table(self.creation_query, 'sensorData')
     
     def drop_user_table(self):
-        pass
+        return self.drop_table('userData')
 
     def create_user_table(self):
         pass
