@@ -2,7 +2,7 @@ import sqlite3
 import os
 
 class Table():
-    ## The following are the file paths for the database.
+    ## The following are the constant file paths for the database.
 
     APPLICATION_FOLDER = 'app'
     DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
