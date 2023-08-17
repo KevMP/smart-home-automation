@@ -7,5 +7,3 @@ do not include the extension.
 ## An Example:
 
 * import sqlite3
-* import establish_table
-* import ui
