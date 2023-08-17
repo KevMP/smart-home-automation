@@ -39,7 +39,7 @@ class Table():
     ## in terms of creating and dropping tables.
 
     def drop_sensor_table(self):
-        pass
+        return self.drop_table('sensorData')
 
     def create_sensor_table(self):
         self.creation_query = self.get_query(self.SENSOR_DATA_TABLE_CREATION_QUERY)
