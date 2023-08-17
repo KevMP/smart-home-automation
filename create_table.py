@@ -7,3 +7,4 @@ class Table():
     
     def create_table(table_query, table_name):
         table_query.format(table_name)
+        cursor.execute(table_query)
