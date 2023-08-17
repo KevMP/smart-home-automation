@@ -40,4 +40,6 @@ class Table():
 
     def create_sensor_table(self):
         self.creation_query = self.get_query(self.SENSOR_DATA_TABLE_CREATION_QUERY)
-        
+        print(self.creation_query)
+
+Table().create_sensor_table()
