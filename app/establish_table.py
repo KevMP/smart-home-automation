@@ -49,3 +49,6 @@ class Table():
     
     def drop_user_table(self):
         pass
+
+    def create_user_table(self):
+        pass
