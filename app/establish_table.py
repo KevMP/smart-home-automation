@@ -56,6 +56,7 @@ class Table():
 
     def create_ac_system_table(self):
         self.creation_query = self.get_query(self.AC_SYSTEM_DATA_CREATION_QUERY)
+        self.create_table_query(self.creation_query, self.AC_SYSTEM_DATA_TABLE)
 
     def drop_sensor_table(self):
         return self.drop_table(self.SENSOR_DATA_TABLE)
