@@ -5,7 +5,9 @@ class Table():
     APPLICATION_FOLDER = 'app'
     DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
     BACKUP_SCHEMAS_FOLDER = os.path.join(DATABASES_FOLDER, 'backup_schemas')
+
     SENSOR_DATA_TABLE_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'sensor_data_table_creation_query.txt')
+    USER_DATA_TABLE_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'user_data_table_creation_query.txt')
 
     ## The drop table function will 'delete' the database, create
     ## table will create a new database.
