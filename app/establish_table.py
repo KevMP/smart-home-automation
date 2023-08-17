@@ -51,6 +51,9 @@ class Table():
     ## The following will be functions to a table
     ## in terms of creating and dropping tables.
 
+    def drop_ac_system_table(self):
+        pass
+
     def drop_sensor_table(self):
         return self.drop_table(self.SENSOR_DATA_TABLE)
 
