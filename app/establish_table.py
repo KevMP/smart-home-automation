@@ -8,3 +8,6 @@ class Table():
     def create_table(table_query, table_name):
         table_query.format(table_name)
         return table_query
+    
+    def get_query(file_path):
+        pass
