@@ -48,8 +48,9 @@ class Table():
     def get_query(self, file_path):
         return self.read_file(file_path)
     
-    ## The following will be functions to create
-    ## or drop a table.
+    ## The following are functions to drop the table,
+    ## this is used to reset the table back to its original
+    ## empty self.
 
     def drop_ac_system_table(self):
         return self.drop_table(self.AC_SYSTEM_DATA_TABLE)
