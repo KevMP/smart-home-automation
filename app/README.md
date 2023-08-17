@@ -7,6 +7,8 @@ the python files.
 
 ## An Example:
 
-* import sqlite3
-* import establish_table
-* import ui
+import sqlite3
+
+import establish_table
+
+import ui
