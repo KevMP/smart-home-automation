@@ -6,6 +6,7 @@ class Database():
     APPLICATION_FOLDER = 'app'
     DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
 
+    DATABASE_FILE = os.path.join(DATABASES_FOLDER, 'SHAS.db')
     AC_SYSTEM_DATA_TABLE = 'acSystemData'
     SENSOR_DATA_TABLE = 'sensorData'
     USER_DATA_TABLE = 'userData'
