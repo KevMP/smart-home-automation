@@ -23,6 +23,8 @@ class Database():
     def print_all_fields(self, table_name):
         self.connection = self.create_connection(self.DATABASE_FILE)
 
+        self.connection.close()
+
 class Timestamp():
     ## The following are to be used to gather
     ## the specific timestamp data.
