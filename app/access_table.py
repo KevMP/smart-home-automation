@@ -12,6 +12,7 @@ class Database():
 
     def create_connection(self, database_file):
         self.connection = sqlite3.connect(database_file)
+        return self.connection
 
 class Timestamp():
     ## The following are to be used to gather
