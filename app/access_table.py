@@ -14,7 +14,7 @@ class Database():
         self.connection = sqlite3.connect(database_file)
         return self.connection
     
-    def select_all_fields(self, table_name):
+    def select_all_fields(self, database_connection, table_name):
         pass
 
 class Timestamp():
