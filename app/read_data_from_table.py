@@ -6,6 +6,10 @@ class Timestamp():
     APPLICATION_FOLDER = 'app'
     DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
 
+    AC_SYSTEM_DATA_TABLE = 'acSystemData'
+    SENSOR_DATA_TABLE = 'sensorData'
+    USER_DATA_TABLE = 'userData'
+
     def get_timestamp(self):
         pass
 
