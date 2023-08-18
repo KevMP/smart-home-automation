@@ -13,3 +13,6 @@ class Timestamp():
 
     def get_year(self):
         pass
+
+    def get_hour(self):
+        pass
