@@ -1,6 +1,9 @@
 import sqlite3
 import os
 
+class Database():
+    pass
+
 class Timestamp():
     ## Constant pathing variables.
     APPLICATION_FOLDER = 'app'
