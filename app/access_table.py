@@ -19,6 +19,9 @@ class Database():
         self.cursor.execute(f"SELECT * FROM {table_name}")
         return self.cursor.fetchall()
 
+    def print_all_fields(self):
+        pass
+
 class Timestamp():
     ## The following are to be used to gather
     ## the specific timestamp data.
