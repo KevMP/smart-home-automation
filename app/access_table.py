@@ -21,7 +21,7 @@ class Database():
         return self.cursor.fetchall()
 
     def print_all_fields(self, table_name):
-        pass
+        self.connection = self.create_connection(self.DATABASE_FILE)
 
 class Timestamp():
     ## The following are to be used to gather
