@@ -1,5 +1,5 @@
 import sqlite3
 import os
 
-class Table():
+class Timestamp():
     pass
