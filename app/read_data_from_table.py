@@ -2,14 +2,14 @@ import sqlite3
 import os
 
 class Timestamp():
-    def get_timestamp():
+    def get_timestamp(self):
         pass
 
-    def get_month():
+    def get_month(self):
         pass
 
-    def get_day():
+    def get_day(self):
         pass
 
-    def get_year():
+    def get_year(self):
         pass
