@@ -16,7 +16,8 @@ class Database():
     
     def select_all_fields(self, database_connection, table_name):
         self.cursor = database_connection.cursor()
-        self.cusor.execute(f"SELECT * FROM {table_name}")
+        self.cursor.execute(f"SELECT * FROM {table_name}")
+        return self.cursor.fetchall()
 
 class Timestamp():
     ## The following are to be used to gather
