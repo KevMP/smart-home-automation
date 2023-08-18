@@ -2,10 +2,6 @@ import sqlite3
 import os
 
 class Database():
-    def create_connection(self, database_file):
-        pass
-
-class Timestamp():
     ## Constant pathing variables.
     APPLICATION_FOLDER = 'app'
     DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
@@ -13,7 +9,11 @@ class Timestamp():
     AC_SYSTEM_DATA_TABLE = 'acSystemData'
     SENSOR_DATA_TABLE = 'sensorData'
     USER_DATA_TABLE = 'userData'
+    
+    def create_connection(self, database_file):
+        pass
 
+class Timestamp():
     ## The following are to be used to gather
     ## the specific timestamp data.
 
