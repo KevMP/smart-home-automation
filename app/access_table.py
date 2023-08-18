@@ -2,7 +2,8 @@ import sqlite3
 import os
 
 class Database():
-    pass
+    def create_connection(self, database_file):
+        pass
 
 class Timestamp():
     ## Constant pathing variables.
