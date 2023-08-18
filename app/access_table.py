@@ -53,3 +53,5 @@ class Timestamp():
 
     def get_second(self):
         pass
+
+Database().print_all_fields(Database().SENSOR_DATA_TABLE)
