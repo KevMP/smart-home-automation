@@ -2,4 +2,5 @@ import sqlite3
 import os
 
 class Timestamp():
-    pass
+    def get_timestamp():
+        pass
