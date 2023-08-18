@@ -9,9 +9,9 @@ class Database():
     AC_SYSTEM_DATA_TABLE = 'acSystemData'
     SENSOR_DATA_TABLE = 'sensorData'
     USER_DATA_TABLE = 'userData'
-    
+
     def create_connection(self, database_file):
-        pass
+        self.connection = sqlite3.connect(database_file)
 
 class Timestamp():
     ## The following are to be used to gather
