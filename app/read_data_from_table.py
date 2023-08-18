@@ -2,6 +2,10 @@ import sqlite3
 import os
 
 class Timestamp():
+    ## Constant pathing variables.
+    APPLICATION_FOLDER = 'app'
+    DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
+
     def get_timestamp(self):
         pass
 
