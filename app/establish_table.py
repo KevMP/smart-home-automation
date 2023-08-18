@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-class Table():
+class Query():
     ## The following are the constant file paths for the database.
 
     APPLICATION_FOLDER = 'app'
@@ -47,31 +47,32 @@ class Table():
 
     def get_query(self, file_path):
         return self.read_file(file_path)
-    
+
+class Table():
     ## The following are functions to drop the table,
     ## this is used to reset the table back to its original
     ## empty self.
 
     def drop_ac_system_table(self):
-        return self.drop_table(self.AC_SYSTEM_DATA_TABLE)
+        return Query().drop_table(Query().AC_SYSTEM_DATA_TABLE)
 
     def drop_sensor_table(self):
-        return self.drop_table(self.SENSOR_DATA_TABLE)
+        return Query().drop_table(Query().SENSOR_DATA_TABLE)
     
     def drop_user_table(self):
-        return self.drop_table(self.USER_DATA_TABLE)
+        return Query().drop_table(Query().USER_DATA_TABLE)
     
     ## The following are for creating the tables using
     ## the stored creation queries.
 
     def create_ac_system_table(self):
-        self.creation_query = self.get_query(self.AC_SYSTEM_DATA_CREATION_QUERY)
-        return self.create_table_query(self.creation_query, self.AC_SYSTEM_DATA_TABLE)
+        self.creation_query = Query().get_query(Query().AC_SYSTEM_DATA_CREATION_QUERY)
+        return Query().create_table_query(self.creation_query, Query().AC_SYSTEM_DATA_TABLE)
 
     def create_sensor_table(self):
-        self.creation_query = self.get_query(self.SENSOR_DATA_CREATION_QUERY)
-        return self.create_table_query(self.creation_query, self.SENSOR_DATA_TABLE)
+        self.creation_query = Query().get_query(Query().SENSOR_DATA_CREATION_QUERY)
+        return Query().create_table_query(self.creation_query, Query().SENSOR_DATA_TABLE)
 
     def create_user_table(self):
-        self.creation_query = self.get_query(self.USER_DATA_CREATION_QUERY)
-        return self.create_table_query(self.creation_query, self.USER_DATA_TABLE)
+        self.creation_query = Query().get_query(Query().USER_DATA_CREATION_QUERY)
+        return Query().create_table_query(self.creation_query, Query().USER_DATA_TABLE)
