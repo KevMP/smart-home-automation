@@ -10,6 +10,9 @@ class Timestamp():
     SENSOR_DATA_TABLE = 'sensorData'
     USER_DATA_TABLE = 'userData'
 
+    ## The following are to be used to gather
+    ## the specific timestamp data.
+
     def get_timestamp(self):
         pass
 
