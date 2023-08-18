@@ -22,6 +22,11 @@ class Database():
         self.connection = sqlite3.connect(database_file)
         return self.connection
     
+    ## The following will capture all fields in the
+    ## database.
+    ## And will allow the functionality of printing
+    ## out all the field data.
+
     def select_all_fields(self, database_connection, table_name):
         self.cursor = database_connection.cursor()
         self.cursor.execute(f"SELECT * FROM {table_name}")
