@@ -7,3 +7,6 @@ class Timestamp():
 
     def get_month():
         pass
+
+    def get_day():
+        pass
