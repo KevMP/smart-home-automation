@@ -11,6 +11,13 @@ class Database():
     SENSOR_DATA_TABLE = 'sensorData'
     USER_DATA_TABLE = 'userData'
 
+    ## The following function will create a connection
+    ## to the database, this will enable the features
+    ## to view all the data, fields, etc inside of that
+    ## database.
+    ## Note that a cursor object has to be created to
+    ## execute sql queries to access the data.
+
     def create_connection(self, database_file):
         self.connection = sqlite3.connect(database_file)
         return self.connection
