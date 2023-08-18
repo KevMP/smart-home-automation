@@ -10,3 +10,6 @@ class Timestamp():
 
     def get_day():
         pass
+
+    def get_year():
+        pass
