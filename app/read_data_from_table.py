@@ -19,3 +19,6 @@ class Timestamp():
 
     def get_minute(selF):
         pass
+
+    def get_second(self):
+        pass
