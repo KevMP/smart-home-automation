@@ -22,10 +22,10 @@ class Database():
 
     def print_all_fields(self, table_name):
         self.connection = self.create_connection(self.DATABASE_FILE)
-        self.field_data = self.select_all_fields(self.connection, table_name)
+        self.fields = self.select_all_fields(self.connection, table_name)
 
-        for field in self.field_data:
-            print(field)
+        for row in self.fields:
+            print(row)
 
         self.connection.close()
 
