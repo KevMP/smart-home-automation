@@ -20,7 +20,7 @@ class Database():
         self.cursor.execute(f"SELECT * FROM {table_name}")
         return self.cursor.fetchall()
 
-    def print_all_fields(self):
+    def print_all_fields(self, table_name):
         pass
 
 class Timestamp():
