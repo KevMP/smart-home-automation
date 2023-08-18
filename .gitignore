@@ -161,6 +161,7 @@ cython_debug/
 
 ## Databases
 SHAS_BACKUP.db
+SHAS.db
 
 ## Applications
 /app/testing.py
