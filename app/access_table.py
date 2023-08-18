@@ -15,7 +15,7 @@ class Database():
         return self.connection
     
     def select_all_fields(self, database_connection, table_name):
-        pass
+        self.cursor = database_connection.cursor()
 
 class Timestamp():
     ## The following are to be used to gather
