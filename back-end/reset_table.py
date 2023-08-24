@@ -83,6 +83,8 @@ class Table():
     
     def reset_all_tables(self):
         self.database_connection = sqlite3.connect(self.DATABASE_FILE)
+        self.sql_cursor = self.database_connection.cursor()
+        
         self.drop_ac_system_table()
         self.drop_sensor_table()
         self.drop_user_table()
