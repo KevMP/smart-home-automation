@@ -18,18 +18,18 @@ class Insert():
     ## to create that faked data.
 
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
-        self.sql_query = f'''INSERT INTO {self.system_table}
-                             VALUES ({running_time}, {time_stamp}, {user_identification})'''
+        self.sql_query = f'''INSERT INTO {self.system_table} (runningTime, timeStamp, userId)
+                             VALUES ({running_time}, {time_stamp}, {user_identification});'''
         return self.sql_query
 
     def insert_sensor_data(self, temperature, user_identification, time_stamp):
-        self.sql_query = f'''INSERT INTO {self.sensor_table}
-                             VALUES ({temperature}, {user_identification}, {time_stamp})'''
+        self.sql_query = f'''INSERT INTO {self.sensor_table} (temperature, userId, timestamp)
+                             VALUES ({temperature}, {user_identification}, {time_stamp});'''
         return self.sql_query
     
     def insert_user_data(self, user_identification, preferred_temperature, number_of_residents):
-        self.sql_query = f'''INSERT INTO {self.user_table}
-                             VALUES ({user_identification}, {preferred_temperature}, {number_of_residents})'''
+        self.sql_query = f'''INSERT INTO {self.user_table} (preferredTemperature, numberOfResidents)
+                             VALUES ({user_identification}, {preferred_temperature}, {number_of_residents});'''
         return self.sql_query
 
     ## The cursor object will be executing all sql statements,
