@@ -14,7 +14,7 @@ class Insert():
     ## to create that faked data.
 
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
-        self.sql_query = ''
+        self.sql_query = f''
         return self.sql_query
 
     def insert_sensor_data(self, temperature, user_identification, time_stamp):
