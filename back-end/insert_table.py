@@ -16,7 +16,8 @@ class Insert():
         return self.sql_query
     
     def insert_user_data(self, preferred_temperature, number_of_residents):
-        pass
+        self.sql_query = ''
+        return self.sql_query
 
     ## The cursor object will be executing all sql statements,
     ## note that a database connection must be made before executing
