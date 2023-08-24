@@ -81,3 +81,5 @@ class Table():
         self.drop_ac_system_table()
         self.drop_sensor_table()
         self.drop_user_table()
+
+        self.create_ac_system_table()
