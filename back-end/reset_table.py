@@ -80,4 +80,4 @@ class Table():
     def reset_all_tables(self):
         self.drop_ac_system_table()
         self.drop_sensor_table()
-        
+        self.drop_user_table()
