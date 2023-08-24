@@ -9,6 +9,9 @@ class Insert():
 
     ## The following functions will create a sql query that will be executed
     ## by the cursor in our main function for this class.
+    
+    ## Note, that when we are generating fake data we can use these functions
+    ## to create that faked data.
 
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
         self.sql_query = ''
