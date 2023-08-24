@@ -40,13 +40,11 @@ class Insert():
         self.database_connection = sqlite3.connect(self.database_file)
         self.sql_cursor = self.database_connection.cursor()
 
-        self.sql_cursor.execute(self.insert_ac_system_data("00-11-00", "12-00", "111"))
-        self.sql_cursor.execute(self.insert_sensor_data(12.1, "111", "12-00"))
-        self.sql_cursor.execute(self.insert_user_data(111, 12.1, 2))
+        self.sql_cursor.execute(self.insert_ac_system_data())
+        self.sql_cursor.execute(self.insert_sensor_data())
+        self.sql_cursor.execute(self.insert_user_data())
 
         self.sql_cursor.execute("SELECT * FROM userData")
 
         self.sql_cursor.close()
         self.database_connection.close()
-
-Insert().insert_all_data()
