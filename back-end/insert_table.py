@@ -23,7 +23,8 @@ class Insert():
         return self.sql_query
 
     def insert_sensor_data(self, temperature, user_identification, time_stamp):
-        self.sql_query = ''
+        self.sql_query = f'''INSERT INTO {self.sensor_table}
+                             VALUES ({temperature}, {user_identification}, {time_stamp})'''
         return self.sql_query
     
     def insert_user_data(self, preferred_temperature, number_of_residents):
