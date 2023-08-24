@@ -28,7 +28,7 @@ class Insert():
         return self.sql_query
     
     def insert_user_data(self, user_identification, preferred_temperature, number_of_residents):
-        self.sql_query = f'''INSERT INTO {self.user_table} (preferredTemperature, numberOfResidents)
+        self.sql_query = f'''INSERT INTO {self.user_table} (userId, preferredTemperature, numberOfResidents)
                              VALUES ({user_identification}, {preferred_temperature}, {number_of_residents});'''
         return self.sql_query
 
@@ -37,14 +37,16 @@ class Insert():
     ## the sql code.
 
     def insert_all_data(self):
-        database_connection = sqlite3.connect(self.database_file)
-        sql_cursor = database_connection.cursor()
+        self.database_connection = sqlite3.connect(self.database_file)
+        self.sql_cursor = self.database_connection.cursor()
 
-        sql_cursor.execute(self.insert_ac_system_data("00-11-00", "12-00", "111"))
-        sql_cursor.execute(self.insert_sensor_data(12.1, "111", "12-00"))
-        sql_cursor.execute(self.insert_user_data(111, 12.1, 2))
+        self.sql_cursor.execute(self.insert_ac_system_data("00-11-00", "12-00", "111"))
+        self.sql_cursor.execute(self.insert_sensor_data(12.1, "111", "12-00"))
+        self.sql_cursor.execute(self.insert_user_data(111, 12.1, 2))
 
-        sql_cursor.close()
-        database_connection.close()
+        self.sql_cursor.execute("SELECT * FROM userData")
+
+        self.sql_cursor.close()
+        self.database_connection.close()
 
 Insert().insert_all_data()
