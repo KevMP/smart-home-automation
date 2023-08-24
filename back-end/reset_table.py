@@ -82,7 +82,7 @@ class Table():
         return Query().create_table_query(self.creation_query, Query().USER_DATA_TABLE)
     
     def reset_all_tables(self):
-        self.database_connection = sqlite3.connect(.DATABASE_FILE)
+        self.database_connection = sqlite3.connect(self.DATABASE_FILE)
         self.drop_ac_system_table()
         self.drop_sensor_table()
         self.drop_user_table()
@@ -90,3 +90,4 @@ class Table():
         self.create_ac_system_table()
         self.create_sensor_table()
         self.create_user_table()
+        self.database_connection.close()
