@@ -44,7 +44,5 @@ class Insert():
         self.sql_cursor.execute(self.insert_sensor_data())
         self.sql_cursor.execute(self.insert_user_data())
 
-        self.sql_cursor.execute("SELECT * FROM userData")
-
         self.sql_cursor.close()
         self.database_connection.close()
