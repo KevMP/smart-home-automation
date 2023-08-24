@@ -6,6 +6,7 @@ class Query():
 
     BACKEND_FOLDER = 'back-end'
     DATABASES_FOLDER = os.path.join(BACKEND_FOLDER, 'databases')
+    DATABASE_FILE = os.path.join(DATABASES_FOLDER, 'SHAS.db')
     BACKUP_SCHEMAS_FOLDER = os.path.join(DATABASES_FOLDER, 'backup_schemas')
 
     AC_SYSTEM_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'ac_system_data_creation_query.txt')
@@ -78,6 +79,7 @@ class Table():
         return Query().create_table_query(self.creation_query, Query().USER_DATA_TABLE)
     
     def reset_all_tables(self):
+
         self.drop_ac_system_table()
         self.drop_sensor_table()
         self.drop_user_table()
