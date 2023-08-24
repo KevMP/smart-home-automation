@@ -44,5 +44,10 @@ class Insert():
         self.database_connection = self.create_connection(self.database_file)
         self.sql_cursor = self.database_connection.cursor()
 
+        self.sql_cursor.execute(self.insert_user_data("72", 2))
+        self.database_connection.commit()
+
         self.sql_cursor.close()
         self.database_connection.close()
+
+Insert().insert_all_data()
