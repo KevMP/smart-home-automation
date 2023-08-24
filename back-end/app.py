@@ -11,7 +11,6 @@ def main():
     data_base = Database()
 
     data_base.print_all_data()
-    
 
 
 if __name__ == "__main__":

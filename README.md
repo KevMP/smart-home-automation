@@ -5,6 +5,16 @@ A research project by MDC. This project focuses on creating automation tools for
 
 ## Getting Started
 
+1. **Start the front-end**
+    ```bash
+   npm start
+   ```
+
+2. **Start the back-end**
+    ```bash
+   python app app
+   ```
+
 ### Prerequisites
 Ensure you have the following software installed on your machine:
 - Python 3.x
