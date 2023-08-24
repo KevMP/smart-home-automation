@@ -7,6 +7,9 @@ class Insert():
     database_folder = os.path.join(app_folder, 'databases')
     database_file = os.path.join(database_folder, 'SHAS.db')
 
+    system_table = Database().ac_system_data_table
+    
+
     ## The following functions will create a sql query that will be executed
     ## by the cursor in our main function for this class.
     
