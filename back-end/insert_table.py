@@ -7,7 +7,7 @@ class Insert():
     database_folder = os.path.join(app_folder, 'databases')
     database_file = os.path.join(database_folder, 'SHAS.db')
     
-    def insert_data(self, table, field, data):
+    def insert_data(self, table, column, data):
         pass
     
     ## The cursor object will be executing all sql statements,
