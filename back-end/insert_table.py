@@ -13,7 +13,7 @@ class Insert():
     def insert_sensor_data(self, temperature, user_identification, time_stamp):
         pass
     
-    def insert_user_data(self):
+    def insert_user_data(self, preferred_temperature, number_of_residents):
         pass
 
     ## The cursor object will be executing all sql statements,
