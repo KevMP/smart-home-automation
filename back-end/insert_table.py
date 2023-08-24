@@ -6,6 +6,9 @@ class Insert():
     app_folder = 'app'
     database_folder = os.path.join(app_folder, 'databases')
     database_file = os.path.join(database_folder, 'SHAS.db')
+
+    def insert_sensor_data(self):
+        pass
     
     def insert_user_data(self):
         pass
