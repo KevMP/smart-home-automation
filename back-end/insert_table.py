@@ -11,6 +11,9 @@ class Insert():
     ## note that a database connection must be made before executing
     ## the sql code.
 
+    def insert_user_data(self):
+        pass
+
     def insert_all_data(self):
         database_connection = Database().create_connection("SHAS.db")
         sql_cursor = database_connection.cursor()
