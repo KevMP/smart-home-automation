@@ -50,18 +50,16 @@ Ensure you have the following software installed on your machine:
 
 5. **Install required packages:**
     ```bash
-    pip install -r requirements.txt
+    npm install
     ```
 
-5. **Run the program:**
-
-    - 1. ***Go into app directory:***
+6. **Install required packages for back-end:**
     ```bash
-    python3 app.py
+    pip install -r ./app/requirements.txt
     ```
 
-    - 2. ***Run Application:***
+7. **Run the program:**
     ```bash
-    python3 app.py
+    python3 app/app.py
     ```
 
