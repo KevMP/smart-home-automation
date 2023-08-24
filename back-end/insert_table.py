@@ -9,6 +9,7 @@ class Insert():
 
     system_table = Database().ac_system_data_table
     sensor_table = Database().sensor_data_table
+    user_table = Database().user_data_table
 
 
     ## The following functions will create a sql query that will be executed
