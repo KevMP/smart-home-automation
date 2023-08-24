@@ -2,5 +2,6 @@ CREATE TABLE IF NOT EXISTS {} (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     runningTime TEXT,
     timeStamp TEXT,
-    userId TEXT
+    userId INTEGER,
+    FOREIGN KEY (userId) REFERENCES userData(userID)
 )

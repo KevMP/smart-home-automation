@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS {} (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     temperature NUMERIC,
-    userId TEXT,
+    userId INTEGER,
     timestamp TEXT,
     FOREIGN KEY (userId) REFERENCES userData(userID)
 )
