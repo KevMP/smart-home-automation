@@ -44,6 +44,9 @@ class Insert():
         self.database_connection = self.create_connection(self.database_file)
         self.sql_cursor = self.database_connection.cursor()
 
+        ## An example of how to execute a sql cursor for inserting
+        ## data to the tables is shown below.
+
         self.sql_cursor.execute(self.insert_user_data("72", 2))
         self.database_connection.commit()
 
