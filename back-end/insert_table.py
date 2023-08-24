@@ -14,4 +14,5 @@ class Insert():
         database_connection = Database().create_connection("SHAS.db")
         sql_cursor = database_connection.cursor()
 
+        sql_cursor.close()
         database_connection.close()
