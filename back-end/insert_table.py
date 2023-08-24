@@ -35,6 +35,7 @@ class Insert():
     ## The cursor object will be executing all sql statements,
     ## note that a database connection must be made before executing
     ## the sql code.
+    
     def create_connection(self, database_path):
         self.database_connection = sqlite3.connect(database_path)
 
