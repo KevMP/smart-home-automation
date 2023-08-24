@@ -3,7 +3,7 @@ import sqlite3
 from access_table import Database
 
 class Insert():
-    app_folder = 'app'
+    app_folder = 'back-end'
     database_folder = os.path.join(app_folder, 'databases')
     database_file = os.path.join(database_folder, 'SHAS.db')
 
@@ -19,7 +19,7 @@ class Insert():
 
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
         self.sql_query = f'''INSERT INTO {self.system_table}
-                             VALUES ({running_time}, {time_stamp}, {user_identification}'''
+                             VALUES ({running_time}, {time_stamp}, {user_identification})'''
         return self.sql_query
 
     def insert_sensor_data(self, temperature, user_identification, time_stamp):
@@ -37,12 +37,14 @@ class Insert():
     ## the sql code.
 
     def insert_all_data(self):
-        database_connection = Database().create_connection("SHAS.db")
+        database_connection = sqlite3.connect(self.database_file)
         sql_cursor = database_connection.cursor()
 
-        sql_cursor.execute(self.insert_ac_system_data("00:11:00", "12:00:11", "111"))
-        sql_cursor.execute(self.insert_sensor_data(12.011, "111", "12:00:11"))
-        sql_cursor.execute(self.insert_user_data(111, 12.011, 2))
+        sql_cursor.execute(self.insert_ac_system_data("00-11-00", "12-00", "111"))
+        sql_cursor.execute(self.insert_sensor_data(12.1, "111", "12-00"))
+        sql_cursor.execute(self.insert_user_data(111, 12.1, 2))
 
         sql_cursor.close()
         database_connection.close()
+
+Insert().insert_all_data()
