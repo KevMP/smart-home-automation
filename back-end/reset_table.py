@@ -4,8 +4,8 @@ import os
 class Query():
     ## The following are the constant file paths for the database.
 
-    APPLICATION_FOLDER = 'app'
-    DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
+    BACKEND_FOLDER = 'back-end'
+    DATABASES_FOLDER = os.path.join(BACKEND_FOLDER, 'databases')
     BACKUP_SCHEMAS_FOLDER = os.path.join(DATABASES_FOLDER, 'backup_schemas')
 
     AC_SYSTEM_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'ac_system_data_creation_query.txt')
