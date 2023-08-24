@@ -49,5 +49,3 @@ class Insert():
 
         self.sql_cursor.close()
         self.database_connection.close()
-
-Insert().insert_all_data()
