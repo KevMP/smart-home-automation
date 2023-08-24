@@ -9,6 +9,7 @@ class Insert():
 
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
         self.query = ''
+        return self.query
 
     def insert_sensor_data(self, temperature, user_identification, time_stamp):
         pass
