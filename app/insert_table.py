@@ -10,5 +10,5 @@ class Insert():
     def insert_data(self, field):
         pass
 
-    def insert_all_data():
+    def insert_all_data(self):
         database_connection = Database().create_connection("SHAS.db")
