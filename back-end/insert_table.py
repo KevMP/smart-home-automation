@@ -25,6 +25,7 @@ class Insert():
         sql_cursor = database_connection.cursor()
 
         sql_cursor.execute(self.insert_ac_system_data())
+        sql_cursor.execute(self.insert_sensor_data())
 
         sql_cursor.close()
         database_connection.close()
