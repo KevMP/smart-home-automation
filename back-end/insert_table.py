@@ -40,9 +40,8 @@ class Insert():
         self.database_connection = sqlite3.connect(self.database_file)
         self.sql_cursor = self.database_connection.cursor()
 
-        self.sql_cursor.execute(self.insert_ac_system_data())
-        self.sql_cursor.execute(self.insert_sensor_data())
-        self.sql_cursor.execute(self.insert_user_data())
+        user_query = self.insert_user_data(1, 72, 2)
+        self.sql_cursor.execute(user_query)
 
         self.sql_cursor.close()
         self.database_connection.close()
