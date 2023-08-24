@@ -1,44 +1,95 @@
-import random
-import tkinter as tk
+"""
+_summary_
 
-# Occupancy Sensor
+Returns:
+    _type_: _description_
+"""
+import random
+
 class OccupancySensor:
+    """
+    _summary_
+    """
     def detect_occupancy(self):
         return random.choice([0, 1])
-
-# Temperature Sensor
 class TemperatureSensor:
+    """
+    _summary_
+    """
     def read_temperature(self):
-        return random.randint(18, 30)
+        """
+        _summary_
 
-# Humidity Sensor
+        Returns:
+            _type_: _description_
+        """
+        return random.randint(18, 30)
 class HumiditySensor:
+    """
+    _summary_
+    """
     def read_humidity(self):
+        """
+        _summary_
+
+        Returns:
+            _type_: _description_
+        """
         return random.randint(30, 60)
 
 # Smart Thermostat
 class SmartThermostat:
+    """
+    _summary_
+    """
     def __init__(self):
+        """
+        _summary_
+        """
         self.ac_status = "OFF"
         self.temperature_setting = 22  # Default temperature setting
 
     def turn_on_ac(self):
+        """
+        _summary_
+        """
         self.ac_status = "ON"
 
     def turn_off_ac(self):
+        """
+        _summary_
+        """
         self.ac_status = "OFF"
 
     def set_temperature(self, temperature):
+        """
+        _summary_
+
+        Args:
+            temperature (_type_): _description_
+        """
         self.temperature_setting = temperature
 
     def get_status(self):
+        """
+        _summary_
+
+        Returns:
+            _type_: _description_
+        """
         return {
             "Temperature Setting": self.temperature_setting,
             "AC Status": self.ac_status
         }
 
 class SmartACEnvironment:
+    """
+    _summary_
+    """
     def __init__(self):
+        """
+        _summary_
+        """
         self.occupancy_sensor = OccupancySensor()
         self.temperature_sensor = TemperatureSensor()
         self.humidity_sensor = HumiditySensor()
@@ -46,9 +97,24 @@ class SmartACEnvironment:
         self.state = self.get_current_state()
 
     def get_current_state(self):
+        """
+        _summary_
+
+        Returns:
+            _type_: _description_
+        """
         return (self.occupancy_sensor.detect_occupancy(), self.temperature_sensor.read_temperature(), self.humidity_sensor.read_humidity())
 
     def step(self, action):
+        """
+        _summary_
+
+        Args:
+            action (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         if action == "TURN_ON_AC":
             self.smart_thermostat.turn_on_ac()
         elif action == "TURN_OFF_AC":

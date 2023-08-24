@@ -1,67 +1,73 @@
+"""
+_summary_
+
+Returns:
+    _type_: _description_
+"""
 import sqlite3
 import os
 
 class Database():
-    ## Constant pathing variables.
-    APPLICATION_FOLDER = 'app'
-    DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
+    """
+    _summary_
 
-    DATABASE_FILE = os.path.join(DATABASES_FOLDER, 'SHAS.db')
-    AC_SYSTEM_DATA_TABLE = 'acSystemData'
-    SENSOR_DATA_TABLE = 'sensorData'
-    USER_DATA_TABLE = 'userData'
+    Returns:
+        _type_: _description_
+    """
+    connection = None
 
-    ## The following function will create a connection
-    ## to the database, this will enable the features
-    ## to view all the data, fields, etc inside of that
-    ## database.
-    ## Note that a cursor object has to be created to
-    ## execute sql queries to access the data.
+    # Tables
+    ac_system_data_table = 'acSystemData'
+    sensor_data_table = 'sensorData'
+    user_data_table = 'userData'
 
-    def create_connection(self, database_file):
-        self.connection = sqlite3.connect(database_file)
-        return self.connection
-    
-    ## The following will capture all fields in the
-    ## database.
-    ## And will allow the functionality of printing
-    ## out all the field data.
+    table_columns = [ac_system_data_table, sensor_data_table, user_data_table]
 
-    def select_all_fields(self, database_connection, table_name):
-        self.cursor = database_connection.cursor()
-        self.cursor.execute(f"SELECT * FROM {table_name}")
-        return self.cursor.fetchall()
+    def __init__(self) -> None:
+        """
+        _summary_
 
-    def print_all_fields(self, table_name):
-        self.connection = self.create_connection(self.DATABASE_FILE)
-        self.fields = self.select_all_fields(self.connection, table_name)
+        Args:
+            database_file (_type_): _description_
 
-        for row in self.fields:
-            print(row)
+        Returns:
+            _type_: _description_
+        """
+        database_file = os.path.join(r'\databases', 'SHAS.db')
+        self.connection = sqlite3.connect(os.getcwd() + database_file)
 
-        self.connection.close()
+    def select_all_data(self):
+        """
+        Fetches all records from a given table in the database.
 
-class Timestamp():
-    ## The following are to be used to gather
-    ## the specific timestamp data.
+        Args:
+            table_name (str): Name of the table to fetch records from.
 
-    def get_timestamp(self):
-        pass
+        Returns:
+            List[Tuple]: List of records from the table.
+        """
+        cursor = self.connection.cursor()
 
-    def get_month(self):
-        pass
+        result = [cursor.execute(f"SELECT * FROM {column}") for column in self.table_columns]
+        result = cursor.fetchall()
 
-    def get_day(self):
-        pass
+        cursor.close()
+        return result
 
-    def get_year(self):
-        pass
+    def print_all_data(self):
+        """
+        _summary_
 
-    def get_hour(self):
-        pass
+        Args:
+            table_name (_type_): _description_
+        """
+        data = self.select_all_data()
+        print(data)
 
-    def get_minute(selF):
-        pass
+    def insert(self, data_object):
+        """
+        _summary_
 
-    def get_second(self):
-        pass
+        Args:
+            data_object (_type_): _description_
+        """
