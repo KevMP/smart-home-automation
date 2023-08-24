@@ -88,11 +88,12 @@ class Table():
         self.sql_cursor(self.drop_ac_system_table())
         self.sql_cursor(self.drop_sensor_table())
         self.sql_cursor(self.drop_user_table())
+        self.database_connection.commit()
 
         self.sql_cursor(self.create_ac_system_table())
         self.sql_cursor(self.create_sensor_table())
         self.sql_cursor(self.create_user_table())
         self.database_connection.commit()
-        
+
         self.sql_cursor.close()
         self.database_connection.close()
