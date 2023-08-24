@@ -7,12 +7,12 @@ class Insert():
     database_folder = os.path.join(app_folder, 'databases')
     database_file = os.path.join(database_folder, 'SHAS.db')
     
+    def insert_user_data(self):
+        pass
+
     ## The cursor object will be executing all sql statements,
     ## note that a database connection must be made before executing
     ## the sql code.
-
-    def insert_user_data(self):
-        pass
 
     def insert_all_data(self):
         database_connection = Database().create_connection("SHAS.db")
