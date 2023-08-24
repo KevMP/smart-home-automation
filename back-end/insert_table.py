@@ -41,7 +41,7 @@ class Insert():
         return self.database_connection
 
     def insert_all_data(self):
-        self.database_connection = sqlite3.connect(self.database_file)
+        self.database_connection = self.create_connection(self.database_file)
         self.sql_cursor = self.database_connection.cursor()
 
         self.sql_cursor.close()
