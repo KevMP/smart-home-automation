@@ -27,9 +27,9 @@ class Insert():
                              VALUES ({temperature}, {user_identification}, {time_stamp})'''
         return self.sql_query
     
-    def insert_user_data(self, preferred_temperature, number_of_residents):
+    def insert_user_data(self, user_identification, preferred_temperature, number_of_residents):
         self.sql_query = f'''INSERT INTO {self.user_table}
-                             VALUES ({preferred_temperature}, {number_of_residents})'''
+                             VALUES ({user_identification}, {preferred_temperature}, {number_of_residents})'''
         return self.sql_query
 
     ## The cursor object will be executing all sql statements,
