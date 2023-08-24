@@ -76,3 +76,6 @@ class Table():
     def create_user_table(self):
         self.creation_query = Query().get_query(Query().USER_DATA_CREATION_QUERY)
         return Query().create_table_query(self.creation_query, Query().USER_DATA_TABLE)
+    
+    def reset_all_tables(self):
+        pass
