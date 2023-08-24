@@ -8,8 +8,8 @@ class Insert():
     database_file = os.path.join(database_folder, 'SHAS.db')
 
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
-        self.query = ''
-        return self.query
+        self.sql_query = ''
+        return self.sql_query
 
     def insert_sensor_data(self, temperature, user_identification, time_stamp):
         pass
