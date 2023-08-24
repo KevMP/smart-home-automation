@@ -12,7 +12,8 @@ class Insert():
         return self.sql_query
 
     def insert_sensor_data(self, temperature, user_identification, time_stamp):
-        pass
+        self.sql_query = ''
+        return self.sql_query
     
     def insert_user_data(self, preferred_temperature, number_of_residents):
         pass
