@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A research project by MDC. This project focuses on creating automation tools for smart homes.",
   "scripts": {
-    "start": "cd ./front-end && npm start"
+    "start": "cd ./front-end && npm start",
+    "install": "cd ./front-end && npm install"
   },
   "author": "",
   "license": "ISC"
