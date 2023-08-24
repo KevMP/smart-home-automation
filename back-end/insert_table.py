@@ -7,6 +7,9 @@ class Insert():
     database_folder = os.path.join(app_folder, 'databases')
     database_file = os.path.join(database_folder, 'SHAS.db')
 
+    ## The following functions will create a sql query that will be executed
+    ## by the cursor in our main function for this class.
+
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
         self.sql_query = ''
         return self.sql_query
