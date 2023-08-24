@@ -78,4 +78,10 @@ class Table():
         return Query().create_table_query(self.creation_query, Query().USER_DATA_TABLE)
     
     def reset_all_tables(self):
-        pass
+        self.drop_ac_system_table()
+        self.drop_sensor_table()
+        self.drop_user_table()
+
+        self.create_ac_system_table()
+        self.create_sensor_table()
+        self.create_user_table()
