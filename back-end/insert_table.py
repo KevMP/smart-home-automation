@@ -40,9 +40,9 @@ class Insert():
         database_connection = Database().create_connection("SHAS.db")
         sql_cursor = database_connection.cursor()
 
-        sql_cursor.execute(self.insert_ac_system_data())
-        sql_cursor.execute(self.insert_sensor_data())
-        sql_cursor.execute(self.insert_user_data())
+        sql_cursor.execute(self.insert_ac_system_data("00:11:00", "12:00:11", "111"))
+        sql_cursor.execute(self.insert_sensor_data(12.011, "111", "12:00:11"))
+        sql_cursor.execute(self.insert_user_data(12.011, 2))
 
         sql_cursor.close()
         database_connection.close()
