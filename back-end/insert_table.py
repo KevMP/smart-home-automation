@@ -9,6 +9,10 @@ class Insert():
     
     def insert_data(self, table, field):
         pass
+    
+    ## The cursor object will be executing all sql statements,
+    ## note that a database connection must be made before executing
+    ## the sql code.
 
     def insert_all_data(self):
         database_connection = Database().create_connection("SHAS.db")
