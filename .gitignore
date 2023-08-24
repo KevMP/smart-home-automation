@@ -164,8 +164,8 @@ cython_debug/
 #.idea/
 
 ## Databases
-/app/databases/SHAS_BACKUP.db
-/app/databases/SHAS.db
+/back-end/databases/SHAS_BACKUP.db
+/back-end/databases/SHAS.db
 
 ## Applications
-/app/testing.py
+/back-end/testing.py

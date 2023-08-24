@@ -4,8 +4,8 @@ import os
 class Query():
     ## The following are the constant file paths for the database.
 
-    APPLICATION_FOLDER = 'app'
-    DATABASES_FOLDER = os.path.join(APPLICATION_FOLDER, 'databases')
+    BACKEND_FOLDER = 'back-end'
+    DATABASES_FOLDER = os.path.join(BACKEND_FOLDER, 'databases')
     BACKUP_SCHEMAS_FOLDER = os.path.join(DATABASES_FOLDER, 'backup_schemas')
 
     AC_SYSTEM_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'ac_system_data_creation_query.txt')
@@ -49,6 +49,10 @@ class Query():
         return self.read_file(file_path)
 
 class Table():
+    BACKEND_FOLDER = 'back-end'
+    DATABASES_FOLDER = os.path.join(BACKEND_FOLDER, 'databases')
+    DATABASE_FILE = os.path.join(DATABASES_FOLDER, 'SHAS.db')
+
     ## The following are functions to drop the table,
     ## this is used to reset the table back to its original
     ## empty self.
@@ -78,10 +82,17 @@ class Table():
         return Query().create_table_query(self.creation_query, Query().USER_DATA_TABLE)
     
     def reset_all_tables(self):
-        self.drop_ac_system_table()
-        self.drop_sensor_table()
-        self.drop_user_table()
+        self.database_connection = sqlite3.connect(self.DATABASE_FILE)
+        self.sql_cursor = self.database_connection.cursor()
 
-        self.create_ac_system_table()
-        self.create_sensor_table()
-        self.create_user_table()
+        self.sql_cursor.execute(self.drop_ac_system_table())
+        self.sql_cursor.execute(self.drop_sensor_table())
+        self.sql_cursor.execute(self.drop_user_table())
+
+        self.sql_cursor.execute(self.create_ac_system_table())
+        self.sql_cursor.execute(self.create_sensor_table())
+        self.sql_cursor.execute(self.create_user_table())
+
+        self.sql_cursor.close()
+        self.database_connection.commit()
+        self.database_connection.close()
