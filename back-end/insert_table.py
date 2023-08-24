@@ -12,5 +12,6 @@ class Insert():
 
     def insert_all_data(self):
         database_connection = Database().create_connection("SHAS.db")
+        sql_cursor = database_connection.Cursor()
 
         database_connection.close()
