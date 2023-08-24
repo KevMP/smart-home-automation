@@ -3,8 +3,8 @@ import sqlite3
 from access_table import Database
 
 class Insert():
-    app_folder = 'back-end'
-    database_folder = os.path.join(app_folder, 'databases')
+    backend_folder = 'back-end'
+    database_folder = os.path.join(backend_folder, 'databases')
     database_file = os.path.join(database_folder, 'SHAS.db')
 
     system_table = 'acSystemData'
