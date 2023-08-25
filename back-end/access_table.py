@@ -63,12 +63,3 @@ class Database():
         """
         data = self.select_all_data()
         print(data)
-
-    def insert(self, data_object):
-        """
-        _summary_
-
-        Args:
-            data_object (_type_): _description_
-        """
-        
