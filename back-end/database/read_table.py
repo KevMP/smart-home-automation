@@ -61,10 +61,4 @@ class Read():
         return self.preferred_temperature
 
     def get_number_of_residents(self, cursor_object, userId):
-        self.number_of_residents_query = f'''SELECT numberOfResidents from userData
-                                       WHERE userID =  {userId}'''
-        
-        cursor_object.execute(self.number_of_residents)
-        self.number_of_residents = cursor_object.fetchall()
-
-        return self.number_of_residents
+        pass
