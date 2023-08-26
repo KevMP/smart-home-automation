@@ -20,7 +20,9 @@ class Insert():
     @staticmethod
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
         self.sql_query = f'''INSERT INTO {self.system_table} (runningTime, timeStamp, userId)
-                             VALUES ({running_time}, {time_stamp}, {user_identification});'''
+                             VALUES (?, ?, ?);'''
+        
+        self.g.db.execute(self.sql_query, (running_time, time_stamp, user_identification))
         return self.sql_query
 
     def insert_sensor_data(self, temperature, user_identification, time_stamp):
