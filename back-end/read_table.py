@@ -7,4 +7,4 @@ class Read():
         pass
 
     def get_timestamp(self, cursor_object):
-        pass
+        self.timestamp_query = ''
