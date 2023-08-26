@@ -7,6 +7,15 @@ class Read():
         self.current_time = time.strftime("%m-%d-%Y-%H-%M-%S")
         return self.current_time
 
+    ## The following functions are established with a SQL query, which
+    ## will have to be passed the current time from outside of this class.
+
+    ## That way, in our simulation loop we can call the current time
+    ## one time per loop instead of per function.
+
+    ## This is where the Ai will get its features from (the input layer
+    ## of the neural network).
+
     def get_timestamp(self, cursor_object, table_name, current_time):
         self.timestamp_query = f'''SELECT timeStamp FROM {table_name}
                                    WHERE timeStamp = {current_time}'''
