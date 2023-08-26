@@ -65,3 +65,4 @@ class Read():
                                        WHERE userID =  {userId}'''
         
         cursor_object.execute(self.number_of_residents)
+        self.number_of_residents = cursor_object.fetchall()
