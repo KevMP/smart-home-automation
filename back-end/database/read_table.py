@@ -44,7 +44,7 @@ class Read():
         return self.temperature
     
     ## Make sure to pass the correct user whose preferred temperature
-    ## the Ai will try to aim for!!!!!!!!!
+    ## the Ai will try to aim for!!!!!!!!
 
     ## Ideally this should be called before the simulation loop runs,
     ## but if you want to change users midway, you can also create
