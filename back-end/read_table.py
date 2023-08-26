@@ -21,3 +21,6 @@ class Read():
                                    WHERE timeStamp = {current_time}'''
         cursor_object.execute(self.running_time_query)
         return cursor_object[0]
+    
+    def get_temperature(self, cursor_object, table_name, current_time):
+        pass
