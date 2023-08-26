@@ -10,12 +10,20 @@ class Read():
         self.current_time = time.strftime("%m:%d:%Y:%H:%M:%S")
         return self.current_time
 
-    def get_timestamp(self, cursor_object, table_name):
-        self.current_time = self.get_current_time
+    def get_timestamp(self, cursor_object, table_name, current_time):
         self.timestamp_query = f'''SELECT timeStamp FROM {table_name}
-                                   WHERE timeStamp = {self.current_time}'''
+                                   WHERE timeStamp = {current_time}'''
         cursor_object.execute(self.timestamp_query)
         return cursor_object[0]
     
-    def get_running_time(self):
-        self.current_time = self.get_current_time
+    def get_running_time(self, cursor_object, current_time):
+        self.running_time_query = f'''SELECT runningTime FROM acSystemData
+                                   WHERE timeStamp = {current_time}'''
+        cursor_object.execute(self.running_time_query)
+        return cursor_object[0]
+    
+    def get_temperature(self, cursor_object, current_time):
+        self.temperature_query = f'''SELECT temperature FROM userData
+                                     WHERE timeStamp = {current_time}'''
+        cursor_object.execute(self.temperature_query)
+        return cursor_object[0]
