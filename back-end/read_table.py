@@ -42,3 +42,6 @@ class Read():
         self.temperature = cursor_object.fetchall()
         
         return self.temperature
+    
+    def get_preferred_temperature(self, cursor_object, userID):
+        pass
