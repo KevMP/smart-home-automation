@@ -11,19 +11,19 @@ class Read():
         self.timestamp_query = f'''SELECT timeStamp FROM {table_name}
                                    WHERE timeStamp = {current_time}'''
         cursor_object.execute(self.timestamp_query)
-        self.timestamp = (cursor_object.fetchall())
+        self.timestamp = cursor_object.fetchall()
         return cursor_object[0]
     
     def get_running_time(self, cursor_object, current_time):
         self.running_time_query = f'''SELECT runningTime FROM acSystemData
                                    WHERE timeStamp = {current_time}'''
         cursor_object.execute(self.running_time_query)
-        self.running_time = (cursor_object.fetchall())
+        self.running_time = cursor_object.fetchall()
         return self.running_time
     
     def get_temperature(self, cursor_object, current_time="111"):
         self.temperature_query = f'''SELECT temperature FROM sensorData
                                      WHERE timeStamp = {current_time}'''
         cursor_object.execute(self.temperature_query)
-        self.temperature = (cursor_object.fetchall())
+        self.temperature = cursor_object.fetchall()
         return self.temperature
