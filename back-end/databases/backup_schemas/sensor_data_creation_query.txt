@@ -2,6 +2,6 @@ CREATE TABLE IF NOT EXISTS sensorData (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     temperature NUMERIC,
     userId INTEGER,
-    timestamp TEXT,
+    timeStamp TEXT,
     FOREIGN KEY (userId) REFERENCES userData(userID)
 )
