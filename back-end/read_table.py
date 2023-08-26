@@ -24,4 +24,4 @@ class Read():
     
     def get_temperature(self, cursor_object, current_time):
         self.temperature_query = f'''SELECT temperature FROM userData
-                                     '''
+                                     WHERE timeStamp = {current_time}'''
