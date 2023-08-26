@@ -10,7 +10,7 @@ class Read():
         self.current_time = time.strftime("%m:%d:%Y:%H:%M:%S")
         return self.current_time
 
-    def get_timestamp(self, cursor_object, table_name, current_time):
+    def get_timestamp(self, cursor_object, current_time):
         self.timestamp_query = f'''SELECT timeStamp FROM acSystemData
                                    WHERE timeStamp = {current_time}'''
         cursor_object.execute(self.timestamp_query)
