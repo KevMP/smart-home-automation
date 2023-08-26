@@ -1,6 +1,7 @@
 import os
 import time
 import sqlite3
+from flask import g
 
 class Read():
     def get_current_time(self):
