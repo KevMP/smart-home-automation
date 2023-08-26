@@ -16,3 +16,6 @@ class Read():
                                    WHERE timeStamp = {self.current_time}'''
         cursor_object.execute(self.timestamp_query)
         return cursor_object[0]
+    
+    def get_running_time(self):
+        pass
