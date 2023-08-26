@@ -17,7 +17,7 @@ class Database():
         return g.db
 
     @staticmethod
-    def close_connection(exception=None):
+    def close_connection():
         db = g.pop('db', None)
         if db is not None:
             db.close()
