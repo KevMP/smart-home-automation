@@ -51,3 +51,4 @@ class Read():
                                                WHERE userID = {userID}'''
         
         cursor_object.execute(self.preferred_temperature_query)
+        self.preferred_temperature = cursor_object.fetchall()
