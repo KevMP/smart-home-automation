@@ -19,4 +19,5 @@ class Read():
     
     def get_running_time(self, cursor_object, table_name):
         self.current_time = self.get_current_time
-        self.timestamp_query = f'''SELECT timeStamp FROM {table_name}'''
+        self.timestamp_query = f'''SELECT runningTime FROM {table_name}
+                                   WHERE timeStamp = {self.current_time}'''
