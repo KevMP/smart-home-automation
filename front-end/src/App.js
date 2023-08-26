@@ -1,14 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Home from './pages/Home';
-import ViewData from './pages/ViewData'
+import Login from './pages/Login';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/view-data" element={<ViewData />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </Router>
   );
