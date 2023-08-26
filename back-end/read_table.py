@@ -49,3 +49,5 @@ class Read():
     def get_preferred_temperature(self, cursor_object, userID):
         self.preferred_temperature_query = f'''SELECT preferredTemperature from userData
                                                WHERE userID = {userID}'''
+        
+        cursor_object.execute(self.preferred_temperature_query)
