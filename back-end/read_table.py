@@ -18,7 +18,7 @@ class Read():
                                    WHERE timeStamp = {current_time}'''
         cursor_object.execute(self.running_time_query)
         self.running_time = (cursor_object.fetchall())
-        return cursor_object[0]
+        return self.running_time
     
     def get_temperature(self, cursor_object, current_time="111"):
         self.temperature_query = f'''SELECT temperature FROM sensorData
