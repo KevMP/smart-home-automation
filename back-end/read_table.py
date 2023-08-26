@@ -4,7 +4,7 @@ import sqlite3
 
 class Read():
     def get_current_time(self):
-        self.current_time = time.strftime("%m:%d:%Y:%H:%M:%S")
+        self.current_time = time.strftime("%m-%d-%Y-%H-%M-%S")
         return self.current_time
 
     def get_timestamp(self, cursor_object, table_name, current_time):
