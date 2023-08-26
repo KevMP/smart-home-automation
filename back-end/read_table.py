@@ -20,3 +20,4 @@ class Read():
         self.running_time_query = f'''SELECT runningTime FROM {table_name}
                                    WHERE timeStamp = {current_time}'''
         cursor_object.execute(self.running_time_query)
+        return cursor_object[0]
