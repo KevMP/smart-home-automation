@@ -19,7 +19,7 @@ class Read():
         cursor_object.execute(self.running_time_query)
         return cursor_object[0]
     
-    def get_temperature(self, cursor_object, current_time):
+    def get_temperature(self, cursor_object, current_time="111"):
         self.temperature_query = f'''SELECT temperature FROM userData
                                      WHERE timeStamp = {current_time}'''
         cursor_object.execute(self.temperature_query)
