@@ -1,6 +1,5 @@
 import os
 import sqlite3
-from flask import g
 
 class Insert():
     backend_folder = 'back-end'
@@ -16,13 +15,10 @@ class Insert():
     
     ## Note, that when we are generating fake data we can use these functions
     ## to create that faked data.
-    
-    @staticmethod
+
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
         self.sql_query = f'''INSERT INTO {self.system_table} (runningTime, timeStamp, userId)
-                             VALUES (?, ?, ?);'''
-        
-        self.g.db.execute(self.sql_query, (running_time, time_stamp, user_identification))
+                             VALUES ({running_time}, {time_stamp}, {user_identification});'''
         return self.sql_query
 
     def insert_sensor_data(self, temperature, user_identification, time_stamp):
