@@ -6,5 +6,5 @@ class Read():
     def read_all_data(self):
         pass
 
-    def get_time(self):
+    def get_time(self, cursor_object):
         pass
