@@ -3,4 +3,5 @@ import time
 import sqlite3
 
 class Read():
-    pass
+    def read_all_data(self):
+        pass
