@@ -59,3 +59,6 @@ class Read():
         self.preferred_temperature = cursor_object.fetchall()
 
         return self.preferred_temperature
+
+    def get_number_of_residents(self, cursor_object, userId):
+        pass
