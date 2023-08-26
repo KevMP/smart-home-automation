@@ -46,6 +46,11 @@ class Read():
     ## Make sure to pass the correct user whose preferred temperature
     ## the Ai will try to aim for.
 
+    ## Ideally this should be called before the simulation loop runs,
+    ## but if you want to change users midway, you can also create
+    ## a background process that checks for any user input to change
+    ## which user is currently using the ac system.
+
     def get_preferred_temperature(self, cursor_object, userID):
         self.preferred_temperature_query = f'''SELECT preferredTemperature from userData
                                                WHERE userID = {userID}'''
