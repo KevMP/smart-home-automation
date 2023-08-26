@@ -18,4 +18,4 @@ class Read():
         return cursor_object[0]
     
     def get_running_time(self):
-        pass
+        self.current_time = self.get_current_time
