@@ -3,18 +3,6 @@
 ## Description
 A research project by MDC. This project focuses on creating automation tools for smart homes.
 
-## Getting Started
-
-1. **Start the front-end**
-    ```bash
-   npm start
-   ```
-
-2. **Start the back-end**
-    ```bash
-   python app app
-   ```
-
 ### Prerequisites
 Ensure you have the following software installed on your machine:
 - Python 3.x
@@ -31,35 +19,14 @@ Ensure you have the following software installed on your machine:
     cd smart-home-automation
     ```
 
-3. **Create a Python virtual environment:**
+3. **Install the necessary modules:**
     ```bash 
-    python3 -m venv env
-    ```
-
-4. **Activate the virtual environment:**
-
-   - On Windows:
-        ```bash
-        .\env\Scripts\activate
-        ```
-
-   - On macOS and Linux:
-        ```bash
-        source env/bin/activate
-        ```
-
-5. **Install required packages:**
-    ```bash
     npm install
     ```
 
-6. **Install required packages for back-end:**
-    ```bash
-    pip install -r ./app/requirements.txt
-    ```
+## Getting Started
 
-7. **Run the program:**
+1. **Start the application**
     ```bash
-    python3 app/app.py
-    ```
-
+   npm start
+   ```
