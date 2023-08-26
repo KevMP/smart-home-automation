@@ -24,4 +24,4 @@ class Read():
                                      WHERE timeStamp = {current_time}'''
         cursor_object.execute(self.temperature_query)
         self.temperature = (cursor_object.fetchall())
-        return self.temperature[0]
+        return self.temperature
