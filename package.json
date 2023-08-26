@@ -3,9 +3,19 @@
   "version": "1.0.0",
   "description": "A research project by MDC. This project focuses on creating automation tools for smart homes.",
   "scripts": {
-    "start": "cd ./front-end && npm start",
-    "install": "cd ./front-end && npm install"
+    "start:frontend": "cd ./front-end && npm start",
+    "start:backend": "cd ./back-end && python ./app.py",
+    "start": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start --prefix front-end\" \"cd ./back-end && python ./app.py\"",
+
+    "create-env": "virtualenv env",
+    "activate-env": ". ./env/bin/activate",
+    "install:back-end": "pip install -r requirements.txt",
+    "install:front-end": "cd front-end/ && npm install",
+    "postinstall": "npm run create-env && npm run activate-env && npm run install:back-end && npm run install:front-end"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.1"
+  }
 }

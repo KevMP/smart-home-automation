@@ -28,7 +28,7 @@ class Read():
     def get_running_time(self, cursor_object, current_time):
         self.running_time_query = f'''SELECT runningTime FROM acSystemData
                                    WHERE timeStamp = {current_time}'''
-        
+
         cursor_object.execute(self.running_time_query)
         self.running_time = cursor_object.fetchall()
         
