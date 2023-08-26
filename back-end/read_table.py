@@ -43,5 +43,8 @@ class Read():
         
         return self.temperature
     
+    ## Make sure to pass the correct user whose preferred temperature
+    ## the Ai will try to aim for.
+
     def get_preferred_temperature(self, cursor_object, userID):
         pass
