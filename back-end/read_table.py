@@ -47,4 +47,5 @@ class Read():
     ## the Ai will try to aim for.
 
     def get_preferred_temperature(self, cursor_object, userID):
-        pass
+        self.preferred_temperature_query = f'''SELECT preferredTemperature from userData
+                                               WHERE userID = {userID}'''
