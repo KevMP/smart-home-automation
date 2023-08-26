@@ -7,8 +7,8 @@ class Read():
         pass
 
     def get_current_time(self):
-        current_time = time.strftime("%m:%d:%Y:%H:%M:%S")
-        return current_time
+        self.current_time = time.strftime("%m:%d:%Y:%H:%M:%S")
+        return self.current_time
 
     def get_timestamp(self, cursor_object, table_name):
         self.current_time = self.get_current_time
