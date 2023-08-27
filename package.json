@@ -8,7 +8,7 @@
     "start": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start --prefix front-end\" \"cd ./back-end && python ./app.py\"",
 
     "create-env": "virtualenv env",
-    "activate-env": ". ./env/bin/activate",
+    "activate-env": "env\\Scripts\\activate.bat",
     "install:back-end": "pip install -r requirements.txt",
     "install:front-end": "cd front-end/ && npm install",
     "postinstall": "npm run create-env && npm run activate-env && npm run install:back-end && npm run install:front-end"

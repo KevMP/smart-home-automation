@@ -11,6 +11,7 @@ class Query():
     AC_SYSTEM_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'ac_system_data_creation_query.txt')
     SENSOR_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'sensor_data_creation_query.txt')
     USER_DATA_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'user_data_creation_query.txt')
+    USER_ACCOUNT_CREATION_QUERY = os.path.join(BACKUP_SCHEMAS_FOLDER, 'user_account_creation_query.txt')
 
     ## The following are the constants for the table names. This
     ## is established in case we want to change the name of the tables,
@@ -19,6 +20,7 @@ class Query():
     AC_SYSTEM_DATA_TABLE = 'acSystemData'
     SENSOR_DATA_TABLE = 'sensorData'
     USER_DATA_TABLE = 'userData'
+    USER_ACCOUNT = 'userAccount'
 
     ## The drop table function will 'delete' the database, create
     ## table query will create a query to make a new database.
@@ -65,6 +67,9 @@ class Table():
     
     def drop_user_table(self):
         return Query().drop_table(Query().USER_DATA_TABLE)
+        
+    def drop_user_account_table(self):
+        return Query().drop_table(Query().USER_ACCOUNT)
     
     ## The following are for creating the tables using
     ## the stored creation queries.
@@ -81,6 +86,10 @@ class Table():
         self.creation_query = Query().get_query(Query().USER_DATA_CREATION_QUERY)
         return Query().create_table_query(self.creation_query, Query().USER_DATA_TABLE)
     
+    def create_user_account_table(self):
+        self.creation_query = Query().get_query(Query().USER_ACCOUNT_CREATION_QUERY)
+        return Query().create_table_query(self.creation_query, Query().USER_ACCOUNT)
+    
     def reset_all_tables(self):
         self.database_connection = sqlite3.connect(self.DATABASE_FILE)
         self.sql_cursor = self.database_connection.cursor()
@@ -88,10 +97,12 @@ class Table():
         self.sql_cursor.execute(self.drop_ac_system_table())
         self.sql_cursor.execute(self.drop_sensor_table())
         self.sql_cursor.execute(self.drop_user_table())
+        self.sql_cursor.execute(self.drop_user_account_table())
 
         self.sql_cursor.execute(self.create_ac_system_table())
         self.sql_cursor.execute(self.create_sensor_table())
         self.sql_cursor.execute(self.create_user_table())
+        self.sql_cursor.execute(self.create_user_account_table())
 
         self.sql_cursor.close()
         self.database_connection.commit()
