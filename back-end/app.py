@@ -2,7 +2,7 @@
 _summary_
 """
 from flask import Flask, jsonify
-from database.database import SMAH, User
+from database.database import SMAH
 
 app = Flask(__name__)
 
@@ -10,7 +10,6 @@ app = Flask(__name__)
 def close_db(exception):
     print(exception)
     SMAH.close_connection()
-    User.close_connection()
 
 @app.route('/api/v1/view-data', methods=['GET'])
 def view_data():
@@ -22,7 +21,7 @@ def view_data():
     return jsonify(data)
 
 @app.route('/api/v1/admin', methods=['GET', 'POST'])
-def view_data():
+def admin():
     """
     Endpoint to fetch all the data from the database.
     """
