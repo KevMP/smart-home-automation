@@ -48,6 +48,7 @@ class SMAH():
         sql_cursor.execute(select_system_data_query)
 
         database_connection.commit()
+        sql_cursor.close()
 
     def select_all_data(self):
         conn = self.get_connection()
