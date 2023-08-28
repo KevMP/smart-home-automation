@@ -35,7 +35,7 @@ class SMAH():
     ## I will be creating separate functions for each respective
     ## table, systemData, userData, etc.
 
-    def select_query(self):
+    def select_all_from_table_query(self):
         pass
 
     def select_all_user_data(self):
