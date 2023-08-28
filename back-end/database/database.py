@@ -39,9 +39,10 @@ class SMAH():
         self.select_all_query = f'''SELECT * FROM {table_name_as_string}'''
         return self.select_all_query
 
+    @staticmethod
     def select_all_user_data(self):
-        self.database_connection = self.get_connection()
-        self.sql_cursor = self.database_connection.cursor()
+        database_connection = self.get_connection()
+        sql_cursor = database_connection.cursor()
 
     def select_all_data(self):
         conn = self.get_connection()
