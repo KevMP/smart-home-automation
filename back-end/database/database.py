@@ -51,6 +51,18 @@ class SMAH():
         sql_cursor.close()
         database_connection.close()
 
+    @staticmethod
+    def select_all_user_data():
+        database_connection = SMAH.get_connection()
+        sql_cursor = database_connection.cursor()
+        
+        select_user_data_query = SMAH().create_select_all_from_table_query(SMAH.user_data_table)
+        sql_cursor.execute(select_user_data_query)
+
+        database_connection.commit()
+        sql_cursor.close()
+        database_connection.close()
+
     def select_all_data(self):
         conn = self.get_connection()
         cursor = conn.cursor()
