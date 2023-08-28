@@ -44,7 +44,7 @@ class SMAH():
         database_connection = SMAH.get_connection()
         sql_cursor = database_connection.cursor()
         select_system_data_query = SMAH().create_select_all_from_table_query(SMAH.ac_system_data_table)
-        sql_cursor.execute()
+        sql_cursor.execute(select_system_data_query)
 
     def select_all_data(self):
         conn = self.get_connection()
