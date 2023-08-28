@@ -6,9 +6,6 @@ class SMAH():
     ac_system_data_table = 'acSystemData'
     sensor_data_table = 'sensorData'
     user_data_table = 'userData'
-
-    table_columns = [ac_system_data_table, sensor_data_table, user_data_table]
-    
     user_account = 'userAccount'
     """
     user_id: primary key, text, unique
@@ -17,6 +14,8 @@ class SMAH():
     first_name: text
     last_name: text
     """
+
+    table_columns = [ac_system_data_table, sensor_data_table, user_data_table]
 
     @staticmethod
     def get_connection():
