@@ -12,7 +12,7 @@
     "start:mac": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start --prefix front-end\" \"npm run start:backend:mac\"",
     "start": "npm run start:win || npm run start:mac",
 
-    "create-env": "virtualenv env",
+    "create-env": "python -m venv env",
     
     "activate-env:win": "env\\Scripts\\activate.bat",
     "activate-env:mac": ". env/bin/activate",
