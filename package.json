@@ -4,7 +4,7 @@
   "description": "A research project by MDC. This project focuses on creating automation tools for smart homes.",
   "scripts": {
     "start:frontend": "cd ./front-end && npm start",
-    "start:backend:win": "cd ./back-end && python3 ./app.py",
+    "start:backend:win": "cd ./back-end && python ./app.py",
     "start:backend:mac": "cd ./back-end && python3 ./app.py",
     "start:backend": "npm run start:backend:win || npm run start:backend:mac",
     
