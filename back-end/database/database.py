@@ -31,6 +31,10 @@ class SMAH():
         if db is not None:
             db.close()
 
+    ## The following will be to select all data from each table.
+    ## I will be creating separate functions for each respective
+    ## table, systemData, userData, etc.
+
     def select_all_data(self):
         conn = self.get_connection()
         cursor = conn.cursor()
