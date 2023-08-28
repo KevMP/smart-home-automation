@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from database import SMAH
 from flask import g
 
 class Insert():
