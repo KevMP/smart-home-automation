@@ -3,8 +3,10 @@ _summary_
 """
 from flask import Flask, jsonify
 from database.database import SMAH
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.teardown_appcontext
 def close_db(exception):
@@ -29,4 +31,3 @@ def admin():
 
 if __name__ == "__main__":
     app.run(threaded=False, port=3001, debug=True)
-

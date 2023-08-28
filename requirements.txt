@@ -2,3 +2,4 @@ keras
 numpy
 tensorflow
 flask
+Flask-CORS
