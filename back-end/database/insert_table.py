@@ -32,6 +32,9 @@ class Insert():
                              VALUES ({preferred_temperature}, {number_of_residents});'''
         return self.sql_query
 
+    def execute_query(query):
+        pass
+
     ## The cursor object will be executing all sql statements,
     ## note that a database connection must be made before executing
     ## the sql code.
