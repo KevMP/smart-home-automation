@@ -12,7 +12,8 @@
     "start:mac": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start --prefix front-end\" \"npm run start:backend:mac\"",
     "start": "npm run start:win || npm run start:mac",
 
-    "create-env": "python -m venv env",
+    "create-env:win": "python -m venv env",
+    "create-env:mac": "python3 -m venv env",
     
     "activate-env:win": "env\\Scripts\\activate.bat",
     "activate-env:mac": ". env/bin/activate",
@@ -21,8 +22,8 @@
     "install:back-end": "pip install -r requirements.txt",
     "install:front-end": "cd front-end/ && npm install",
     
-    "postinstall:win": "npm run install:front-end && npm run create-env && npm run activate-env:win && npm run install:back-end",
-    "postinstall:mac": "npm run install:front-end && npm run create-env && npm run activate-env:mac && npm run install:back-end",
+    "postinstall:win": "npm run install:front-end && npm run create-env:win && npm run activate-env:win && npm run install:back-end",
+    "postinstall:mac": "npm run install:front-end && npm run create-env:mac && npm run activate-env:mac && npm run install:back-end",
     "postinstall": "npm run postinstall:win || npm run postinstall:mac"
   },
   "author": "",
