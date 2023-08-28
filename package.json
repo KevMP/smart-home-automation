@@ -4,14 +4,26 @@
   "description": "A research project by MDC. This project focuses on creating automation tools for smart homes.",
   "scripts": {
     "start:frontend": "cd ./front-end && npm start",
-    "start:backend": "cd ./back-end && python ./app.py",
-    "start": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start --prefix front-end\" \"cd ./back-end && python ./app.py\"",
+    "start:backend:win": "cd ./back-end && python3 ./app.py",
+    "start:backend:mac": "cd ./back-end && python3 ./app.py",
+    "start:backend": "npm run start:backend:win || npm run start:backend:mac",
+    
+    "start:win": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start --prefix front-end\" \"npm run start:backend:win\"",
+    "start:mac": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start --prefix front-end\" \"npm run start:backend:mac\"",
+    "start": "npm run start:win || npm run start:mac",
 
     "create-env": "virtualenv env",
-    "activate-env": "env\\Scripts\\activate.bat",
+    
+    "activate-env:win": "env\\Scripts\\activate.bat",
+    "activate-env:mac": ". env/bin/activate",
+    "activate-env": "npm run activate-env:win || npm run activate-env:mac",
+    
     "install:back-end": "pip install -r requirements.txt",
     "install:front-end": "cd front-end/ && npm install",
-    "postinstall": "npm run create-env && npm run activate-env && npm run install:back-end && npm run install:front-end"
+    
+    "postinstall:win": "npm run create-env && npm run activate-env:win && npm run install:back-end && npm run install:front-end",
+    "postinstall:mac": "npm run create-env && npm run activate-env:mac && npm run install:back-end && npm run install:front-end",
+    "postinstall": "npm run postinstall:win || npm run postinstall:mac"
   },
   "author": "",
   "license": "ISC",

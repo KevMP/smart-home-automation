@@ -1,13 +1,12 @@
 import React from 'react';
-import { Form, Button, Row, Col, Container } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import Footer from '../components/footer';  // Make sure the path is correct
 
 const Login = () => {
-  // Hide the horizontal scrollbar
   document.body.style.overflowX = 'hidden';
 
   return (
-    <Container fluid style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div fluid style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div style={{ flex: '1' }}>
         <Row className="justify-content-md-center" style={{ marginTop: '5%' }}>
           <Col xs lg="6">
@@ -36,8 +35,8 @@ const Login = () => {
           </Col>
         </Row>
       </div>
-      <Footer />  {/* Footer will stick to the bottom */}
-    </Container>
+      <Footer />
+    </div>
   );
 };
 

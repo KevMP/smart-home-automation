@@ -20,9 +20,8 @@ class SMAH():
 
     @staticmethod
     def get_connection():
-        database_file = os.path.join(r'\databases', 'SHAS.db')
         if 'db' not in g:
-            g.db = sqlite3.connect(os.getcwd() + database_file)
+            g.db = sqlite3.connect('databases/SHAS.db')
         return g.db
 
     @staticmethod

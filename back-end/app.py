@@ -27,8 +27,6 @@ def admin():
     """
     pass
 
-    return
-
 if __name__ == "__main__":
     app.run(threaded=False, port=3001, debug=True)
 
