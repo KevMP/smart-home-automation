@@ -27,7 +27,7 @@ class Insert():
                              VALUES ({temperature}, {user_identification}, {time_stamp});'''
         return self.sql_query
     
-    def insert_user_data(self, preferred_temperature, number_of_residents):
+    def create_insert_user_data_query(self, preferred_temperature, number_of_residents):
         self.sql_query = f'''INSERT INTO {self.user_table} (preferredTemperature, numberOfResidents)
                              VALUES ({preferred_temperature}, {number_of_residents});'''
         return self.sql_query
