@@ -17,7 +17,7 @@ class Insert():
     ## Note, that when we are generating fake data we can use these functions
     ## to create that faked data.
 
-    def insert_ac_system_data(self, running_time, time_stamp, user_identification):
+    def create_insert_ac_system_data_query(self, running_time, time_stamp, user_identification):
         self.sql_query = f'''INSERT INTO {self.system_table} (runningTime, timeStamp, userId)
                              VALUES ({running_time}, {time_stamp}, {user_identification});'''
         return self.sql_query
