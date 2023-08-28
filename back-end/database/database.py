@@ -64,7 +64,7 @@ class SMAH():
         database_connection.close()
 
     @staticmethod
-    def select_all_user_data():
+    def select_all_sensor_data():
         database_connection = SMAH.get_connection()
         sql_cursor = database_connection.cursor()
         
@@ -76,7 +76,7 @@ class SMAH():
         database_connection.close()
 
     @staticmethod
-    def select_all_user_data():
+    def select_all_user_account_data():
         database_connection = SMAH.get_connection()
         sql_cursor = database_connection.cursor()
         
@@ -86,7 +86,7 @@ class SMAH():
         database_connection.commit()
         sql_cursor.close()
         database_connection.close()
-        
+
     def select_all_data(self):
         conn = self.get_connection()
         cursor = conn.cursor()
