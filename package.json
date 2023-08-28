@@ -21,8 +21,8 @@
     "install:back-end": "pip install -r requirements.txt",
     "install:front-end": "cd front-end/ && npm install",
     
-    "postinstall:win": "npm run create-env && npm run activate-env:win && npm run install:back-end && npm run install:front-end",
-    "postinstall:mac": "npm run create-env && npm run activate-env:mac && npm run install:back-end && npm run install:front-end",
+    "postinstall:win": "npm run install:front-end && npm run create-env && npm run activate-env:win && npm run install:back-end",
+    "postinstall:mac": "npm run install:front-end && npm run create-env && npm run activate-env:mac && npm run install:back-end",
     "postinstall": "npm run postinstall:win || npm run postinstall:mac"
   },
   "author": "",
