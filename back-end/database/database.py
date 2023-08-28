@@ -80,8 +80,8 @@ class SMAH():
         database_connection = SMAH.get_connection()
         sql_cursor = database_connection.cursor()
         
-        select_user_account_data_query = SMAH().create_select_all_from_table_query(SMAH.user_account)
-        sql_cursor.execute(select_user_account_data_query)
+        select_all_user_account_data_query = SMAH().create_select_all_from_table_query(SMAH.user_account)
+        sql_cursor.execute(select_all_user_account_data_query)
 
         database_connection.commit()
         sql_cursor.close()
