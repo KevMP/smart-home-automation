@@ -40,7 +40,7 @@ class SMAH():
         return self.select_all_query
 
     @staticmethod
-    def select_all_user_data():
+    def select_all_system_data():
         database_connection = SMAH.get_connection()
         sql_cursor = database_connection.cursor()
         
