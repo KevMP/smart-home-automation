@@ -22,7 +22,7 @@ class Insert():
                              VALUES ({running_time}, {time_stamp}, {user_identification});'''
         return self.sql_query
 
-    def insert_sensor_data(self, temperature, user_identification, time_stamp):
+    def create_insert_sensor_data_query(self, temperature, user_identification, time_stamp):
         self.sql_query = f'''INSERT INTO {self.sensor_table} (temperature, userId, timestamp)
                              VALUES ({temperature}, {user_identification}, {time_stamp});'''
         return self.sql_query
