@@ -37,6 +37,7 @@ class SMAH():
 
     def select_all_from_table_query(self, table_name_as_string):
         self.select_all_query = f'''SELECT * FROM {table_name_as_string}'''
+        return self.select_all_query
 
     def select_all_user_data(self):
         pass
