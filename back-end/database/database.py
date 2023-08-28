@@ -40,9 +40,10 @@ class SMAH():
         return self.select_all_query
 
     @staticmethod
-    def select_all_user_data(self):
-        database_connection = self.get_connection()
+    def select_all_user_data():
+        database_connection = SMAH.get_connection()
         sql_cursor = database_connection.cursor()
+        sql_cursor.execute(SMAH().create_select_all_from_table_query)
 
     def select_all_data(self):
         conn = self.get_connection()
