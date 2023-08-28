@@ -33,8 +33,8 @@ class Insert():
                              VALUES ({preferred_temperature}, {number_of_residents});'''
         return self.sql_query
 
-    def execute_query(query):
-        pass
+    def execute_query(self, query):
+        self.database_connection = SMAH.get_connection()
 
     ## The cursor object will be executing all sql statements,
     ## note that a database connection must be made before executing
