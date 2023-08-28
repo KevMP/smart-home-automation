@@ -40,7 +40,7 @@ class SMAH():
         return self.select_all_query
 
     def select_all_user_data(self):
-        pass
+        self.database_connection = self.get_connection()
 
     def select_all_data(self):
         conn = self.get_connection()
