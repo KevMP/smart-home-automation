@@ -35,6 +35,9 @@ class SMAH():
     ## I will be creating separate functions for each respective
     ## table, systemData, userData, etc.
 
+    def select_all_user_data(self):
+        pass
+
     def select_all_data(self):
         conn = self.get_connection()
         cursor = conn.cursor()
