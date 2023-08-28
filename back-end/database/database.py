@@ -68,8 +68,8 @@ class SMAH():
         database_connection = SMAH.get_connection()
         sql_cursor = database_connection.cursor()
         
-        select_sensor_data_query = SMAH().create_select_all_from_table_query(SMAH.sensor_data_table)
-        sql_cursor.execute(select_sensor_data_query)
+        select_all_sensor_data_query = SMAH().create_select_all_from_table_query(SMAH.sensor_data_table)
+        sql_cursor.execute(select_all_sensor_data_query)
 
         database_connection.commit()
         sql_cursor.close()
