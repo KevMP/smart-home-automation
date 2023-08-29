@@ -104,8 +104,9 @@ class SMAH():
         
     def deletes_all_data(self):
         pass
-
-    def insert_user(self):
+    
+    @staticmethod
+    def insert_user(username, password):
         pass
         
     def get_user(self, email):
