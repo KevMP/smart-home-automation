@@ -105,8 +105,8 @@ class SMAH():
     def deletes_all_data(self):
         pass
     
-    def create_user_account_table_insert_query(self, user_name):
-        self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} (user_id)
+    def create_user_account_table_insert_query(self, field_name, user_name):
+        self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} ({field_name})
                                    VALUES ({user_name});'''
         return self.user_name_query
 
