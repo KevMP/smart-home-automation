@@ -123,7 +123,47 @@ class SMAH():
 
         sql_cursor.close()
         database_conection.close()
-        
+    
+    @staticmethod
+    def insert_email(email):
+        database_conection = SMAH.get_connection()
+        sql_cursor = database_conection.cursor()
+
+        sql_cursor.execute(SMAH.create_user_account_table_insert_query('email', email))
+
+        sql_cursor.close()
+        database_conection.close()
+
+    @staticmethod
+    def insert_password(password):
+        database_conection = SMAH.get_connection()
+        sql_cursor = database_conection.cursor()
+
+        sql_cursor.execute(SMAH.create_user_account_table_insert_query('password', password))
+
+        sql_cursor.close()
+        database_conection.close()
+
+    @staticmethod
+    def insert_first_name(first_name):
+        database_conection = SMAH.get_connection()
+        sql_cursor = database_conection.cursor()
+
+        sql_cursor.execute(SMAH.create_user_account_table_insert_query('first_name', first_name))
+
+        sql_cursor.close()
+        database_conection.close()
+
+    @staticmethod
+    def insert_last_name(last_name):
+        database_conection = SMAH.get_connection()
+        sql_cursor = database_conection.cursor()
+
+        sql_cursor.execute(SMAH.create_user_account_table_insert_query('last_name', last_name))
+
+        sql_cursor.close()
+        database_conection.close()
+
     def get_user(self, email):
         pass
 
