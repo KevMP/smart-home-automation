@@ -110,6 +110,7 @@ class SMAH():
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
+        sql_cursor.close()
         database_conection.close()
         
     def get_user(self, email):
