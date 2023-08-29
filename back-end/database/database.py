@@ -105,15 +105,21 @@ class SMAH():
     def deletes_all_data(self):
         pass
     
-    def create_user_name_insert_query(self, user_name):
-        self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} (user_id)
-                                   VALUES ({user_name});'''
+    ## The following function will create insert queries for the user account
+    ## data table. It needs to be passed the column name of the table, and then
+    ## the data to insert.
+
+    def create_user_account_table_insert_query(self, column_name, data):
+        self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} ({column_name})
+                                   VALUES ({data});'''
         return self.user_name_query
 
     @staticmethod
-    def insert_user_name(email, password, first_name, last_name):
+    def insert_user_name(user_identification):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
+
+        sql_cursor.execute(SMAH.create_user_account_table_insert_query('user_id', {user_identification}))
 
         sql_cursor.close()
         database_conection.close()
