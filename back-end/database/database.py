@@ -115,6 +115,8 @@ class SMAH():
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
+        sql_cursor.execute(SMAH.create_user_account_table_insert_query('user_id', {user_identification}))
+
         sql_cursor.close()
         database_conection.close()
         
