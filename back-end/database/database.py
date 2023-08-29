@@ -108,6 +108,7 @@ class SMAH():
     @staticmethod
     def insert_user(username, password):
         database_conection = SMAH.get_connection()
+        sql_cursor = database_conection.cursor()
 
         database_conection.close()
         
