@@ -109,9 +109,9 @@ class SMAH():
     ## data table. It needs to be passed the column name of the table, and then
     ## the data to insert.
 
-    def create_user_account_table_insert_query(self, field_name, user_name):
-        self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} ({field_name})
-                                   VALUES ({user_name});'''
+    def create_user_account_table_insert_query(self, column_name, data):
+        self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} ({column_name})
+                                   VALUES ({data});'''
         return self.user_name_query
 
     @staticmethod
