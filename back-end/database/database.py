@@ -105,13 +105,13 @@ class SMAH():
     def deletes_all_data(self):
         pass
     
-    def create_username_insert_query(self, user_name):
+    def create_user_name_insert_query(self, user_name):
         self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} (user_id)
                                    VALUES ({user_name});'''
         return self.user_name_query
 
     @staticmethod
-    def insert_user(email, password, first_name, last_name):
+    def insert_user_name(email, password, first_name, last_name):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
