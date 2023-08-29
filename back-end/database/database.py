@@ -105,6 +105,10 @@ class SMAH():
     def deletes_all_data(self):
         pass
     
+    ## The following function will create insert queries for the user account
+    ## data table. It needs to be passed the column name of the table, and then
+    ## the data to insert.
+
     def create_user_account_table_insert_query(self, field_name, user_name):
         self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} ({field_name})
                                    VALUES ({user_name});'''
