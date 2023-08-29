@@ -106,7 +106,7 @@ class SMAH():
         pass
     
     def create_username_insert_query(self):
-        self.user_name_query = ''''''
+        self.user_name_query = '''INSERT INTO '''
 
     @staticmethod
     def insert_user(username, password):
