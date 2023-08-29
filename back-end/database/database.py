@@ -123,7 +123,11 @@ class SMAH():
 
         sql_cursor.close()
         database_conection.close()
-        
+    
+    @staticmethod
+    def insert_email():
+        pass
+
     def get_user(self, email):
         pass
 
