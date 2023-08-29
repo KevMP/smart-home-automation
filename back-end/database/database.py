@@ -109,7 +109,7 @@ class SMAH():
         self.user_name_query = '''INSERT INTO '''
 
     @staticmethod
-    def insert_user(username, password):
+    def insert_user(email, password, first_name, last_name):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
