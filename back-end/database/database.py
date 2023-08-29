@@ -105,7 +105,7 @@ class SMAH():
     def deletes_all_data(self):
         pass
     
-    def create_username_insert_query(self, username):
+    def create_username_insert_query(self, user_name):
         self.user_name_query = '''INSERT INTO '''
 
     @staticmethod
