@@ -105,6 +105,9 @@ class SMAH():
     def deletes_all_data(self):
         pass
     
+    def create_username():
+        pass
+
     @staticmethod
     def insert_user(username, password):
         database_conection = SMAH.get_connection()
