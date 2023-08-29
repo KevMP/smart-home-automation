@@ -107,7 +107,7 @@ class SMAH():
     
     def create_username_insert_query(self, user_name):
         self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} (user_id)
-                                   VALUES ()'''
+                                   VALUES ({user_name})'''
 
     @staticmethod
     def insert_user(email, password, first_name, last_name):
