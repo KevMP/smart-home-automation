@@ -111,7 +111,7 @@ class SMAH():
         return self.user_name_query
 
     @staticmethod
-    def insert_user_name(email, password, first_name, last_name):
+    def insert_user_name(user_identification):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
