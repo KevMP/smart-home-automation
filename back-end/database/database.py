@@ -119,7 +119,7 @@ class SMAH():
         return self.user_name_query
 
     @staticmethod
-    def insert_user_name(user_identification):
+    def insert_user_identification(user_identification):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
