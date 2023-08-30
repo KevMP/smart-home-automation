@@ -131,6 +131,7 @@ class SMAH():
 
         sql_cursor.execute(SMAH.create_user_account_table_insert_query('email', email))
 
+        database_conection.commit()
         sql_cursor.close()
         database_conection.close()
 
