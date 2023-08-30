@@ -172,6 +172,9 @@ class SMAH():
         database_conection.commit()
         sql_cursor.close()
         database_conection.close()
+    
+    ## The following will be used to get specific user data, from
+    ## the user_data table and the user_account table.
 
     def get_user(self, email):
         pass
