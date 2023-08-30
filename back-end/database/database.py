@@ -43,11 +43,12 @@ class SMAH():
         sql_cursor = database_connection.cursor()
         
         select_all_system_data_query = SMAH().create_select_all_from_table_query(SMAH.ac_system_data_table)
-        sql_cursor.execute(select_all_system_data_query)
+        system_data = sql_cursor.execute(select_all_system_data_query)
 
         database_connection.commit()
         sql_cursor.close()
         database_connection.close()
+        return system_data
 
     @staticmethod
     def select_all_sensor_data():
