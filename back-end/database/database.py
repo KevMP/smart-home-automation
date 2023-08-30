@@ -176,7 +176,7 @@ class SMAH():
     ## The following will be used to get specific user data, from
     ## the user_data table and the user_account table.
 
-    def get_user(self, email):
+    def get_email(email):
         pass
 
     def populate_with_fake_users(self):
