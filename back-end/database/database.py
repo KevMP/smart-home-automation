@@ -121,6 +121,7 @@ class SMAH():
 
         sql_cursor.execute(SMAH.create_user_account_table_insert_query('user_id', {user_identification}))
 
+        database_conection.commit()
         sql_cursor.close()
         database_conection.close()
     
@@ -131,6 +132,7 @@ class SMAH():
 
         sql_cursor.execute(SMAH.create_user_account_table_insert_query('email', email))
 
+        database_conection.commit()
         sql_cursor.close()
         database_conection.close()
 
@@ -140,7 +142,8 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_table_insert_query('password', password))
-
+        
+        database_conection.commit()
         sql_cursor.close()
         database_conection.close()
 
@@ -151,6 +154,7 @@ class SMAH():
 
         sql_cursor.execute(SMAH.create_user_account_table_insert_query('first_name', first_name))
 
+        database_conection.commit()
         sql_cursor.close()
         database_conection.close()
 
@@ -161,6 +165,7 @@ class SMAH():
 
         sql_cursor.execute(SMAH.create_user_account_table_insert_query('last_name', last_name))
 
+        database_conection.commit()
         sql_cursor.close()
         database_conection.close()
 
