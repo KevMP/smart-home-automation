@@ -141,7 +141,7 @@ class SMAH():
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
-        sql_cursor.execute(SMAH.create_user_account_specific_table_query())
+        sql_cursor.execute(SMAH.create_user_account_specific_table_query('email', email, user_identification))
 
         database_conection.commit()
         sql_cursor.close()
