@@ -40,6 +40,9 @@ class Insert():
     def create_connection(self, database_path):
         self.database_connection = sqlite3.connect(database_path)
         return self.database_connection
+    
+    ## The following function will insert the data generated from the queries
+    ## above.
 
     def insert_all_data(self):
         self.database_connection = self.create_connection(self.database_file)
