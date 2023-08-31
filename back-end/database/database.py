@@ -118,6 +118,9 @@ class SMAH():
                                    VALUES ({data});'''
         return self.user_name_query
 
+    def create_user_account_specific_table_query(self, column_name, data):
+        pass
+
     @staticmethod
     def insert_user_identification(user_identification):
         database_conection = SMAH.get_connection()
