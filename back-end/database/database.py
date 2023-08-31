@@ -122,7 +122,8 @@ class SMAH():
     @staticmethod
     def create_user_account_specific_table_query(column_name, data, user_identification):
         insert_query = f'''INSERT INTO {SMAH.user_account_data_table} ({column_name})
-                                VALUES ({data}) WHERE user_id = {user_identification}'''
+                                VALUES ({data})
+                                WHERE user_id = {user_identification};'''
         return insert_query
 
     @staticmethod
