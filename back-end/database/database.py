@@ -118,7 +118,7 @@ class SMAH():
                                    VALUES ({data});'''
         return self.user_name_query
 
-    def create_user_account_specific_table_query(self, column_name, data):
+    def create_user_account_specific_table_query(self, column_name, data, user_identification):
         pass
 
     @staticmethod
