@@ -45,8 +45,9 @@ class Insert():
     ## above.
 
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
+        self.database_connection = self.create_connection(self.database_file)
         self.insert_query = self.create_insert_ac_system_data_query(running_time, time_stamp, user_identification)
-        
+
 
     def insert_all_data(self):
         self.database_connection = self.create_connection(self.database_file)
