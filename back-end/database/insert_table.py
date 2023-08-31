@@ -49,7 +49,7 @@ class Insert():
         self.sql_cursor = self.database_connection.cursor()
 
         self.insert_query = self.create_insert_ac_system_data_query(running_time, time_stamp, user_identification)
-        
+        self.sql_cursor.execute(self.insert_query)
         self.database_connection.commit()
         self.sql_cursor.close()
         self.database_connection.close()
