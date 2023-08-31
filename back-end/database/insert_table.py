@@ -42,7 +42,7 @@ class Insert():
         return self.database_connection
     
     ## The following function will insert the data generated from the queries
-    ## above.
+    ## above as separate function calls.
 
     def insert_ac_system_data(self, running_time, time_stamp, user_identification):
         self.database_connection = self.create_connection(self.database_file)
