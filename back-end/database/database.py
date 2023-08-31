@@ -148,11 +148,11 @@ class SMAH():
         database_conection.close()
 
     @staticmethod
-    def insert_password(password):
+    def insert_password(password, user_identification):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
-        sql_cursor.execute(SMAH.create_user_account_table_insert_query('password', password))
+        sql_cursor.execute(SMAH.create_user_account_specific_table_query('password', password, user_identification))
         
         database_conection.commit()
         sql_cursor.close()
