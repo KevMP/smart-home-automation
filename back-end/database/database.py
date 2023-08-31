@@ -119,7 +119,7 @@ class SMAH():
         return self.insert_query
 
     def create_user_account_specific_table_query(self, column_name, data, user_identification):
-        pass
+        self.insert_query = f''''''
 
     @staticmethod
     def insert_user_identification(user_identification):
