@@ -44,6 +44,9 @@ class Insert():
     ## The following function will insert the data generated from the queries
     ## above.
 
+    def insert_ac_system_data(self, running_time, time_stamp, user_identification):
+        pass
+
     def insert_all_data(self):
         self.database_connection = self.create_connection(self.database_file)
         self.sql_cursor = self.database_connection.cursor()
