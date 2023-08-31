@@ -170,11 +170,11 @@ class SMAH():
         database_conection.close()
 
     @staticmethod
-    def insert_last_name(last_name):
+    def insert_last_name(last_name, user_identification):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
-        sql_cursor.execute(SMAH.create_user_account_table_insert_query('last_name', last_name))
+        sql_cursor.execute(SMAH.create_user_account_table_insert_query('last_name', last_name, user_identification))
 
         database_conection.commit()
         sql_cursor.close()
