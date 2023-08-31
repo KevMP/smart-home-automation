@@ -114,9 +114,9 @@ class SMAH():
     ## the data to insert.
 
     def create_user_account_table_insert_query(self, column_name, data):
-        self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} ({column_name})
+        self.insert_query = f'''INSERT INTO {SMAH.user_account_data_table} ({column_name})
                                    VALUES ({data});'''
-        return self.user_name_query
+        return self.insert_query
 
     def create_user_account_specific_table_query(self, column_name, data, user_identification):
         pass
