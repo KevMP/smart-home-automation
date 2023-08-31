@@ -66,6 +66,17 @@ class Insert():
         self.sql_cursor.close()
         self.database_connection.close()
 
+    def insert_user_data(self, preferred_temperature, number_of_residents):
+        self.database_connection = self.create_connection(self.database_file)
+        self.sql_cursor = self.database_connection.cursor()
+
+        self.insert_query = self.create_insert_user_data_query(preferred_temperature, number_of_residents)
+        self.sql_cursor.execute(self.insert_query)
+        
+        self.database_connection.commit()
+        self.sql_cursor.close()
+        self.database_connection.close()
+
     def insert_all_data(self):
         self.database_connection = self.create_connection(self.database_file)
         self.sql_cursor = self.database_connection.cursor()
