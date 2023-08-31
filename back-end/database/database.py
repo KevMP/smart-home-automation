@@ -113,10 +113,17 @@ class SMAH():
     ## data table. It needs to be passed the column name of the table, and then
     ## the data to insert.
 
-    def create_user_account_table_insert_query(self, column_name, data):
-        self.user_name_query = f'''INSERT INTO {SMAH.user_account_data_table} ({column_name})
+    @staticmethod
+    def create_user_account_table_insert_query(column_name, data):
+        insert_query = f'''INSERT INTO {SMAH.user_account_data_table} ({column_name})
                                    VALUES ({data});'''
-        return self.user_name_query
+        return insert_query
+
+    @staticmethod
+    def create_user_account_specific_table_query(column_name, data, user_identification):
+        insert_query = f'''INSERT INTO {SMAH.user_account_data_table} ({column_name})
+                                VALUES ({data}) WHERE user_id = {user_identification}'''
+        return insert_query
 
     @staticmethod
     def insert_user_identification(user_identification):
@@ -130,44 +137,44 @@ class SMAH():
         database_conection.close()
     
     @staticmethod
-    def insert_email(email):
+    def insert_email(email, user_identification):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
-        sql_cursor.execute(SMAH.create_user_account_table_insert_query('email', email))
+        sql_cursor.execute(SMAH.create_user_account_specific_table_query('email', email, user_identification))
 
         database_conection.commit()
         sql_cursor.close()
         database_conection.close()
 
     @staticmethod
-    def insert_password(password):
+    def insert_password(password, user_identification):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
-        sql_cursor.execute(SMAH.create_user_account_table_insert_query('password', password))
+        sql_cursor.execute(SMAH.create_user_account_specific_table_query('password', password, user_identification))
         
         database_conection.commit()
         sql_cursor.close()
         database_conection.close()
 
     @staticmethod
-    def insert_first_name(first_name):
+    def insert_first_name(first_name, user_identification):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
-        sql_cursor.execute(SMAH.create_user_account_table_insert_query('first_name', first_name))
+        sql_cursor.execute(SMAH.create_user_account_specific_table_query('first_name', first_name, user_identification))
 
         database_conection.commit()
         sql_cursor.close()
         database_conection.close()
 
     @staticmethod
-    def insert_last_name(last_name):
+    def insert_last_name(last_name, user_identification):
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
-        sql_cursor.execute(SMAH.create_user_account_table_insert_query('last_name', last_name))
+        sql_cursor.execute(SMAH.create_user_account_specific_table_query('last_name', last_name, user_identification))
 
         database_conection.commit()
         sql_cursor.close()
