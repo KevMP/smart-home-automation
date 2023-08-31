@@ -163,7 +163,7 @@ class SMAH():
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
-        sql_cursor.execute(SMAH.create_user_account_table_insert_query('first_name', first_name, user_identification))
+        sql_cursor.execute(SMAH.create_user_account_specific_table_query('first_name', first_name, user_identification))
 
         database_conection.commit()
         sql_cursor.close()
@@ -174,7 +174,7 @@ class SMAH():
         database_conection = SMAH.get_connection()
         sql_cursor = database_conection.cursor()
 
-        sql_cursor.execute(SMAH.create_user_account_table_insert_query('last_name', last_name, user_identification))
+        sql_cursor.execute(SMAH.create_user_account_specific_table_query('last_name', last_name, user_identification))
 
         database_conection.commit()
         sql_cursor.close()
