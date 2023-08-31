@@ -50,6 +50,17 @@ class Insert():
 
         self.insert_query = self.create_insert_ac_system_data_query(running_time, time_stamp, user_identification)
         self.sql_cursor.execute(self.insert_query)
+
+        self.database_connection.commit()
+        self.sql_cursor.close()
+        self.database_connection.close()
+
+    def insert_sensor_data(self, temperature, user_identification, time_stamp):
+        self.database_connection = self.create_connection(self.database_file)
+        self.sql_cursor = self.database_connection.cursor()
+
+        self.insert_query = self.create_insert_sensor_data_query(temperature, user_identification, time_stamp)
+        self.sql_cursor.execute(self.insert_query)
         
         self.database_connection.commit()
         self.sql_cursor.close()
