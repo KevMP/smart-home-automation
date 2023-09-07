@@ -216,8 +216,8 @@ class SMAH():
 
     def get_user_id_from_email_and_password(self, email, password):
         self.get_data_query = f'''SELECT user_id FROM userAccount
-                                 WHERE email = {email}
-                                 AND password = {password};'''
+                                 WHERE email = '{email}'
+                                 AND password = '{password}';'''
 
         self.database_connection = Insert().create_connection(Insert.database_file)
         self.database_connection.row_factory = lambda cursor, row: row[0]
@@ -233,8 +233,11 @@ class SMAH():
 
     def check_email_and_password(self, email, password):
         self.user_data = SMAH().get_user_id_from_email_and_password(email, password)
-        if len(self.user_data) != 0:
-            print("USER EXISTS!!")
+        if len(self.user_data) > 2: ## Since '[]' are two characters, we need to check if the length of user_data is greater than 2,
+                                    ##  to be able to tell if the user exists at all.
             return True
         else:
+            print(self.user_data)
             return False
+
+print(SMAH().check_email_and_password('hello', 'burgertown'))
