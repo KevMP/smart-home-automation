@@ -181,6 +181,8 @@ class SMAH():
         sql_cursor.close()
         database_conection.close()
     
+    ## The following functions will be used to verify if the user exists.
+
     @staticmethod
     def check_if_user_exists(email, password):
         select_query = f'''SELECT email, password FROM userAccount
