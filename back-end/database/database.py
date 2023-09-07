@@ -187,7 +187,7 @@ class SMAH():
     ## the user doesn't exist in our data, we send our boolean function
     ## a flag to return false, and vise versa.
 
-    def get_email_column_data():
+    def get_email_column_data(self):
         pass
 
     @staticmethod
