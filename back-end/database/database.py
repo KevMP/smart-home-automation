@@ -183,10 +183,12 @@ class SMAH():
         database_conection.close()
     
     ## The following functions will be used to verify if the user exists.
-    ## We would first grab the user account column data, and then cross
-    ## reference with the email/password passed into our function, if
-    ## the user doesn't exist in our data, we send our boolean function
-    ## a flag to return false, and vise versa.
+    ## We could first confirm if a email already exists, if so the user
+    ## when registering would have to create a new email.
+    ## We could also check if the user has inputted the correct username
+    ## or password and return the user identification number as a True
+    ## flag, else we return a FALSE flag that could be used to print
+    ## out an error in the login page.
 
     def get_email_column_data(self):
         self.get_data_query = '''SELECT email FROM userAccount;'''
@@ -232,9 +234,9 @@ class SMAH():
         return self.user_identification
 
     def check_email_and_password(self, email, password):
-        self.user_data = SMAH().get_user_id_from_email_and_password(email, password)
-        if len(self.user_data) > 2: ## Since '[]' are two characters, we need to check if the length of user_data is greater than 2,
-            return True             ##  to be able to tell if the user exists at all.
+        self.user_id = SMAH().get_user_id_from_email_and_password(email, password)
+        if len(self.user_id) > 2: ## Since '[]' are two characters, we need to check if the length of user_data is greater than 2,
+            return self.user_id   ##  to be able to tell if the user exists at all.
         else:
             return False
     
