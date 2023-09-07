@@ -202,7 +202,7 @@ class SMAH():
         self.database_connection.close()
         
         return self.email_data
-
+    
     def check_email(self, email):
         self.email_data = self.get_email_column_data()
         if email in self.email_data:
@@ -211,21 +211,5 @@ class SMAH():
             return False
 
     @staticmethod
-    def check_if_user_exists(email, password):
-        select_query = f'''SELECT email, password FROM userAccount
-                           WHERE email = ({email})
-                           AND password = ({password}); '''
-        
-        database_connection = SMAH.get_connection()
-        sql_cursor = database_connection.cursor()
-
-        data_array = sql_cursor.execute(select_query)
-        database_connection.commit()
-
-        sql_cursor.close()
-        database_connection.close()
-
-        if len(data_array) < 5:
-            return False
-        else:
-            return True
+    def check_if_user_email_exists(email):
+        SMAH().check_email(email)
