@@ -1,6 +1,5 @@
 import os
 import sqlite3
-from flask import g
 
 class Insert():
     backend_folder = 'back-end'
