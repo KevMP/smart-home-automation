@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
 
-function ViewData() {
+function Dashboard() {
     const [data, setData] = useState(null);
     // const [error, setError] = useState(null);
 
@@ -28,4 +28,4 @@ function ViewData() {
     );
 }
 
-export default ViewData;
+export default Dashboard;

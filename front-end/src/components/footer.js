@@ -13,14 +13,14 @@ const Footer = () => {
         <Col md={4}>
           <h5>Quick Links</h5>
           <ul style={{ listStyle: 'none', paddingLeft: '0' }}>
-            <li><a href="#" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a></li>
-            <li><a href="#" style={{ color: '#ffffff', textDecoration: 'none' }}>Features</a></li>
-            <li><a href="#" style={{ color: '#ffffff', textDecoration: 'none' }}>Contact</a></li>
+            <li><a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a></li>
+            <li><a href="/login" style={{ color: '#ffffff', textDecoration: 'none' }}>Login</a></li>
+            <li><a href="/admin" style={{ color: '#ffffff', textDecoration: 'none' }}>Admin</a></li>
           </ul>
         </Col>
         <Col md={4}>
           <h5>Subscribe</h5>
-          <Form inline>
+          <Form>
             <Form.Control type="email" placeholder="Email" style={{ marginRight: '10px' }} />
             <Button variant="secondary">Subscribe</Button>
           </Form>

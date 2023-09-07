@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import Header from '../components/nav';
 import Footer from '../components/footer'; 
+import axios from 'axios';
 
 const MainWindow = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    axios.get('/api/v1/')
+      .then(response => {
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching data: ", error);
+      });
+  }, []);
+
   return (
     <>
       <Container fluid style={{ 
@@ -13,7 +27,7 @@ const MainWindow = () => {
           margin: '0', 
           padding: '0'
       }}>
-        <Header />  {/* Include Header component here */}
+        <Header />
         <div style={{ 
             flex: '1', 
             display: 'flex', 
@@ -21,6 +35,11 @@ const MainWindow = () => {
             justifyContent: 'center', 
             alignItems: 'center'
         }}>
+        <div className='d-flex mb-3'>
+          <div className={`feature bg-${data ? 'success' : 'danger'} bg-gradient text-white rounded-3 p-3`}><i className="bi bi-thermometer-snow"></i></div>
+          <h1 className='ms-4'> AC is: </h1>
+          <h1 className={`ms-4 ${data ? 'text-success' : 'text-danger'}`}> {data ? 'ON' : 'OFF'} </h1>
+        </div>
           <h2 style={{ color: '#0056b3', fontSize: '36px', marginBottom: '30px' }}>Main Window</h2>
           <div style={{
             width: '40%',  
@@ -45,8 +64,8 @@ const MainWindow = () => {
           </div>
         </div>
       </Container>
-      <div style={{ height: '100px' }}> {/* Fixed height for the footer */}
-        <Footer />  {/* Include Footer component here */}
+      <div style={{ height: '100px' }}>
+        <Footer />
       </div>
     </>
   );
