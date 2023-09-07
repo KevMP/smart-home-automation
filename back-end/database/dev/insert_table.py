@@ -9,7 +9,6 @@ class Insert():
     system_table = 'acSystemData'
     sensor_table = 'sensorData'
     user_table = 'userData'
-    user_account_table = 'userAccount'
 
     ## The following functions will create a sql query that will be executed
     ## by the cursor in our main function for this class.
