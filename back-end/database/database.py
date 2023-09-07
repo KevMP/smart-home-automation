@@ -182,6 +182,10 @@ class SMAH():
         database_conection.close()
     
     ## The following functions will be used to verify if the user exists.
+    ## We would first grab the user account column data, and then cross
+    ## reference with the email/password passed into our function, if
+    ## the user doesn't exist in our data, we send our boolean function
+    ## a flag to return false, and vise versa.
 
     @staticmethod
     def check_if_user_exists(email, password):
