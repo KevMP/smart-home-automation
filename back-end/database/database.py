@@ -190,8 +190,11 @@ class SMAH():
 
     def get_email_column_data(self):
         self.get_data_query = '''SELECT email FROM userAccount;'''
-        self.database_connection =  Insert.create_connection()
         
+        self.database_connection =  Insert.create_connection()
+        self.sql_cursor = self.database_connection.cursor()
+
+        self.sql_cursor.close()
         self.database_connection.close()
 
     @staticmethod
