@@ -232,4 +232,4 @@ class SMAH():
         return self.user_identification
 
     def check_email_and_password(self, email, password):
-        
+        self.user_data = SMAH().get_user_id_from_email_and_password(email, password)
