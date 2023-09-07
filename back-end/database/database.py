@@ -44,8 +44,8 @@ class SMAH():
         
         select_all_system_data_query = SMAH().create_select_all_from_table_query(SMAH.ac_system_data_table)
         system_data = sql_cursor.execute(select_all_system_data_query)
-
         database_connection.commit()
+
         sql_cursor.close()
         database_connection.close()
         return system_data
@@ -57,8 +57,8 @@ class SMAH():
         
         select_all_sensor_data_query = SMAH().create_select_all_from_table_query(SMAH.sensor_data_table)
         sensor_data = sql_cursor.execute(select_all_sensor_data_query)
-
         database_connection.commit()
+
         sql_cursor.close()
         database_connection.close()
         return sensor_data
@@ -70,8 +70,8 @@ class SMAH():
         
         select_all_user_data_query = SMAH().create_select_all_from_table_query(SMAH.user_data_table)
         user_data = sql_cursor.execute(select_all_user_data_query)
-
         database_connection.commit()
+
         sql_cursor.close()
         database_connection.close()
         return user_data
@@ -83,8 +83,8 @@ class SMAH():
         
         select_all_user_account_data_query = SMAH().create_select_all_from_table_query(SMAH.user_account_data_table)
         user_account_data = sql_cursor.execute(select_all_user_account_data_query)
-
         database_connection.commit()
+
         sql_cursor.close()
         database_connection.close()
         return user_account_data
@@ -132,8 +132,8 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_table_insert_query('user_id', {user_identification}))
-
         database_conection.commit()
+
         sql_cursor.close()
         database_conection.close()
     
@@ -143,8 +143,8 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_specific_table_query('email', email, user_identification))
-
         database_conection.commit()
+
         sql_cursor.close()
         database_conection.close()
 
@@ -154,8 +154,8 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_specific_table_query('password', password, user_identification))
-        
         database_conection.commit()
+        
         sql_cursor.close()
         database_conection.close()
 
@@ -165,8 +165,8 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_specific_table_query('first_name', first_name, user_identification))
-
         database_conection.commit()
+
         sql_cursor.close()
         database_conection.close()
 
@@ -176,8 +176,8 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_specific_table_query('last_name', last_name, user_identification))
-
         database_conection.commit()
+
         sql_cursor.close()
         database_conection.close()
     
@@ -192,6 +192,6 @@ class SMAH():
 
         data_array = sql_cursor.execute(select_query)
         database_connection.commit()
-        
+
         sql_cursor.close()
         database_connection.close()
