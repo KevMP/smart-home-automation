@@ -182,5 +182,5 @@ class SMAH():
         database_conection.close()
     
     @staticmethod
-    def check_if_user_exists():
+    def check_if_user_exists(email, password):
         pass
