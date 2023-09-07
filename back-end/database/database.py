@@ -236,3 +236,5 @@ class SMAH():
         if len(self.user_data) != 0:
             print("USER EXISTS!!")
             return True
+        else:
+            return False
