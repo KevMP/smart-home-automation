@@ -191,7 +191,7 @@ class SMAH():
         sql_cursor = database_connection.cursor()
 
         data_array = sql_cursor.execute(select_query)
-        
         database_connection.commit()
+        
         sql_cursor.close()
         database_connection.close()
