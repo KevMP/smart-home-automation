@@ -214,8 +214,8 @@ class SMAH():
     def check_if_user_email_exists(email):
         SMAH().check_email(email)
 
-    def get_email_and_password_column_data(self, email, password):
-        self.get_data_query = f'''SELECT email, password FROM userAccount
+    def get_user_id_from_email_and_password(self, email, password):
+        self.get_data_query = f'''SELECT user_id FROM userAccount
                                  WHERE email = {email}
                                  AND password = {password};'''
 
