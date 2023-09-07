@@ -183,4 +183,4 @@ class SMAH():
     
     @staticmethod
     def check_if_user_exists(email, password):
-        pass
+        sql_query = '''SELECT email, password FROM userAccount'''
