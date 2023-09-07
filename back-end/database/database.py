@@ -205,12 +205,10 @@ class SMAH():
 
     def check_email(self, email):
         self.email_data = self.get_email_column_data()
-        for self.email in self.email_data:
-            print(self.email)
-            if email == self.email:
-                print(self.email)
-                return True
-        return False
+        if email in self.email_data:
+            return True
+        else:
+            return False
 
     @staticmethod
     def check_if_user_exists(email, password):
