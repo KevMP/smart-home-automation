@@ -192,15 +192,26 @@ class SMAH():
         self.get_data_query = '''SELECT email FROM userAccount;'''
 
         self.database_connection = Insert().create_connection(Insert.database_file)
+        self.database_connection.row_factory = lambda cursor, row: row[0]
+
         self.sql_cursor = self.database_connection.cursor()
 
-        self.email_data = self.sql_cursor.execute(self.get_data_query)
+        self.email_data = self.sql_cursor.execute(self.get_data_query).fetchall()
         self.database_connection.commit()
 
         self.sql_cursor.close()
         self.database_connection.close()
         
         return self.email_data
+
+    def check_email(self, email):
+        self.email_data = self.get_email_column_data()
+        for self.email in self.email_data:
+            print(self.email)
+            if email == self.email:
+                print(self.email)
+                return True
+        return False
 
     @staticmethod
     def check_if_user_exists(email, password):
@@ -221,8 +232,3 @@ class SMAH():
             return False
         else:
             return True
-        
-def insert_user_data():
-    pass
-
-print(SMAH().get_email_column_data())
