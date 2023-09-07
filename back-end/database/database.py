@@ -190,6 +190,9 @@ class SMAH():
 
     def get_email_column_data(self):
         self.get_data_query = '''SELECT email FROM userAccount;'''
+        self.database_connection =  Insert.create_connection()
+        
+        self.database_connection.close()
 
     @staticmethod
     def check_if_user_exists(email, password):
