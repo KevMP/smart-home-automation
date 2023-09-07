@@ -5,12 +5,12 @@ import Footer from '../components/footer';
 import axios from 'axios';
 
 const MainWindow = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState({ ac_status: false, temp: ''});
 
   useEffect(() => {
     axios.get('/api/v1/')
       .then(response => {
-        console.log(response.data);
+        console.log(response.data.temp);
         setData(response.data);
       })
       .catch(error => {
@@ -35,11 +35,22 @@ const MainWindow = () => {
             justifyContent: 'center', 
             alignItems: 'center'
         }}>
-        <div className='d-flex mb-3'>
-          <div className={`feature bg-${data ? 'success' : 'danger'} bg-gradient text-white rounded-3 p-3`}><i className="bi bi-thermometer-snow"></i></div>
-          <h1 className='ms-4'> AC is: </h1>
-          <h1 className={`ms-4 ${data ? 'text-success' : 'text-danger'}`}> {data ? 'ON' : 'OFF'} </h1>
-        </div>
+          <div className='d-flex align-items-center'>
+              <div className={`text-center bg-${data.ac_status ? 'success' : 'danger'} bg-gradient text-white rounded-3 p-3 h2`}>
+                  <i className="bi bi-thermometer-snow"></i>
+              </div>
+              
+              <div className='d-flex flex-column align-items-start ms-4'>
+                  <div className="d-flex align-items-center">
+                      <p className='lh-sm text-center'>AC is:</p>
+                      <p className={`lh-sm ${data.ac_status ? 'text-success' : 'text-danger'} ms-3`}>{data.ac_status ? 'ON' : 'OFF'}</p>
+                  </div>
+                  <div className="d-flex align-items-center">
+                      <p className='lh-sm text-center'>AC Temp:</p>
+                      <p className=' ms-3'>{data.temp}°C</p>
+                  </div>
+              </div>
+          </div>
           <h2 style={{ color: '#0056b3', fontSize: '36px', marginBottom: '30px' }}>Main Window</h2>
           <div style={{
             width: '40%',  

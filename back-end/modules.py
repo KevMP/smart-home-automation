@@ -46,20 +46,20 @@ class SmartThermostat:
         """
         _summary_
         """
-        self.ac_status = "OFF"
+        self.ac_status = False
         self.temperature_setting = 22  # Default temperature setting
 
     def turn_on_ac(self):
         """
         _summary_
         """
-        self.ac_status = "ON"
+        self.ac_status = True
 
     def turn_off_ac(self):
         """
         _summary_
         """
-        self.ac_status = "OFF"
+        self.ac_status = False
 
     def set_temperature(self, temperature):
         """
@@ -78,8 +78,8 @@ class SmartThermostat:
             _type_: _description_
         """
         return {
-            "Temperature Setting": self.temperature_setting,
-            "AC Status": self.ac_status
+            "temp": self.temperature_setting,
+            "ac_status": self.ac_status
         }
 
 class SmartACEnvironment:
@@ -95,7 +95,11 @@ class SmartACEnvironment:
         self.humidity_sensor = HumiditySensor()
         self.smart_thermostat = SmartThermostat()
         self.state = self.get_current_state()
-
+    def get_ac_status(self):
+        """
+        _summary_
+        """
+        return self.smart_thermostat.get_status()
     def get_current_state(self):
         """
         _summary_
