@@ -222,4 +222,7 @@ class SMAH():
         else:
             return True
         
+def insert_user_data():
+    pass
+
 print(SMAH().get_email_column_data())
