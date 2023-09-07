@@ -186,3 +186,6 @@ class SMAH():
         select_query = f'''SELECT email, password FROM userAccount
                            WHERE email = ({email})
                            AND password = ({password}); '''
+        
+        database_connection = SMAH.get_connection()
+        database_connection.close()
