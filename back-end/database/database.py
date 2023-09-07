@@ -194,7 +194,7 @@ class SMAH():
         self.database_connection = Insert.create_connection()
         self.sql_cursor = self.database_connection.cursor()
 
-        self.sql_cursor.execute(self.get_data_query)
+        self.email_data = self.sql_cursor.execute(self.get_data_query)
 
         self.sql_cursor.close()
         self.database_connection.close()
