@@ -237,5 +237,7 @@ class SMAH():
             return True             ##  to be able to tell if the user exists at all.
         else:
             return False
-
-print(SMAH().check_email_and_password('hello', 'burgertown'))
+    
+    @staticmethod
+    def check_if_user_exists_from_email_and_password(email, password):
+        pass
