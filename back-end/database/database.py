@@ -230,3 +230,6 @@ class SMAH():
         self.database_connection.close()
         
         return self.user_identification
+
+    def check_email_and_password(self, email, password):
+        
