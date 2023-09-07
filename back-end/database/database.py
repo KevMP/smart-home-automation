@@ -210,7 +210,7 @@ class SMAH():
         self.database_connection.row_factory = lambda cursor, row: row[0]
         self.sql_cursor = self.database_connection.cursor()
 
-        self.email_data = self.sql_cursor.execute(self.get_data_query).fetchall()
+        self.password_data = self.sql_cursor.execute(self.get_data_query).fetchall()
         self.database_connection.commit()
 
         self.sql_cursor.close()
