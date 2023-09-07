@@ -236,7 +236,6 @@ class SMAH():
         if len(self.user_data) > 2: ## Since '[]' are two characters, we need to check if the length of user_data is greater than 2,
             return True             ##  to be able to tell if the user exists at all.
         else:
-            print(self.user_data)
             return False
 
 print(SMAH().check_email_and_password('hello', 'burgertown'))
