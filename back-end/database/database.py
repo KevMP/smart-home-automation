@@ -203,21 +203,6 @@ class SMAH():
         
         return self.email_data
 
-    def get_password_column_data(self):
-        self.get_data_query = '''SELECT password FROM userAccount;'''
-
-        self.database_connection = Insert().create_connection(Insert.database_file)
-        self.database_connection.row_factory = lambda cursor, row: row[0]
-        self.sql_cursor = self.database_connection.cursor()
-
-        self.password_data = self.sql_cursor.execute(self.get_data_query).fetchall()
-        self.database_connection.commit()
-
-        self.sql_cursor.close()
-        self.database_connection.close()
-        
-        return self.password_data
-
     def check_email(self, email):
         self.email_data = self.get_email_column_data()
         if email in self.email_data:
