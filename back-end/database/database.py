@@ -213,3 +213,20 @@ class SMAH():
     @staticmethod
     def check_if_user_email_exists(email):
         SMAH().check_email(email)
+
+    def get_email_and_password_column_data(self, email, password):
+        self.get_data_query = f'''SELECT user_id, email, password FROM userAccount
+                                 WHERE email = {email}
+                                 AND password = {password};'''
+
+        self.database_connection = Insert().create_connection(Insert.database_file)
+        self.database_connection.row_factory = lambda cursor, row: row[0]
+        self.sql_cursor = self.database_connection.cursor()
+
+        self.email_and_password_data = self.sql_cursor.execute(self.get_data_query).fetchall()
+        self.database_connection.commit()
+
+        self.sql_cursor.close()
+        self.database_connection.close()
+        
+        return self.email_and_password_data
