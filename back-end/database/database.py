@@ -223,10 +223,10 @@ class SMAH():
         self.database_connection.row_factory = lambda cursor, row: row[0]
         self.sql_cursor = self.database_connection.cursor()
 
-        self.email_and_password_data = self.sql_cursor.execute(self.get_data_query).fetchall()
+        self.user_identification = self.sql_cursor.execute(self.get_data_query).fetchall()
         self.database_connection.commit()
 
         self.sql_cursor.close()
         self.database_connection.close()
         
-        return self.email_and_password_data
+        return self.user_identification
