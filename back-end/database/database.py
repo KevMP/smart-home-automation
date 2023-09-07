@@ -187,6 +187,9 @@ class SMAH():
     ## the user doesn't exist in our data, we send our boolean function
     ## a flag to return false, and vise versa.
 
+    def get_email_column_data():
+        pass
+
     @staticmethod
     def check_if_user_exists(email, password):
         select_query = f'''SELECT email, password FROM userAccount
