@@ -196,9 +196,11 @@ class SMAH():
 
         self.email_data = self.sql_cursor.execute(self.get_data_query)
         self.database_connection.commit()
-        
+
         self.sql_cursor.close()
         self.database_connection.close()
+        
+        return self.email_data
 
     @staticmethod
     def check_if_user_exists(email, password):
