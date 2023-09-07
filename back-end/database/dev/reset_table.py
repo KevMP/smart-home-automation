@@ -107,5 +107,3 @@ class Table():
         self.sql_cursor.close()
         self.database_connection.commit()
         self.database_connection.close()
-
-Table().reset_all_tables()
