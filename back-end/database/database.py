@@ -240,4 +240,4 @@ class SMAH():
     
     @staticmethod
     def check_if_user_exists_from_email_and_password(email, password):
-        pass
+        SMAH().check_email_and_password(email, password)
