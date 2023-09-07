@@ -89,26 +89,6 @@ class SMAH():
         sql_cursor.close()
         database_connection.close()
         return user_account_data
-
-    def select_all_data(self):
-        conn = self.get_connection()
-        cursor = conn.cursor()
-
-        result = [cursor.execute(f"SELECT * FROM {column}") for column in self.table_columns]
-        result = cursor.fetchall()
-
-        cursor.close()
-        return result
-
-    def print_all_data(self):
-        data = self.select_all_data()
-        print(data)
-        
-    def populate_with_fake_data(self):
-        pass
-        
-    def deletes_all_data(self):
-        pass
     
     ## The following function will create insert queries for the user account
     ## data table. It needs to be passed the column name of the table, and then
