@@ -186,7 +186,9 @@ class SMAH():
     ## We could first confirm if a email already exists, if so the user
     ## when registering would have to create a new email.
     ## We could also check if the user has inputted the correct username
-    ## or password 
+    ## or password and return the user identification number as a True
+    ## flag, else we return a FALSE flag that could be used to print
+    ## out an error in the login page.
 
     def get_email_column_data(self):
         self.get_data_query = '''SELECT email FROM userAccount;'''
