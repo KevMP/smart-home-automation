@@ -212,7 +212,7 @@ class SMAH():
 
     @staticmethod
     def check_if_user_email_exists(email):
-        SMAH().check_email(email)
+        return SMAH().check_email(email)
 
     def get_user_id_from_email_and_password(self, email, password):
         self.get_data_query = f'''SELECT user_id FROM userAccount
@@ -240,4 +240,4 @@ class SMAH():
     
     @staticmethod
     def check_if_user_exists_from_email_and_password(email, password):
-        SMAH().check_email_and_password(email, password)
+        return SMAH().check_email_and_password(email, password)
