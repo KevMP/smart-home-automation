@@ -9,7 +9,7 @@ const Header = () => {
         boxShadow: '0px 2px 5px rgba(0,0,0,0.1)',
         paddingLeft: '20px'  // Added left padding
     }}>
-      <Navbar.Brand href="#home" style={{ 
+      <Navbar.Brand href="/" style={{ 
           color: '#0056b3', 
           fontWeight: 'bold',
           fontSize: '24px'
@@ -19,14 +19,14 @@ const Header = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="#home" style={{ 
+          <Nav.Link href="/" style={{ 
               color: '#0056b3',
               fontSize: '18px'
           }}>
             Home
           </Nav.Link>
-          <Nav.Link href="#features" style={{ color: '#0056b3', fontSize: '18px' }}>Features</Nav.Link>
-          <Nav.Link href="#pricing" style={{ color: '#0056b3', fontSize: '18px' }}>Pricing</Nav.Link>
+          <Nav.Link href="/login" style={{ color: '#0056b3', fontSize: '18px' }}>Login</Nav.Link>
+          <Nav.Link href="/admin" style={{ color: '#0056b3', fontSize: '18px' }}>Admin</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

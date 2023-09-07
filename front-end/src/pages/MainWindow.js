@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Container } from 'react-bootstrap';
-import Header from '../components/header';  // Import the Header component
-import Footer from '../components/footer';  // Import the Footer component
+import Header from '../components/nav';
+import Footer from '../components/footer'; 
 
 const MainWindow = () => {
   return (
@@ -31,16 +31,16 @@ const MainWindow = () => {
             borderRadius: '10px'  
           }}>
             <div style={{ marginBottom: '20px' }}>
-              <Button variant="primary" size="lg" style={{ minHeight: '60px', width: '100%' }}>Dashboard</Button>
+              <Button variant="primary" size="lg" style={{ minHeight: '60px', width: '100%' }} href='/dashboard'>Dashboard</Button>
             </div>
             <div style={{ marginBottom: '20px' }}>
-              <Button variant="primary" size="lg" style={{ minHeight: '60px', width: '100%' }}>Temperature Control</Button>
+              <Button variant="primary" size="lg" style={{ minHeight: '60px', width: '100%' }} href='/temp' >Temperature Control</Button>
             </div>
             <div style={{ marginBottom: '20px' }}>
-              <Button variant="primary" size="lg" style={{ minHeight: '60px', width: '100%' }}>Occupancy Settings</Button>
+              <Button variant="primary" size="lg" style={{ minHeight: '60px', width: '100%' }} href='/settings' >Occupancy Settings</Button>
             </div>
             <div style={{ marginBottom: '20px' }}>
-              <Button variant="primary" size="lg" style={{ minHeight: '60px', width: '100%' }}>Help & Support</Button>
+              <Button variant="primary" size="lg" style={{ minHeight: '60px', width: '100%' }} href='/help' >Help & Support</Button>
             </div>
           </div>
         </div>
