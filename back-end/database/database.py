@@ -215,7 +215,7 @@ class SMAH():
         SMAH().check_email(email)
 
     def get_email_and_password_column_data(self, email, password):
-        self.get_data_query = f'''SELECT user_id, email, password FROM userAccount
+        self.get_data_query = f'''SELECT email, password FROM userAccount
                                  WHERE email = {email}
                                  AND password = {password};'''
 
