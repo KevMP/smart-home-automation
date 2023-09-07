@@ -124,7 +124,7 @@ class SMAH():
     def create_user_account_specific_table_query(column_name, data, user_identification):
         insert_query = f'''INSERT INTO {SMAH.user_account_data_table} ({column_name})
                                 VALUES ({data})
-                                WHERE user_id = {user_identification};'''
+                                WHERE user_id = '{user_identification}';'''
         return insert_query
 
     @staticmethod
@@ -212,4 +212,32 @@ class SMAH():
 
     @staticmethod
     def check_if_user_email_exists(email):
-        SMAH().check_email(email)
+        return SMAH().check_email(email)
+
+    def get_user_id_from_email_and_password(self, email, password):
+        self.get_data_query = f'''SELECT user_id FROM userAccount
+                                 WHERE email = '{email}'
+                                 AND password = '{password}';'''
+
+        self.database_connection = Insert().create_connection(Insert.database_file)
+        self.database_connection.row_factory = lambda cursor, row: row[0]
+        self.sql_cursor = self.database_connection.cursor()
+
+        self.user_identification = self.sql_cursor.execute(self.get_data_query).fetchall()
+        self.database_connection.commit()
+
+        self.sql_cursor.close()
+        self.database_connection.close()
+        
+        return self.user_identification
+
+    def check_email_and_password(self, email, password):
+        self.user_data = SMAH().get_user_id_from_email_and_password(email, password)
+        if len(self.user_data) > 2: ## Since '[]' are two characters, we need to check if the length of user_data is greater than 2,
+            return True             ##  to be able to tell if the user exists at all.
+        else:
+            return False
+    
+    @staticmethod
+    def check_if_user_exists_from_email_and_password(email, password):
+        return SMAH().check_email_and_password(email, password)
