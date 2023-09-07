@@ -188,7 +188,7 @@ class SMAH():
     ## a flag to return false, and vise versa.
 
     def get_email_column_data(self):
-        pass
+        self.get_data_query = '''SELECT email FROM userAccount;'''
 
     @staticmethod
     def check_if_user_exists(email, password):
