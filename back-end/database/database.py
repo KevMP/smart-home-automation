@@ -1,5 +1,6 @@
 import sqlite3
 import os
+from insert_table import Insert
 from flask import g
 
 class SMAH():
@@ -44,8 +45,8 @@ class SMAH():
         
         select_all_system_data_query = SMAH().create_select_all_from_table_query(SMAH.ac_system_data_table)
         system_data = sql_cursor.execute(select_all_system_data_query)
-
         database_connection.commit()
+
         sql_cursor.close()
         database_connection.close()
         return system_data
@@ -57,8 +58,8 @@ class SMAH():
         
         select_all_sensor_data_query = SMAH().create_select_all_from_table_query(SMAH.sensor_data_table)
         sensor_data = sql_cursor.execute(select_all_sensor_data_query)
-
         database_connection.commit()
+
         sql_cursor.close()
         database_connection.close()
         return sensor_data
@@ -70,8 +71,8 @@ class SMAH():
         
         select_all_user_data_query = SMAH().create_select_all_from_table_query(SMAH.user_data_table)
         user_data = sql_cursor.execute(select_all_user_data_query)
-
         database_connection.commit()
+
         sql_cursor.close()
         database_connection.close()
         return user_data
@@ -83,8 +84,8 @@ class SMAH():
         
         select_all_user_account_data_query = SMAH().create_select_all_from_table_query(SMAH.user_account_data_table)
         user_account_data = sql_cursor.execute(select_all_user_account_data_query)
-
         database_connection.commit()
+
         sql_cursor.close()
         database_connection.close()
         return user_account_data
@@ -132,8 +133,8 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_table_insert_query('user_id', {user_identification}))
-
         database_conection.commit()
+
         sql_cursor.close()
         database_conection.close()
     
@@ -143,8 +144,8 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_specific_table_query('email', email, user_identification))
-
         database_conection.commit()
+
         sql_cursor.close()
         database_conection.close()
 
@@ -154,8 +155,8 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_specific_table_query('password', password, user_identification))
-        
         database_conection.commit()
+        
         sql_cursor.close()
         database_conection.close()
 
@@ -165,8 +166,8 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_specific_table_query('first_name', first_name, user_identification))
-
         database_conection.commit()
+
         sql_cursor.close()
         database_conection.close()
 
@@ -176,13 +177,39 @@ class SMAH():
         sql_cursor = database_conection.cursor()
 
         sql_cursor.execute(SMAH.create_user_account_specific_table_query('last_name', last_name, user_identification))
-
         database_conection.commit()
+
         sql_cursor.close()
         database_conection.close()
     
-    ## The following will be used to get specific user data, from
-    ## the user_data table and the user_account table.
+    ## The following functions will be used to verify if the user exists.
+    ## We would first grab the user account column data, and then cross
+    ## reference with the email/password passed into our function, if
+    ## the user doesn't exist in our data, we send our boolean function
+    ## a flag to return false, and vise versa.
 
-    def get_email(parameter_decision_next_week_09_06_2023):
-        pass
+    def get_email_column_data(self):
+        self.get_data_query = '''SELECT email FROM userAccount;'''
+
+        self.database_connection = Insert().create_connection(Insert.database_file)
+        self.database_connection.row_factory = lambda cursor, row: row[0]
+        self.sql_cursor = self.database_connection.cursor()
+
+        self.email_data = self.sql_cursor.execute(self.get_data_query).fetchall()
+        self.database_connection.commit()
+
+        self.sql_cursor.close()
+        self.database_connection.close()
+        
+        return self.email_data
+
+    def check_email(self, email):
+        self.email_data = self.get_email_column_data()
+        if email in self.email_data:
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def check_if_user_email_exists(email):
+        SMAH().check_email(email)
