@@ -195,3 +195,8 @@ class SMAH():
 
         sql_cursor.close()
         database_connection.close()
+
+        if len(data_array) < 5:
+            return False
+        else:
+            return True
