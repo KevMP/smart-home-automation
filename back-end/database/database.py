@@ -191,7 +191,7 @@ class SMAH():
     def get_email_column_data(self):
         self.get_data_query = '''SELECT email FROM userAccount;'''
 
-        self.database_connection = Insert.create_connection()
+        self.database_connection = Insert().create_connection(Insert.database_file)
         self.sql_cursor = self.database_connection.cursor()
 
         self.email_data = self.sql_cursor.execute(self.get_data_query)
@@ -221,3 +221,5 @@ class SMAH():
             return False
         else:
             return True
+        
+print(SMAH().get_email_column_data())
