@@ -188,4 +188,6 @@ class SMAH():
                            AND password = ({password}); '''
         
         database_connection = SMAH.get_connection()
+        sql_cursor = database_connection.cursor()
+        sql_cursor.close()
         database_connection.close()
