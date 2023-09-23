@@ -1,5 +1,4 @@
 import sqlite3
-import os
 from insert_table import Insert
 from flask import g
 
