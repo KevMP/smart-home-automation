@@ -34,6 +34,8 @@ def view_data():
     database_connection = SMAH().create_database_connection()
     cursor_connection = database_connection.cursor()
 
+    data = jsonify(SMAH().select_all_system_data(database_connection, cursor_connection))
+
     cursor_connection.close()
     database_connection.close()
     return data
