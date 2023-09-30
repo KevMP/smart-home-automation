@@ -2,13 +2,13 @@ import sqlite3
 import os
 from flask import g
 
-class Queries():
+class Query():
     def select_all(self, table_name):
         self.query = f"SELECT * FROM {table_name}"
         return self.query
     
     def return_all(self, database_connection, cursor_object, table_name):
-        cursor_object.execute(Queries().select_all(table_name))
+        cursor_object.execute(Query().select_all(table_name))
         self.data = cursor_object.fetchall()
         database_connection.commit()
         return self.data
@@ -31,18 +31,16 @@ class SMAH():
         database_connection = sqlite3.connect('databases/SHAS.db')
         return database_connection
 
+    ## The following functions are returning all the data in a table, at once.
     @staticmethod
     def get_system_data(database_connection, cursor_object):
-        return Queries().return_all(database_connection, cursor_object, 'acSystemData')
-    
+        return Query().return_all(database_connection, cursor_object, 'acSystemData')
     @staticmethod
     def get_sensor_data(database_connection, cursor_object):
-        return Queries().return_all(database_connection, cursor_object, 'sensorData')
-
+        return Query().return_all(database_connection, cursor_object, 'sensorData')
     @staticmethod
     def get_user_data(database_connection, cursor_object):
-        return Queries().return_all(database_connection, cursor_object, 'userData')
-
+        return Query().return_all(database_connection, cursor_object, 'userData')
     @staticmethod
     def get_user_account_data(database_connection, cursor_object):
-        return Queries().return_all(database_connection, cursor_object, 'userAccount')
+        return Query().return_all(database_connection, cursor_object, 'userAccount')
