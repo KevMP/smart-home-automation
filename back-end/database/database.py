@@ -19,3 +19,14 @@ class SMAH():
         db = g.pop('db', None)
         if db is not None:
             db.close()
+
+    @staticmethod
+    def create_connection():
+        database_connection = sqlite3.connect('databases/SHAS.db')
+        return database_connection
+
+    @staticmethod
+    def get_system_data(database_connection, cursor_object):
+        data = cursor_object.execute(Queries().select_all('acSystemData'))
+        database_connection.commit()
+        return data
