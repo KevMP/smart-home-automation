@@ -6,6 +6,12 @@ class Queries():
     def select_all(self, table_name):
         self.query = f"SELECT * FROM {table_name}"
         return self.query
+    
+    def return_all(self, database_connection, cursor_object, table_name):
+        cursor_object.execute(Queries().select_all(table_name))
+        self.data = cursor_object.fetchall()
+        database_connection.commit()
+        return self.data
 
 class SMAH():
     @staticmethod
@@ -24,13 +30,6 @@ class SMAH():
     def create_connection():
         database_connection = sqlite3.connect('databases/SHAS.db')
         return database_connection
-
-    @staticmethod
-    def return_all(database_connection, cursor_object, table_name):
-        cursor_object.execute(Queries().select_all(table_name))
-        data = cursor_object.fetchall()
-        database_connection.commit()
-        return data
     
     @staticmethod
     def get_system_data(database_connection, cursor_object):
