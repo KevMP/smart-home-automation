@@ -34,3 +34,15 @@ class SMAH():
     @staticmethod
     def get_system_data(database_connection, cursor_object):
         return Queries().return_all(database_connection, cursor_object, 'acSystemData')
+    
+    @staticmethod
+    def get_sensor_data(database_connection, cursor_object):
+        return Queries().return_all(database_connection, cursor_object, 'sensorData')
+
+    @staticmethod
+    def get_user_data(database_connection, cursor_object):
+        return Queries().return_all(database_connection, cursor_object, 'userData')
+
+    @staticmethod
+    def get_user_account_data(database_connection, cursor_object):
+        return Queries().return_all(database_connection, cursor_object, 'userAccount')
