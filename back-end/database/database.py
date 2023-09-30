@@ -116,6 +116,10 @@ class SMAH():
         if db is not None:
             db.close()
 
+    def start_connection(self):
+        server = sqlite3.connect('databases/SHAS.db')
+        return server
+
     ## The following will be to select all data from each table.
     ## I will be creating separate functions for each respective
     ## table, systemData, userData, etc.
@@ -126,15 +130,12 @@ class SMAH():
 
     @staticmethod
     def select_all_system_data():
-        database_connection = SMAH.get_connection()
+        database_connection = SMAH().start_connection()
         sql_cursor = database_connection.cursor()
         
         select_all_system_data_query = SMAH().create_select_all_from_table_query(SMAH.ac_system_data_table)
         system_data = sql_cursor.execute(select_all_system_data_query)
         database_connection.commit()
-
-        sql_cursor.close()
-        database_connection.close()
         return system_data
 
     @staticmethod
@@ -309,3 +310,7 @@ class SMAH():
     @staticmethod
     def check_if_user_exists_from_email_and_password(email, password):
         return SMAH().check_email_and_password(email, password)
+
+    @staticmethod
+    def return_one():
+        return '1'
