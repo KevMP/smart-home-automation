@@ -105,10 +105,21 @@ class SMAH():
     table_columns = [ac_system_data_table, sensor_data_table, user_data_table]
 
     @staticmethod
-    def create_database_connection():
-        server = sqlite3.connect('databases/SHAS.db')
-        return server
+    def get_connection():
+        if 'db' not in g:
+            g.db = sqlite3.connect('databases/SHAS.db')
+        return g.db
+
+    @staticmethod
+    def close_connection():
+        db = g.pop('db', None)
+        if db is not None:
+            db.close()
     
+    @staticmethod
+    def create_connection():
+        return sqlite3.connect('databases/SHAS.db')
+
     ## The following will be to select all data from each table.
     ## I will be creating separate functions for each respective
     ## table, systemData, userData, etc.
