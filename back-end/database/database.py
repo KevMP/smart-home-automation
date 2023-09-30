@@ -121,8 +121,8 @@ class SMAH():
     def select_all_system_data(cursor_object):
         
         select_all_system_data_query = SMAH().create_select_all_from_table_query(SMAH.ac_system_data_table)
-        system_data = sql_cursor.execute(select_all_system_data_query)
-        database_connection.commit()
+        system_data = cursor_object.execute(select_all_system_data_query)
+        cursor_object.commit()
         return system_data
 
     @staticmethod
