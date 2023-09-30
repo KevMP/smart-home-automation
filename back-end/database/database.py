@@ -3,7 +3,9 @@ import os
 from flask import g
 
 class Queries():
-    pass
+    def select_all(self, table_name):
+        self.query = f"SELECT * FROM {table_name}"
+        return self.query
 
 class SMAH():
     @staticmethod
