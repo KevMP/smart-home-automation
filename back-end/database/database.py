@@ -118,8 +118,7 @@ class SMAH():
         return self.select_all_query
 
     @staticmethod
-    def select_all_system_data(database_connection):
-        database_connection = SMAH().start_connection()
+    def select_all_system_data(database_connection, cursor_object):
         sql_cursor = database_connection.cursor()
         
         select_all_system_data_query = SMAH().create_select_all_from_table_query(SMAH.ac_system_data_table)
