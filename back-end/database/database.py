@@ -25,6 +25,11 @@ class SMAH():
         database_connection = sqlite3.connect('databases/SHAS.db')
         return database_connection
 
+    def return_all(self, database_connection, cursor_object, table_name):
+        cursor_object.execute(Queries().select_all(table_name))
+        data = cursor_object.fetchall()
+        database_connection.commit()
+        return data
     @staticmethod
     def get_system_data(database_connection, cursor_object):
         cursor_object.execute(Queries().select_all('acSystemData'))
