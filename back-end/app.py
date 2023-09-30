@@ -33,7 +33,9 @@ def view_data():
     """
     database_connection = SMAH().create_connection()
     cursor_object = database_connection.cursor()
+
     data = SMAH().get_system_data(database_connection, cursor_object)
+    
     SMAH().close_connection()
     return data
 
