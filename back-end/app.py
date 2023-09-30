@@ -35,9 +35,9 @@ def view_data():
     cursor_object = database_connection.cursor()
 
     data = SMAH().get_system_data(database_connection, cursor_object)
-    
+
     SMAH().close_connection()
-    return data
+    return jsonify(data)
 
 @app.route('/api/v1/', methods=['GET'])
 def root():

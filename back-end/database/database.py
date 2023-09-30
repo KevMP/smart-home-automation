@@ -27,6 +27,7 @@ class SMAH():
 
     @staticmethod
     def get_system_data(database_connection, cursor_object):
-        data = cursor_object.execute(Queries().select_all('acSystemData'))
+        cursor_object.execute(Queries().select_all('acSystemData'))
+        data = cursor_object.fetchall()
         database_connection.commit()
         return data
