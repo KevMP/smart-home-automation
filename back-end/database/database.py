@@ -308,7 +308,3 @@ class SMAH():
     @staticmethod
     def check_if_user_exists_from_email_and_password(email, password):
         return SMAH().check_email_and_password(email, password)
-
-    @staticmethod
-    def return_one():
-        return '1'
