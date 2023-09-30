@@ -44,3 +44,6 @@ class SMAH():
     @staticmethod
     def get_all_user_account_data(database_connection, cursor_object):
         return Query().return_all(database_connection, cursor_object, 'userAccount')
+    @staticmethod
+    def get_all_table_data():
+        pass
