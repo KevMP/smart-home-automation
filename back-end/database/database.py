@@ -105,7 +105,7 @@ class SMAH():
     table_columns = [ac_system_data_table, sensor_data_table, user_data_table]
 
     @staticmethod
-    def create_server_connection():
+    def create_database_connection():
         server = sqlite3.connect('databases/SHAS.db')
         return server
     
