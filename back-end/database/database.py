@@ -33,14 +33,14 @@ class SMAH():
 
     ## The following functions are returning all the data in a table, at once.
     @staticmethod
-    def get_system_data(database_connection, cursor_object):
+    def get_all_system_data(database_connection, cursor_object):
         return Query().return_all(database_connection, cursor_object, 'acSystemData')
     @staticmethod
-    def get_sensor_data(database_connection, cursor_object):
+    def get_all_sensor_data(database_connection, cursor_object):
         return Query().return_all(database_connection, cursor_object, 'sensorData')
     @staticmethod
-    def get_user_data(database_connection, cursor_object):
+    def get_all_user_data(database_connection, cursor_object):
         return Query().return_all(database_connection, cursor_object, 'userData')
     @staticmethod
-    def get_user_account_data(database_connection, cursor_object):
+    def get_all_user_account_data(database_connection, cursor_object):
         return Query().return_all(database_connection, cursor_object, 'userAccount')
