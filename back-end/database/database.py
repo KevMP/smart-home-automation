@@ -105,18 +105,7 @@ class SMAH():
     table_columns = [ac_system_data_table, sensor_data_table, user_data_table]
 
     @staticmethod
-    def get_connection():
-        if 'db' not in g:
-            g.db = sqlite3.connect('databases/SHAS.db')
-        return g.db
-
-    @staticmethod
-    def close_connection():
-        db = g.pop('db', None)
-        if db is not None:
-            db.close()
-
-    def start_connection(self):
+    def connect():
         server = sqlite3.connect('databases/SHAS.db')
         return server
 
