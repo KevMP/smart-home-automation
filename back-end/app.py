@@ -31,7 +31,11 @@ def view_data():
     """
     Endpoint to fetch all the data from the database.
     """
-    data = SMAH().select_all_system_data()
+    server_connection = SMAH().connect()
+    cursor_connection = SMAH().create_cursor(server_connection)
+
+    cursor_connection.close()
+    server_connection.close()
     return data
 
 @app.route('/api/v1/', methods=['GET'])
