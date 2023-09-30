@@ -26,6 +26,19 @@ def add_no_cache_headers(response):
     response.headers['Expires'] = '-1'
     return response
 
+@app.route('/api/v1/view-data', methods=['GET'])
+def view_data():
+    """
+    Endpoint to fetch all the data from the database.
+    """
+    database_connection = SMAH().create_connection()
+    cursor_object = database_connection.cursor()
+
+    data = SMAH().get_all_table_data(database_connection, cursor_object)
+
+    SMAH().close_connection()
+    return jsonify(data)
+
 @app.route('/api/v1/', methods=['GET'])
 def root():
     """
