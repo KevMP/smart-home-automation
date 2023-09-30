@@ -31,7 +31,7 @@ def view_data():
     """
     Endpoint to fetch all the data from the database.
     """
-    database_connection = SMAH().create_connection()
+    database_connection = SMAH().get_connection()
     cursor_connection = database_connection.cursor()
 
     data = SMAH().select_all_system_data(database_connection, cursor_connection)
