@@ -108,7 +108,7 @@ class SMAH():
     def create_server_connection():
         server = sqlite3.connect('databases/SHAS.db')
         return server
-
+    
     ## The following will be to select all data from each table.
     ## I will be creating separate functions for each respective
     ## table, systemData, userData, etc.
