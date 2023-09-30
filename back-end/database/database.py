@@ -33,4 +33,4 @@ class SMAH():
     
     @staticmethod
     def get_system_data(database_connection, cursor_object):
-        return SMAH().return_all(database_connection, cursor_object, 'acSystemData')
+        return Queries().return_all(database_connection, cursor_object, 'acSystemData')
