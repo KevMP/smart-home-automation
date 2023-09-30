@@ -2,6 +2,9 @@ import sqlite3
 import os
 from flask import g
 
+class Queries():
+    pass
+
 class SMAH():
     @staticmethod
     def get_connection():
