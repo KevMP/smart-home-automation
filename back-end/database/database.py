@@ -30,7 +30,7 @@ class SMAH():
     def create_connection():
         database_connection = sqlite3.connect('databases/SHAS.db')
         return database_connection
-    
+
     @staticmethod
     def get_system_data(database_connection, cursor_object):
         return Queries().return_all(database_connection, cursor_object, 'acSystemData')
