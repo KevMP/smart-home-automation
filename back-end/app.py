@@ -32,7 +32,7 @@ def view_data():
     Endpoint to fetch all the data from the database.
     """
     server_connection = SMAH().create_server_connection()
-    cursor_connection = SMAH().create_cursor(server_connection)
+    cursor_connection = server_connection.cursor()
 
     cursor_connection.close()
     server_connection.close()
