@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import Footer from '../components/common/footer';  // Make sure the path is correct
 
 const Login = () => {
   document.body.style.overflowX = 'hidden';
@@ -35,7 +34,6 @@ const Login = () => {
           </Col>
         </Row>
       </div>
-      <Footer />
     </div>
   );
 };

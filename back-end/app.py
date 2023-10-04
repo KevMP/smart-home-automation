@@ -41,10 +41,6 @@ def view_data():
     SMAH().close_connection()
     return jsonify(data)
 
-
-
-
-
 @app.route('/api/v1/admin', methods=['POST'])
 def train_agent():
     global global_agent
