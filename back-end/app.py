@@ -41,7 +41,11 @@ def view_data():
     SMAH().close_connection()
     return jsonify(data)
 
-@app.route('/api/v1/train', methods=['POST'])
+
+
+
+
+@app.route('/api/v1/admin', methods=['POST'])
 def train_agent():
     global global_agent
     global_agent = train_dqn_agent()
@@ -65,8 +69,8 @@ def train_dqn_agent():
     agent = DQNAgent(state_size, action_size)
     environment = SmartACEnvironment()
 
-    episodes = 1000  # Number of episodes for training
-    max_steps = 100  # Maximum steps per episode
+    episodes = 10
+    max_steps = 10
 
     for episode in range(episodes):
         state = np.array([environment.get_current_state()])
@@ -86,4 +90,4 @@ def train_dqn_agent():
     return agent
 
 if __name__ == "__main__":
-    app.run(threaded=False, port=3001, debug=True)
+    app.run(threaded=False, port=3001, debug=True, use_reloader=False)

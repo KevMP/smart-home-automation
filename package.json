@@ -4,31 +4,25 @@
   "description": "A research project by MDC. This project focuses on creating automation tools for smart homes.",
   "scripts": {
     "start:frontend": "cd ./front-end && npm start",
-    "start:backend:win": "cd ./back-end && python ./app.py",
-    "start:backend:mac": "cd ./back-end && python3 ./app.py",
-    "start:backend": "npm run start:backend:win || npm run start:backend:mac",
-    
-    "start:win": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start --prefix front-end\" \"npm run start:backend:win\"",
-    "start:mac": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start --prefix front-end\" \"npm run start:backend:mac\"",
-    "start": "npm run start:win || npm run start:mac",
-
-    "create-env:win": "python -m venv env",
-    "create-env:mac": "python3 -m venv env",
-    
-    "activate-env:win": "env\\Scripts\\activate.bat",
-    "activate-env:mac": ". env/bin/activate",
-    "activate-env": "npm run activate-env:win || npm run activate-env:mac",
-    
+    "start:backend": "nodemon --exec python ./back-end/app.py",
+    "start": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start --prefix front-end\" \"npm run start:backend\"",
+    "create-env": "python -m venv env",
+    "activate-env": "env\\Scripts\\activate.bat",
     "install:back-end": "pip install -r requirements.txt",
     "install:front-end": "cd front-end/ && npm install",
-    
-    "postinstall:win": "npm run install:front-end && npm run create-env:win && npm run activate-env:win && npm run install:back-end",
-    "postinstall:mac": "npm run install:front-end && npm run create-env:mac && npm run activate-env:mac && npm run install:back-end",
-    "postinstall": "npm run postinstall:win || npm run postinstall:mac"
+    "postinstall": "npm run install:front-end && npm run create-env && npm run activate-env && npm run install:back-end",
+    "start-frontend": "cd ./front-end && npm start",
+    "start-backend-mac": "nodemon --exec python3 ./back-end/app.py",
+    "start-mac": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start-frontend\" \"npm run start-backend-mac\"",
+    "create-env-mac": "python3 -m venv env",
+    "install-front-end": "cd front-end/ && npm install",
+    "install-back-end": "pip install -r requirements.txt",
+    "install-mac": "npm run install-front-end && npm run create-env-mac && ( . env/bin/activate && npm run install-back-end )"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^8.2.1"
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1"
   }
 }
