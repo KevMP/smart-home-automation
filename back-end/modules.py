@@ -119,12 +119,12 @@ class SmartACEnvironment:
         Returns:
             _type_: _description_
         """
-        if action == "TURN_ON_AC":
+        if action == 0:
             self.smart_thermostat.turn_on_ac()
-        elif action == "TURN_OFF_AC":
+        elif action == 1:
             self.smart_thermostat.turn_off_ac()
-        elif action.startswith("SET_TEMP_"):
-            temperature = int(action.split("_")[-1])
+        elif action == 2:
+            temperature = random.randint(18, 30)
             self.smart_thermostat.set_temperature(temperature)
 
         occupancy, temperature, _ = self.state

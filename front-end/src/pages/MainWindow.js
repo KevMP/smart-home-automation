@@ -8,15 +8,28 @@ const MainWindow = () => {
   const [data, setData] = useState({ ac_status: false, temp: ''});
 
   useEffect(() => {
-    axios.get('/api/v1/')
-      .then(response => {
-        console.log(response.data.temp);
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching data: ", error);
-      });
-  }, []);
+    // Define the function that fetches the data
+    const fetchData = () => {
+      axios.get('/api/v1/')
+        .then(response => {
+          console.log(response.data.temp);
+          setData(response.data);
+        })
+        .catch(error => {
+          console.error("Error fetching data: ", error);
+        });
+    };
+
+    // Call the fetchData function immediately when the component mounts
+    fetchData();
+
+    // Set up the interval to fetch data every 10 seconds
+    const interval = setInterval(fetchData, 10000); // 10000 milliseconds = 10 seconds
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(interval);
+  }, []); // The empty dependency array ensures this useEffect runs only once, similar to componentDidMount
+
 
   return (
     <>

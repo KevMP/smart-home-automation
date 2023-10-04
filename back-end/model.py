@@ -5,10 +5,9 @@ Returns:
     _type_: _description_
 """
 import random
-from tf.keras.models import Sequential
-from tf.keras.layers import Dense
-from tf.keras.optimizers import Adam
-import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.optimizers import Adam
 
 class DQNAgent:
     """
