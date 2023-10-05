@@ -2,10 +2,10 @@
 _summary_
 """
 from flask import Flask, jsonify, current_app
-from database.database import SMAH
+from database.database import Database
 from flask_cors import CORS
 from modules import SmartACEnvironment
-from model import DQNAgent
+from agent import DQNAgent, train_dqn_agent
 import numpy as np
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ global_agent = None
 @app.teardown_appcontext
 def close_db(exception):
     print(exception)
-    SMAH.close_connection()
+    Database.close_connection()
 
 @app.after_request
 def add_no_cache_headers(response):
@@ -27,15 +27,10 @@ def add_no_cache_headers(response):
 
 @app.route('/api/v1/view-data', methods=['GET'])
 def view_data():
-    """
-    Endpoint to fetch all the data from the database.
-    """
-    database_connection = SMAH().create_connection()
-    cursor_object = database_connection.cursor()
+    database_connection, cursor_object = Database.get_connection()
+    
+    data = Database.get_all_table_data(database_connection, cursor_object)
 
-    data = SMAH().get_all_table_data(database_connection, cursor_object)
-
-    SMAH().close_connection()
     return jsonify(data)
 
 @app.route('/api/v1/admin', methods=['POST'])
@@ -55,32 +50,6 @@ def root():
     environment.step(action)
 
     return jsonify(environment.get_ac_status())
-
-def train_dqn_agent():
-    state_size = 3  # occupancy, temperature, humidity
-    action_size = 3  # TURN_ON_AC, TURN_OFF_AC, SET_TEMP
-    agent = DQNAgent(state_size, action_size)
-    environment = SmartACEnvironment()
-
-    episodes = 10
-    max_steps = 10
-
-    for episode in range(episodes):
-        state = np.array([environment.get_current_state()])
-        total_reward = 0
-        
-        for step in range(max_steps):
-            action = agent.choose_action(state)
-            next_state, reward, done = environment.step(action)
-            next_state = np.array([next_state])
-            agent.remember(state, action, reward, next_state, done)
-            agent.replay()
-            state = next_state
-            total_reward += reward
-            if done:
-                break
-
-    return agent
 
 if __name__ == "__main__":
     app.run(threaded=False, port=3001, debug=True, use_reloader=False)

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import React from 'react'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
 
 const Footer = () => {
   return (
@@ -37,7 +37,7 @@ const Footer = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

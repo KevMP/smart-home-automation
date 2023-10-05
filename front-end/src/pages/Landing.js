@@ -1,8 +1,8 @@
-import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import React from 'react'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 
-function Landing() {
-    return (
+function Landing () {
+  return (
         <Container fluid style={{ height: '100vh', backgroundColor: '#F2F4F8' }}>
             <Row className="justify-content-center align-items-center h-100">
                 <Col xs={12} md={6}>
@@ -19,7 +19,7 @@ function Landing() {
                 </Col>
             </Row>
         </Container>
-    );
+  )
 }
 
-export default Landing;
+export default Landing

@@ -1,11 +1,11 @@
-import React from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import React from 'react'
+import { Form, Button, Row, Col } from 'react-bootstrap'
 
 const Login = () => {
-  document.body.style.overflowX = 'hidden';
+  document.body.style.overflowX = 'hidden'
 
   return (
-    <div fluid style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div style={{ flex: '1' }}>
         <Row className="justify-content-md-center" style={{ marginTop: '5%' }}>
           <Col xs lg="6">
@@ -35,7 +35,7 @@ const Login = () => {
         </Row>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
