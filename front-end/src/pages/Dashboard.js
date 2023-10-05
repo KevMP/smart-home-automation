@@ -10,7 +10,7 @@ const Dashboard = () => {
     const fetchData = () => {
         // Only fetch if isFetching is true
         if (isFetching) {
-            axios.get('/api/v1/')
+            axios.get('/api/v1/dashboard')
                 .then(response => {
                     console.log(response.data.temp);
                     setData(response.data);

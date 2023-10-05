@@ -12,9 +12,6 @@ app = Flask(__name__)
 CORS(app)
 
 global_agent = None
-ON = 1
-OFF = 2
-SET_TEMP = 3
 
 @app.teardown_appcontext
 def close_db(exception):
@@ -47,7 +44,7 @@ def train_agent():
     global_agent = train_dqn_agent()
     return jsonify({"status": "Training completed"})
 
-@app.route('/api/v1/', methods=['GET'])
+@app.route('/api/v1/dashboard', methods=['GET'])
 def root():
     if not global_agent:
         return jsonify({"error": "Agent not trained!"}), 400

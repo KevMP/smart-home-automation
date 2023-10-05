@@ -7,7 +7,7 @@ function Admin() {
 
     const trainAI = async () => {
         try {
-            const response = await axios.post('/api/v1/train');
+            const response = await axios.post('/api/v1/admin');
             console.log('Training response:', response.data);
         } catch (error) {
             console.error('Error training AI:', error);
