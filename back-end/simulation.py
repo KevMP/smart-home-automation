@@ -1,6 +1,4 @@
 class Simulation():
-    def getReward(self):
-        pass
 
     def aircondtionerOn(self):
         pass
@@ -18,6 +16,16 @@ class Simulation():
                 return 'Airconditioner On'
             
     def environment(self, command):
+        self.reward = 0
+
+        ## if the ac is getting closer to our
+        ## expected temperature
+        self.reward = self.reward + 5
+
+        ## if the ac is not getting closer to our
+        ## expected temperature
+        self.reward = self.reward - 5 ## we could also choose not to punish
+                                      ## the model whatsoever.
 
         ## what we want to get back is the
         ## value of our reward, if it is
@@ -25,5 +33,4 @@ class Simulation():
         ## we update the model. If not, we
         ## don't update it whatsoever.
 
-        self.reward = self.getReward()
         return self.reward
