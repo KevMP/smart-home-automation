@@ -2,19 +2,19 @@ class Simulation():
     def getReward(self):
         pass
 
-    def acOn(self):
+    def aircondtionerOn(self):
         pass
 
-    def acOff(self):
+    def aircondtionerOff(self):
         pass
 
     def parseCommand(self, command):
         match command:
             case 0:
-                Simulation().acOn()
+                Simulation().aircondtionerOn()
                 return 'Aircondtioner Off'
             case 1:
-                Simulation().acOff()
+                Simulation().aircondtionerOff()
                 return 'Airconditioner On'
             
     def environment(self, command):
