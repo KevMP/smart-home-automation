@@ -24,5 +24,5 @@ class Simulation():
                 Simulation().acOff()
                 return 'Airconditioner On'
             
-    def main(self, command):
+    def environment(self, command):
         pass
