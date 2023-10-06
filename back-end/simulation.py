@@ -1,10 +1,3 @@
-## Inputs for the ai:
-## 1.
-## 2.
-## 3.
-## 4.
-## 5.
-
 class Simulation():
     def getReward(self):
         pass
@@ -25,4 +18,12 @@ class Simulation():
                 return 'Airconditioner On'
             
     def environment(self, command):
-        pass
+
+        ## what we want to get back is the
+        ## value of our reward, if it is
+        ## greater than the previous value,
+        ## we update the model. If not, we
+        ## don't update it whatsoever.
+
+        self.reward = self.getReward()
+        return self.reward
