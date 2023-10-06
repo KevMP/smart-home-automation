@@ -9,15 +9,6 @@ class Simulation():
     def getReward(self):
         pass
 
-    def getTemperature(self):
-        pass
-
-    def getHumiditiy(self):
-        pass
-
-    def setTemperature(self):
-        pass
-
     def acOn(self):
         pass
 
@@ -32,3 +23,6 @@ class Simulation():
             case 1:
                 Simulation().acOff()
                 return 'Airconditioner On'
+            
+    def main(self, command):
+        pass
