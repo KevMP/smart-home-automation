@@ -6,21 +6,18 @@
     "create-env": "python -m venv env",
     "activate-env": "env\\Scripts\\activate.bat",
     "install:back-end": "env\\Scripts\\activate.bat && pip install -r requirements.txt",
+    "install:back-end-mac": "source env/bin/activate && pip install -r requirements.txt",
     "install:front-end": "cd front-end/ && npm install",
     "postinstall": "npm run create-env && npm run activate-env && npm run install:back-end && npm run install:front-end",
-
     "create-env-mac": "python3 -m venv env",
     "activate-env-mac": ". env/bin/activate",
-    "install-mac": "npm run create-env-mac && npm run activate-env-mac && npm run install-back-end && npm run install:front-end",
-
+    "install-mac": "npm run create-env-mac && npm run activate-env-mac && npm run install:back-end-mac && npm run install:front-end",
     "start:frontend": "cd ./front-end && npm start",
     "start:backend": "npm run activate-env && nodemon --exec python ./back-end/app.py",
     "start": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm run start:frontend\" \"npm run start:backend\"",
-
     "start-backend-mac": "npm run activate-env-mac && nodemon --exec python3 ./back-end/app.py",
-    "start-mac": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm start:frontend\" \"npm run start-backend-mac\""
-}
-,
+    "start-mac": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm run start:frontend\" \"npm run start-backend-mac\""
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

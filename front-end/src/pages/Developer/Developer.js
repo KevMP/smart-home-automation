@@ -3,6 +3,7 @@ import { Container, Row, Modal, Button } from 'react-bootstrap'
 import AIComponent from './AI'
 import DatabaseComponent from './Database'
 import ACComponent from './AC'
+import ACStatusCard from './AC_Status'
 
 function Developer () {
   const [showConfirmation, setShowConfirmation] = useState(false)
@@ -34,6 +35,17 @@ function Developer () {
                 <AIComponent openConfirmation={handleOpenConfirmation} />
                 <DatabaseComponent openConfirmation={handleOpenConfirmation} />
                 <ACComponent openConfirmation={handleOpenConfirmation} />
+                <ACStatusCard />
+                <div className='align-items-center d-flex justify-content-center '>
+                  <Button
+                  variant="primary"
+                  size="lg"
+                  // onClick={() => setIsFetching(prevState => !prevState)}
+                  >
+                  Pause Fetching
+                    {/* {true ? 'Pause Fetching' : 'Resume Fetching'} */}
+                  </Button>
+                </div>
             </Row>
 
             <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)} centered>
