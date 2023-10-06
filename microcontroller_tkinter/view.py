@@ -6,5 +6,5 @@
 ## Functions:
 ## Manually being able to
 ## control the temperature.
-
+from tkinter import *
 from database import DATABASE
