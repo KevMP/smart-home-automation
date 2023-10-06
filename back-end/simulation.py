@@ -6,7 +6,6 @@
 ## 5.
 
 class Simulation():
-    
     def getReward(self):
         pass
 
@@ -19,5 +18,17 @@ class Simulation():
     def setTemperature(self):
         pass
 
-    def parseCommand(self, command):
+    def acOn(self):
         pass
+
+    def acOff(self):
+        pass
+
+    def parseCommand(self, command):
+        match command:
+            case 0:
+                Simulation().acOn()
+                return 'Aircondtioner Off'
+            case 1:
+                Simulation().acOff()
+                return 'Airconditioner On'
