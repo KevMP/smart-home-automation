@@ -22,7 +22,7 @@ class Simulation():
         ## expected temperature
         self.reward = self.reward + 5
 
-        ## if the ac is not getting closer to our
+        ## if the ac is not getting further from our
         ## expected temperature
         self.reward = self.reward - 5 ## we could also choose not to punish
                                       ## the model whatsoever.
