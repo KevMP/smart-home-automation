@@ -7,14 +7,17 @@
 
 class Simulation():
     
-    def getReward():
+    def getReward(self):
         pass
 
-    def getTemperature():
+    def getTemperature(self):
         pass
 
-    def getHumiditiy():
+    def getHumiditiy(self):
         pass
 
-    def setTemperature():
+    def setTemperature(self):
+        pass
+
+    def parseCommand(self, command):
         pass
