@@ -9,7 +9,7 @@ class Simulation():
             
     def environment(self, command):
         self.ac_status = command
-
+        self.temperatuer_array = [0, 20, 40, 70, 75, 80, 81, 100]
         for self.generation in range(100):
             pass
 
