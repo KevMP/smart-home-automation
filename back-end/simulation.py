@@ -2,7 +2,10 @@ import random
 
 class Simulation():
     def chooseDirection(self, command):
-        pass
+        if command == True:
+            return 1
+        else:
+            return -1
             
     def environment(self, command):
         self.ac_status = command
