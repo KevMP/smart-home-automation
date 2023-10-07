@@ -1,7 +1,7 @@
 import random
 
 class Simulation():
-    def getAcStatus(self, command):
+    def returnCommand(self, command):
         match command:
             case 0:
                 Simulation().aircondtionerOn()
@@ -11,4 +11,4 @@ class Simulation():
                 return False
             
     def environment(self, command):
-        pass
+        
