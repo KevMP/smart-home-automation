@@ -8,6 +8,7 @@ from modules import SmartACEnvironment
 from agent import DQNAgent, train_dqn_agent
 import numpy as np
 
+
 app = Flask(__name__)
 CORS(app)
 
