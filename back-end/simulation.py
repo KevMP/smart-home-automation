@@ -7,7 +7,7 @@ class Simulation():
         else:
             return -1
             
-    def environment(self, command):
+    def environment(self, agent):
         self.ac_status = command
         self.reward = 0
         self.temperature_array = [0, 20, 40, 70, 75, 80, 81, 100]
