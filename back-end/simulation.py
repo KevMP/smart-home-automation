@@ -19,7 +19,7 @@ class Simulation():
             self.command = self.getCommand(agent)
             if self.current_temperature == self.target_temperature:
                 self.target_temperature = self.temperature_array[random.randint(0, 8)]
-                self.agent_reward += 8
+                self.agent_reward += 2
             else:
                 self.current_temperature += self.chooseDirection(self.command)
                 self.agent_reward -= 1
