@@ -14,12 +14,14 @@ class Query():
         database_connection.commit()
         return self.data
 
-class SMAH():
+class Database():
     @staticmethod
     def get_connection():
-        if 'db' not in g:
-            g.db = sqlite3.connect('databases/SHAS.db')
-        return g.db
+        if 'database_connection' not in g:
+            g.database_connection = sqlite3.connect('back-end/databases/SHAS.db')
+            g.cursor_object = g.database_connection.cursor()
+        return g.database_connection, g.cursor_object
+
 
     @staticmethod
     def close_connection():
@@ -29,7 +31,7 @@ class SMAH():
 
     @staticmethod
     def create_connection():
-        database_connection = sqlite3.connect('databases/SHAS.db')
+        database_connection = sqlite3.connect('back-end/databases/SHAS.db')
         return database_connection
 
     ## The following functions are returning all the data in a table, at once.
@@ -50,10 +52,10 @@ class SMAH():
     @staticmethod
     def get_all_table_data(db, cursor):
         table_hash_map = {}
-        table_list = [SMAH().get_all_system_data(db, cursor),
-                     SMAH().get_all_sensor_data(db, cursor),
-                     SMAH().get_all_user_data(db, cursor),
-                     SMAH().get_all_user_account_data(db, cursor)]
+        table_list = [Database().get_all_system_data(db, cursor),
+                     Database().get_all_sensor_data(db, cursor),
+                     Database().get_all_user_data(db, cursor),
+                     Database().get_all_user_account_data(db, cursor)]
         
         for table in range(len(table_list)):
             table_hash_map[table] = table_list[table]

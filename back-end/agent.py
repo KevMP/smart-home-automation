@@ -5,9 +5,9 @@ Returns:
     _type_: _description_
 """
 import random
-from tf.keras.models import Sequential
-from tf.keras.layers import Dense
-from tf.keras.optimizers import Adam
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.optimizers import Adam
 import numpy as np
 
 class DQNAgent:
@@ -86,3 +86,28 @@ class DQNAgent:
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
 
+def train_dqn_agent():
+    state_size = 3  # occupancy, temperature, humidity
+    action_size = 3  # TURN_ON_AC, TURN_OFF_AC, SET_TEMP
+    agent = DQNAgent(state_size, action_size)
+    environment = SmartACEnvironment()
+
+    episodes = 10
+    max_steps = 10
+
+    for episode in range(episodes):
+        state = np.array([environment.get_current_state()])
+        total_reward = 0
+        
+        for step in range(max_steps):
+            action = agent.choose_action(state)
+            next_state, reward, done = environment.step(action)
+            next_state = np.array([next_state])
+            agent.remember(state, action, reward, next_state, done)
+            agent.replay()
+            state = next_state
+            total_reward += reward
+            if done:
+                break
+
+    return agent

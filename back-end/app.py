@@ -2,22 +2,21 @@
 _summary_
 """
 from flask import Flask, jsonify, current_app
-from database.database import SMAH
+from database.database import Database
 from flask_cors import CORS
 from modules import SmartACEnvironment
-from modules import OccupancySensor, TemperatureSensor, HumiditySensor
+from agent import DQNAgent, train_dqn_agent
+import numpy as np
 
 app = Flask(__name__)
 CORS(app)
 
-ON = "TURN_ON_AC"
-OFF = "TURN_OFF_AC"
-SET_TEMP = "SET_TEMP_"
+global_agent = None
 
 @app.teardown_appcontext
 def close_db(exception):
     print(exception)
-    SMAH.close_connection()
+    Database.close_connection()
 
 @app.after_request
 def add_no_cache_headers(response):
@@ -28,27 +27,29 @@ def add_no_cache_headers(response):
 
 @app.route('/api/v1/view-data', methods=['GET'])
 def view_data():
-    """
-    Endpoint to fetch all the data from the database.
-    """
-    database_connection = SMAH().create_connection()
-    cursor_object = database_connection.cursor()
+    database_connection, cursor_object = Database.get_connection()
+    
+    data = Database.get_all_table_data(database_connection, cursor_object)
 
-    data = SMAH().get_all_table_data(database_connection, cursor_object)
-
-    SMAH().close_connection()
     return jsonify(data)
 
-@app.route('/api/v1/', methods=['GET'])
+@app.route('/api/v1/admin', methods=['POST'])
+def train_agent():
+    global global_agent
+    global_agent = train_dqn_agent()
+    return jsonify({"status": "Training completed"})
+
+@app.route('/api/v1/dashboard', methods=['GET'])
 def root():
-    """
-    Endpoint to fetch all the data from the database.
-    """
-    ac_1 = SmartACEnvironment()
+    if not global_agent:
+        return jsonify({"error": "Agent not trained!"}), 400
 
-    ac_1.step(ON)
+    environment = SmartACEnvironment()
+    state = np.array([environment.get_current_state()])
+    action = global_agent.choose_action(state)
+    environment.step(action)
 
-    return jsonify(ac_1.get_ac_status())
+    return jsonify(environment.get_ac_status())
 
 if __name__ == "__main__":
-    app.run(threaded=False, port=3001, debug=True)
+    app.run(threaded=False, port=3001, debug=True, use_reloader=False)
