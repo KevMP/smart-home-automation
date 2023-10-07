@@ -1,21 +1,17 @@
+import random
+
 class Simulation():
-
-    def aircondtionerOn(self):
-        pass
-
-    def aircondtionerOff(self):
-        pass
-
-    def parseCommand(self, command):
+    def getAcStatus(self, command):
         match command:
             case 0:
                 Simulation().aircondtionerOn()
-                return 'Aircondtioner Off'
+                return True
             case 1:
                 Simulation().aircondtionerOff()
-                return 'Airconditioner On'
+                return False
             
     def environment(self, command):
+
         self.reward = 0
 
         ## if the ac is getting closer to our
