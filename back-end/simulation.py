@@ -24,17 +24,7 @@ class Simulation():
                 self.target_temperature = self.temperature_array[random.randint(0, 8)]
                 self.reward += 8
             else:
-                ## ai/agent chooses to turn on the ac or
-                ## to turn it off.
-                ##
-                ## (Florida's Climate)
-                ## on decreases the temperature.
-                ## off increases the temperature.
-                if self.command == True:
-                    self.current_temperature += 1
-                    self.reward -= 1
-                elif self.command == False:
-                    self.current_temperature -= 1
-                    self.reward += 1
+                self.current_temperature += self.chooseDirection(self.command)
+                self.reward -= 1
         
         return self.reward
