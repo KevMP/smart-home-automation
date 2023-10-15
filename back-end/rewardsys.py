@@ -4,26 +4,35 @@ class RewardSys:
     def __init__(self, agent=None):
         self.agent = agent
         self.direction = 0
+        self.agentPosition = [1, 0]
 
-    def setDirection(self, agentPosition=[2, 3]):
-        self.direction = agentPosition[1] - agentPosition[0]
+    def setAgentPosition(self, agentPosition):
+        self.agentPosition = agentPosition
+    def getAgentPosition(self):
+        return self.agentPosition
+
+    def setDirection(self):
+        self.direction = self.agentPosition[1] - self.agentPosition[0]
     def getDirection(self):
         return self.direction
 
     def setTarget(self, temperatureArray=[0, 2, 4]):
         self.newTarget = temperatureArray[random.randint(0, len(temperatureArray) - 1)]
         return self.newTarget
-    def getTargetBasedOnDirection(self, temperatureArray=[0, 2, 4], agentPosition=[1, 0]):
+    def getTargetBasedOnDirection(self, temperatureArray=[0, 2, 4]):
         self.agentDirection = self.getDirection()
         self.newTarget = self.setTarget(temperatureArray)
         match self.agentDirection:
             case -1:
-                while self.newTarget <= agentPosition[1]:
+                while self.newTarget <= self.agentPosition[1]:
                     self.newTarget = self.setTarget(temperatureArray)
             case 0:
-                while self.newTarget == agentPosition[1]:
+                while self.newTarget == self.agentPosition[1]:
                     self.newTarget = self.setTarget(temperatureArray)
             case 1:
-                while self.newTarget >= agentPosition[1]:
+                while self.newTarget >= self.agentPosition[1]:
                     self.newTarget = self.setTarget(temperatureArray)
         return self.newTarget
+
+obj = RewardSys()
+print(obj.getTargetBasedOnDirection())
