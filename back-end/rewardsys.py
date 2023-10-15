@@ -1,7 +1,7 @@
 import random
 
 class RewardSys:
-    def __init__(self, agent):
+    def __init__(self, agent=None):
         self.agent = agent
 
     def setTarget(self, temperatureArray=[0, 2, 4], agentPosition=[2, 3]):
