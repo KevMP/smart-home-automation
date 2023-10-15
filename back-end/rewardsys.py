@@ -11,26 +11,25 @@ class RewardSys:
     def getAgentPosition(self):
         return self.agentPosition
 
-    def setDirection(self):
+    def setAgentDirection(self):
         self.direction = self.agentPosition[1] - self.agentPosition[0]
-    def getDirection(self):
+    def getAgentDirection(self):
         return self.direction
 
     def setTarget(self, temperatureArray=[0, 2, 4]):
         self.newTarget = temperatureArray[random.randint(0, len(temperatureArray) - 1)]
         return self.newTarget
     def getTargetBasedOnDirection(self, temperatureArray=[0, 2, 4]):
-        self.agentDirection = self.getDirection()
         self.newTarget = self.setTarget(temperatureArray)
-        match self.agentDirection:
+        match self.getAgentDirection():
             case -1:
-                while self.newTarget <= self.agentPosition[1]:
+                while self.newTarget <= self.getAgentPosition()[1]:
                     self.newTarget = self.setTarget(temperatureArray)
             case 0:
-                while self.newTarget == self.agentPosition[1]:
+                while self.newTarget == self.getAgentPosition()[1]:
                     self.newTarget = self.setTarget(temperatureArray)
             case 1:
-                while self.newTarget >= self.agentPosition[1]:
+                while self.newTarget >= self.getAgentPosition()[1]:
                     self.newTarget = self.setTarget(temperatureArray)
         return self.newTarget
 
