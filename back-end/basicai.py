@@ -12,7 +12,6 @@ class BasicAi:
 
     def rewardAgent(self, action):
         self.decisionTree[random.randint(0, len(self.decisionTree) - 1)] = action
-
     def punishAgent(self, action):
         self.decisionTree[random.randint(0, len(self.decisionTree) - 1)] = action * -1
 
@@ -37,7 +36,8 @@ class BasicAi:
             time.sleep(0.0001)
             if self.agentPositions[1] == self.target:
                 self.rewardAgent(self.action)
-                print(f'total moves it took to reach the target: {self.revolutions}, defficiency:{self.revolutions/len(self.decisionTree):.2f}')
+                print(f'total moves it took to reach the target: {self.revolutions},
+                       defficiency:{self.revolutions/len(self.decisionTree):.2f}')
                 self.revolutions = 0
                 self.target = self.createTarget(self.environment, self.agentPositions[1])
             if self.target < self.agentPositions[1]:
