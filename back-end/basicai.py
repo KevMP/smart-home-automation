@@ -37,7 +37,7 @@ class BasicAi:
             time.sleep(0.01)
             if self.agentPositions[1] == self.target:
                 self.rewardAgent(self.action)
-                print(f'total moves it took to reach the target: {self.revolutions}')
+                print(f'total moves it took to reach the target: {self.revolutions}, efficiency:{1 - (self.revolutions/len(self.decisionTree))}')
                 self.revolutions = 0
                 self.target = self.createTarget(self.environment, self.agentPositions[1])
             if self.target < self.agentPositions[1]:
