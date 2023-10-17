@@ -3,12 +3,17 @@ import time
 
 class BasicAi:
     def __init__(self, agent=None):
-        self.decisionTree = [-1] * 1444
+        self.decisionTree = [-1] * 7
         self.agentPositions = [0,1]
 
     def getDirection(self):
         self.direction = self.agentPositions[1] - self.agentPositions[0]
         return self.direction
+    def increaseOrDecreaseTemperature(self, action):
+        if action == 1:
+            self.agentPositions[1] = self.agentPositions[0] + 1
+        if action == -1:
+            self.agentPositions[1] = self.agentPositions[0] - 1
 
     def rewardAgent(self, action):
         self.decisionTree[random.randint(0, len(self.decisionTree) - 1)] = action
@@ -28,10 +33,7 @@ class BasicAi:
         self.revolutions = 0
         while True:
             self.action = self.decisionTree[random.randint(0, len(self.decisionTree) - 1)]
-            if self.action == 1:
-                self.agentPositions[1] = self.agentPositions[0] + 1
-            if self.action == -1:
-                self.agentPositions[1] = self.agentPositions[0] - 1
+            self.increaseOrDecreaseTemperature(self.action)
             self.revolutions += 1
             time.sleep(0.0001)
             if self.agentPositions[1] == self.target:
@@ -39,12 +41,12 @@ class BasicAi:
                 print(f'total moves it took to reach the target: {self.revolutions}, defficiency:{self.revolutions/len(self.decisionTree):.2f}')
                 self.revolutions = 0
                 self.target = self.createTarget(self.environment, self.agentPositions[1])
-            if self.target < self.agentPositions[1]:
+            elif self.target < self.agentPositions[1]:
                 if self.getDirection() == -1:
                     self.rewardAgent(self.action)
                 else:
                     self.punishAgent(self.action)
-            if self.target > self.agentPositions[1]:
+            elif self.target > self.agentPositions[1]:
                 if self.getDirection() == 1:
                     self.rewardAgent(self.action)
                 else:
