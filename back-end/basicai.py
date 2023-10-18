@@ -26,7 +26,7 @@ class BasicAi:
             self.target = environment[random.randint(0, len(environment) - 1)]
         return self.target
 
-    def writeState(self, action, targetedTemperature):
+    def writeState(self, targetedTemperature):
         self.file = open('state.txt', 'w')
         self.file.write(f'{targetedTemperature}')
         self.file.close()
