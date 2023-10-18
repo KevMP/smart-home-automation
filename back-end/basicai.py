@@ -52,6 +52,3 @@ class BasicAi:
                 else:
                     self.punishAgent(self.action)
             self.agentPositions[0] = self.agentPositions[1]
-
-agent1 = BasicAi()
-agent1.simulation()

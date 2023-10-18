@@ -1,11 +1,11 @@
 """
 _summary_
 """
-from flask import Flask, jsonify, current_app
+from flask import Flask, jsonify, current_app, request
 from database.database import Database
 from flask_cors import CORS
 from modules import SmartACEnvironment
-from agent import DQNAgent, train_dqn_agent
+from basicai import BasicAi
 import numpy as np
 
 
@@ -26,31 +26,39 @@ def add_no_cache_headers(response):
     response.headers['Expires'] = '-1'
     return response
 
-@app.route('/api/v1/view-data', methods=['GET'])
-def view_data():
-    database_connection, cursor_object = Database.get_connection()
+# @app.route('/api/v1/view-data', methods=['GET'])
+# def view_data():
+#     database_connection, cursor_object = Database.get_connection()
     
-    data = Database.get_all_table_data(database_connection, cursor_object)
+#     data = Database.get_all_table_data(database_connection, cursor_object)
 
-    return jsonify(data)
+#     return jsonify(data)
+    
 
-@app.route('/api/v1/admin', methods=['POST'])
-def train_agent():
-    global global_agent
-    global_agent = train_dqn_agent()
-    return jsonify({"status": "Training completed"})
+@app.route('/api/v1/developer', methods=['GET', 'POST'])
+def developer():
+    data = request.get_json()
+    action = data.get('action', None)
+    origin = data.get('origin', None)
+    
+    if origin == "AI":
+        if action == "train":
+            global global_agent
+            global_agent = BasicAi()
+            global_agent.simulation()
+            return jsonify({"status": "Training completed"})
+        elif action == "query":
+            if not global_agent:
+                return jsonify({"error": "Agent not trained!"}), 400
 
-@app.route('/api/v1/dashboard', methods=['GET'])
-def root():
-    if not global_agent:
-        return jsonify({"error": "Agent not trained!"}), 400
+            environment = SmartACEnvironment()
+            state = np.array([environment.get_current_state()])
+            action = global_agent.choose_action(state)
+            environment.step(action)
 
-    environment = SmartACEnvironment()
-    state = np.array([environment.get_current_state()])
-    action = global_agent.choose_action(state)
-    environment.step(action)
-
-    return jsonify(environment.get_ac_status())
+            return jsonify(environment.get_ac_status())
+    elif origin == "DB":
+        pass
 
 if __name__ == "__main__":
     app.run(threaded=False, port=3001, debug=True, use_reloader=False)

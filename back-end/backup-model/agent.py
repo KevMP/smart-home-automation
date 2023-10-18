@@ -83,10 +83,10 @@ class Simulation:
             
         return total_reward
 
-agent = Agent()
-sim = Simulation(agent)
+# agent = Agent()
+# sim = Simulation(agent)
 
-for episode in range(100):
-    reward = sim.run()
-    print(f"Episode: {episode + 1}, Reward: {reward}")
-    agent.save_model()
+# for episode in range(100):
+#     reward = sim.run()
+#     print(f"Episode: {episode + 1}, Reward: {reward}")
+#     agent.save_model()

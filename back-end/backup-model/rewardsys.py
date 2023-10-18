@@ -33,5 +33,5 @@ class RewardSys:
                     self.newTarget = self.setTarget(temperatureArray)
         return self.newTarget
 
-obj = RewardSys()
-print(obj.getTargetBasedOnDirection())
+# obj = RewardSys()
+# print(obj.getTargetBasedOnDirection())
