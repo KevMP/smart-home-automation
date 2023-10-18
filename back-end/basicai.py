@@ -9,7 +9,7 @@ class BasicAi:
     def getDirection(self):
         self.direction = self.agentPositions[1] - self.agentPositions[0]
         return self.direction
-    def increaseOrDecreaseTemperature(self, action):
+    def modifyTemperature(self, action):
         if action == 1:
             self.agentPositions[1] = self.agentPositions[0] + 1
         if action == -1:
@@ -33,7 +33,7 @@ class BasicAi:
         self.revolutions = 0
         while True:
             self.action = self.decisionTree[random.randint(0, len(self.decisionTree) - 1)]
-            self.increaseOrDecreaseTemperature(self.action)
+            self.modifyTemperature(self.action)
             self.revolutions += 1
             time.sleep(0.0001)
             if self.agentPositions[1] == self.target:
