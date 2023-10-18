@@ -43,6 +43,7 @@ class BasicAi:
         self.revolutions = 0
         while True:
             self.action = self.decisionTree[random.randint(0, len(self.decisionTree) - 1)] ## The direction of whether the temperature goes up or down.
+            self.writeState(self.agentPositions[1])
             self.modifyTemperature(self.action)
             self.revolutions += 1
             time.sleep(0.0001)
