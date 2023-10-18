@@ -27,13 +27,14 @@ class BasicAi:
         return self.target
 
     def writeState(self, targetedTemperature):
-        self.file = open('state.txt', 'w')
+        self.file = open('./back-end/state.txt', 'w')
         self.file.write(f'{targetedTemperature}')
         self.file.close()
     def getState(self):
-        self.file = open('state.txt', 'r')
+        self.file = open('./back-end/state.txt', 'r')
         self.state = self.file.read()
         self.file.close()
+        print(self.state)
         return self.state
 
     def simulation(self):
@@ -65,6 +66,3 @@ class BasicAi:
                 else:
                     self.punishAgent(self.action)
             self.agentPositions[0] = self.agentPositions[1]
-
-agent1 = BasicAi()
-agent1.simulation()

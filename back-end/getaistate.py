@@ -1,4 +1,5 @@
 from basicai import BasicAi
 
 aiData = BasicAi()
-aiData.getState()
+while True:
+    aiData.getState()
