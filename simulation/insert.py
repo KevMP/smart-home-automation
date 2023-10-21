@@ -1,6 +1,6 @@
 import sqlite3
 
-class Connection():
+class Database():
     def __init__(self, databasePath):
         self.connection = sqlite3.connect(databasePath)
         self.cursor = self.connection.cursor()
@@ -9,4 +9,4 @@ class Connection():
         self.cursor.close()
         self.connection.close()
 
-database = Connection('SHAS.db')
+database = Database('SHAS.db')
