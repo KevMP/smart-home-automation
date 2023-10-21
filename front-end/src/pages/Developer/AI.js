@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Col, Button, Modal, Table } from 'react-bootstrap'
+import axios from 'axios'
 
 function AIComponent ({ openConfirmation }) {
   const [showModal, setShowModal] = useState(false)
@@ -12,12 +13,26 @@ function AIComponent ({ openConfirmation }) {
     acStatus: 'On'
   }
 
+  useEffect(() => {}, [])
+
+  const TrainAI = () => {
+    axios.post('/api/v1/developer', {
+      origin: 'AI',
+      action: 'train'
+    })
+      .then(response => {
+
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
   return (
         <>
             <Col xs={12} md={4} className="mb-4">
                 <div className="p-3 shadow rounded" style={{ backgroundColor: 'rgb(9, 69, 120)' }}>
                     <h3 className="text-white text-center mb-4">AI Dashboard</h3>
-                    <Button className="mb-2 d-block mx-auto" style={{ backgroundColor: 'black', borderColor: 'black' }} onClick={() => { /* Train function here */ }}>Train</Button>
+                    <Button className="mb-2 d-block mx-auto" style={{ backgroundColor: 'black', borderColor: 'black' }} onClick={() => TrainAI()}>Train</Button>
                     <Button className="mb-2 d-block mx-auto" style={{ backgroundColor: 'red', borderColor: 'red' }} onClick={() => openConfirmation('eraseMemory')}>Erase Memory</Button>
                     <Button className="mb-2 d-block mx-auto" style={{ backgroundColor: 'black', borderColor: 'black' }} onClick={() => setShowModal(true)}>Display Data</Button>
                 </div>
