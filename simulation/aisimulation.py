@@ -1,13 +1,13 @@
 import random
 import time
 import os
-from database.insert_table import Insert
+from insert import Database
 
 class BasicAi:
     def __init__(self, agent=None):
         self.decisionTree = [-1] * 7
         self.agentPositions = [0,1]
-        self.filepath = os.path.join('smart-home-automation', 'back-end', 'state.txt')
+        self.filepath = os.path.join('simulation', 'state.txt')
         self.faketime = [0,0,0,0] ## 00: Hour, 00: Minute
 
     def getDirection(self):
@@ -31,7 +31,7 @@ class BasicAi:
         return self.target
 
     def writeState(self, targetedTemperature):
-        self.file = open('state.txt', 'w')
+        self.file = open(self.filepath, 'w')
         self.file.write(f'{targetedTemperature}')
         self.file.close()
     def getState(self):
@@ -51,7 +51,8 @@ class BasicAi:
             self.writeState(self.agentPositions[1])
             self.modifyTemperature(self.action)
             self.revolutions += 1
-            ## TODO: Insert().insert_ac_system_data(str(self.revolutions), str(self.faketime[0] + self.faketime[1]), 0)
+            self.databaseConn = Database()
+            self.databaseConn.insertSensorData(45, 10000, '1122')
             time.sleep(0.0001)
             ## Chooses a new target since the ai has reached its goal!
             if self.agentPositions[1] == self.target:
