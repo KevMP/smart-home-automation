@@ -7,7 +7,7 @@ class BasicAi:
     def __init__(self, agent=None):
         self.decisionTree = [-1] * 7
         self.agentPositions = [0,1]
-        self.filepath = os.path.join('smart-home-automation', 'back-end', 'state.txt')
+        self.filepath = os.path.join('simulation', 'state.txt')
         self.faketime = [0,0,0,0] ## 00: Hour, 00: Minute
 
     def getDirection(self):
@@ -31,7 +31,7 @@ class BasicAi:
         return self.target
 
     def writeState(self, targetedTemperature):
-        self.file = open('state.txt', 'w')
+        self.file = open(self.filepath, 'w')
         self.file.write(f'{targetedTemperature}')
         self.file.close()
     def getState(self):
