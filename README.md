@@ -6,6 +6,7 @@ A research project by MDC. This project focuses on creating automation tools for
 ### Prerequisites
 Ensure you have the following software installed on your machine:
 - Python 3.x
+- https://aka.ms/vs/17/release/vc_redist.x64.exe (visual studio C++ libraries (tensorflow stuff))
 
 ### Setting Up the Development Environment
 
