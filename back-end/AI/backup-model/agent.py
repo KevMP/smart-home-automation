@@ -3,7 +3,6 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 
-# Hyperparameters
 BATCH_SIZE = 32
 GAMMA = 0.99
 EPSILON = 0.1

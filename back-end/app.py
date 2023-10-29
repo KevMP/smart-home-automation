@@ -1,22 +1,26 @@
-"""
-_summary_
-"""
-from flask import Flask, jsonify, current_app, request
-from database.database import Database
+from flask import Flask, jsonify
 from flask_cors import CORS
-from modules import SmartACEnvironment
-from basicai import BasicAi
-import numpy as np
+from developer_routes import developer_bp
+import logging
+import os
+from database.database import Database
 
+if not os.path.exists('logs'):
+    os.makedirs('logs')
+
+logging.basicConfig(filename='logs/app.log', level=logging.INFO,
+                    format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 app = Flask(__name__)
 CORS(app)
 
-global_agent = None
+# Routes
+app.register_blueprint(developer_bp)
 
 @app.teardown_appcontext
 def close_db(exception):
-    print(exception)
+    if exception:
+        logging.error(exception)
     Database.close_connection()
 
 @app.after_request
@@ -25,40 +29,6 @@ def add_no_cache_headers(response):
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '-1'
     return response
-
-# @app.route('/api/v1/view-data', methods=['GET'])
-# def view_data():
-#     database_connection, cursor_object = Database.get_connection()
-    
-#     data = Database.get_all_table_data(database_connection, cursor_object)
-
-#     return jsonify(data)
-    
-
-@app.route('/api/v1/developer', methods=['GET', 'POST'])
-def developer():
-    data = request.get_json()
-    action = data.get('action', None)
-    origin = data.get('origin', None)
-    
-    if origin == "AI":
-        if action == "train":
-            global global_agent
-            global_agent = BasicAi()
-            global_agent.simulation()
-            return jsonify({"status": "Training completed"})
-        elif action == "query":
-            if not global_agent:
-                return jsonify({"error": "Agent not trained!"}), 400
-
-            environment = SmartACEnvironment()
-            state = np.array([environment.get_current_state()])
-            action = global_agent.choose_action(state)
-            environment.step(action)
-
-            return jsonify(environment.get_ac_status())
-    elif origin == "DB":
-        pass
 
 if __name__ == "__main__":
     app.run(threaded=False, port=3001, debug=True, use_reloader=False)

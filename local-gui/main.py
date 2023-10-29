@@ -1,59 +1,75 @@
-from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
+from kivymd.app import MDApp
+from kivymd.uix.button import MDIconButton
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivy.core.window import Window
+from kivymd.icon_definitions import md_icons
 
-# Directly loading KV string
-kv_code = """
-BoxLayout:
+Window.size = (360, 640)
+
+KV = '''
+MDBoxLayout:
     orientation: 'vertical'
-    padding: '20dp'
-    spacing: '20dp'
-    canvas.before:
-        Color:
-            rgba: [0, 0, 0, 1]
-        Rectangle:
-            pos: self.pos
-            size: self.size
+    spacing: dp(8)
+    size_hint_y: None
+    height: self.minimum_height
 
-    Label:
-        text: 'Smart Home'
-        font_size: '32sp'
-        size_hint_y: 0.2
-        color: [1, 1, 1, 1]
+    MDBoxLayout:
+        size_hint_y: None
+        height: dp(48)
+        padding: dp(24), dp(8), dp(24), dp(8)
 
-    GridLayout:
+        MDLabel:
+            text: 'Smart Home'
+            halign: 'center'
+            font_style: 'H5'
+            size_hint_y: None
+            height: self.texture_size[1]
+            theme_text_color: 'Custom'
+            text_color: app.theme_cls.primary_color
+
+    MDGridLayout:
         cols: 3
-        spacing: '20dp'
-        size_hint_y: 0.7
+        size_hint_y: None
+        height: self.minimum_height
+        padding: dp(24), dp(8), dp(24), dp(8)
+        spacing: dp(8)
 
-        Button:
-            text: '[size=24sp]⬢[/size]Smart Vents'
-            font_size: '16sp'
-            markup: True
-            background_normal: ''
-            background_color: [0.5, 0.5, 0.5, 1]
-            on_press: root.open_smart_vents()
+        MDIconButton:
+            icon: 'fan'
+            user_font_size: '48sp'
+            on_release: app.open_smart_vents()
+            md_bg_color: app.theme_cls.primary_color
+            theme_text_color: 'Custom'
+            text_color: 1, 1, 1, 1
+            ripple_color: app.theme_cls.accent_light
 
-        Button:
-            text: '[size=24sp]⬣[/size]Smart AC'
-            font_size: '16sp'
-            markup: True
-            background_normal: ''
-            background_color: [0.5, 0.5, 0.5, 1]
-            on_press: root.view_ac_status()
+        MDIconButton:
+            icon: 'air-conditioner'
+            user_font_size: '48sp'
+            on_release: app.view_ac_status()
+            md_bg_color: app.theme_cls.primary_color
+            theme_text_color: 'Custom'
+            text_color: 1, 1, 1, 1
+            ripple_color: app.theme_cls.accent_light
 
-        Button:
-            text: '[size=24sp]⚙[/size]Settings'
-            font_size: '16sp'
-            markup: True
-            background_normal: ''
-            background_color: [0.5, 0.5, 0.5, 1]
-            on_press: root.open_settings()
-"""
+        MDIconButton:
+            icon: 'cog-outline'
+            user_font_size: '48sp'
+            on_release: app.open_settings()
+            md_bg_color: app.theme_cls.primary_color
+            theme_text_color: 'Custom'
+            text_color: 1, 1, 1, 1
+            ripple_color: app.theme_cls.accent_light
+'''
 
-Builder.load_string(kv_code)
+class SmartHomeApp(MDApp):
+    def build(self):
+        self.theme_cls.primary_palette = 'BlueGray'  # Set your primary theme color here
+        self.theme_cls.accent_palette = 'Amber'  # Set your accent color here
+        self.theme_cls.theme_style = 'Dark'  # Choose between 'Light' or 'Dark'
+        return Builder.load_string(KV)
 
-class SmartHomeRemote(BoxLayout):
     def open_smart_vents(self):
         print("Opening Smart Vents...")
 
@@ -63,9 +79,4 @@ class SmartHomeRemote(BoxLayout):
     def open_settings(self):
         print("Opening Settings...")
 
-class SmartHomeApp(App):
-    def build(self):
-        return SmartHomeRemote()
-
-if __name__ == '__main__':
-    SmartHomeApp().run()
+SmartHomeApp().run()

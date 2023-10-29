@@ -13,6 +13,7 @@ class BasicAi:
     def getDirection(self):
         self.direction = self.agentPositions[1] - self.agentPositions[0]
         return self.direction
+
     def modifyTemperature(self, action):
         if action == 1:
             self.agentPositions[1] = self.agentPositions[0] + 1
