@@ -5,10 +5,10 @@ import logging
 import os
 from database.database import Database
 
-if not os.path.exists('logs'):
-    os.makedirs('logs')
+if not os.path.exists('back-end/logs'):
+    os.makedirs('back-end/logs')
 
-logging.basicConfig(filename='logs/app.log', level=logging.INFO,
+logging.basicConfig(filename='back-end/logs/app.log', level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 app = Flask(__name__)
