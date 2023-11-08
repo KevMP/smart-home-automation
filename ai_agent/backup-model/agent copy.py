@@ -8,8 +8,8 @@ class DQNAgent:
     def __init__(self, state_size, action_size, learning_rate=0.01):
         self.state_size = state_size
         self.action_size = action_size
-        self.memory = []
-        self.gamma = 0.9 
+        self.memory = []  # store (state, action, reward, next_state, done)
+        self.gamma = 0.9  # discount rate
         self.epsilon = 1.
         self.epsilon_min = 0.01
         self.epsilon_decay = 0.995
@@ -47,8 +47,8 @@ class DQNAgent:
             self.epsilon *= self.epsilon_decay
 
 def train_dqn_agent():
-    state_size = 3 
-    action_size = 3
+    state_size = 3  # occupancy, temperature, humidity
+    action_size = 3  # TURN_ON_AC, TURN_OFF_AC, SET_TEMP
     agent = DQNAgent(state_size, action_size)
     environment = SmartACEnvironment()
 

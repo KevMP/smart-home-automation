@@ -1,14 +1,19 @@
+import sys
+from pathlib import Path
+root_path = Path(__file__).resolve().parent.parent.parent
+sys.path.append(str(root_path))
+
 from flask import Flask, jsonify
 from flask_cors import CORS
 from developer_routes import developer_bp
+from database.database import Database
 import logging
 import os
-from database.database import Database
 
-if not os.path.exists('back-end/logs'):
-    os.makedirs('back-end/logs')
+if not os.path.exists('website/back-end/logs'):
+    os.makedirs('website/back-end/logs')
 
-logging.basicConfig(filename='back-end/logs/app.log', level=logging.INFO,
+logging.basicConfig(filename='website/back-end/logs/app.log', level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 app = Flask(__name__)

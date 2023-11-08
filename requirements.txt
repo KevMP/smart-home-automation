@@ -3,3 +3,4 @@ numpy
 tensorflow
 flask
 Flask-CORS
+websockets

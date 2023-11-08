@@ -1,18 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Modal, Button } from 'react-bootstrap'
 import AIComponent from './AI'
 import DatabaseComponent from './Database'
 import ACComponent from './AC'
 import ACStatusCard from './AC_Status'
+import axios from 'axios'
 
 function Developer () {
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [currentAction, setCurrentAction] = useState(null)
-
+  // eslint-disable-next-line no-unused-vars
+  const [formData, setFormData] = useState({
+    max_temp: 0,
+    min_temp: 0,
+    max_humidity: 0,
+    min_humidity: 0,
+    occupancy_max: 0,
+    occupancy: 0,
+    is_celsius: false,
+    ac_status: false,
+    humidity: 0,
+    temperature: 0
+  })
+  const [isFetching, setIsFetching] = useState(true)
   const handleOpenConfirmation = (action) => {
     setCurrentAction(action)
     setShowConfirmation(true)
   }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        axios.get('/api/v1/developer')
+          .then(response => {
+            setFormData(response.data)
+          })
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    })()
+  }, [])
 
   const handleConfirm = () => {
     // Handle each action accordingly
@@ -34,16 +61,15 @@ function Developer () {
             <Row className="justify-content-center">
                 <AIComponent openConfirmation={handleOpenConfirmation} />
                 <DatabaseComponent openConfirmation={handleOpenConfirmation} />
-                <ACComponent openConfirmation={handleOpenConfirmation} />
-                <ACStatusCard />
+                <ACComponent openConfirmation={handleOpenConfirmation} formData={formData} setFormData={setFormData} />
+                <ACStatusCard formData={formData} />
                 <div className='align-items-center d-flex justify-content-center '>
                   <Button
                   variant="primary"
                   size="lg"
-                  // onClick={() => setIsFetching(prevState => !prevState)}
+                  onClick={() => setIsFetching(prevState => !prevState)}
                   >
-                  Pause Fetching
-                    {/* {true ? 'Pause Fetching' : 'Resume Fetching'} */}
+                    {isFetching ? 'Pause Fetching' : 'Resume Fetching'}
                   </Button>
                 </div>
             </Row>

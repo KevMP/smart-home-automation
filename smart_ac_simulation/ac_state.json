@@ -1,0 +1,11 @@
+{
+    "occupancy": 1,
+    "temperature": 25,
+    "humidity": 36,
+    "ac_status": true,
+    "min_humidity": 30,
+    "max_humidity": 60,
+    "min_temp": 18,
+    "max_temp": 30,
+    "max_occupancy": 1
+}
