@@ -7,7 +7,7 @@
     "activate-env": "env\\Scripts\\activate.bat",
     "install:back-end": "env\\Scripts\\activate.bat && pip install -r requirements.txt",
     "install:back-end-mac": "source env/bin/activate && pip install -r requirements.txt",
-    "install:front-end": "cd front-end/ && npm install",
+    "install:front-end": "cd ./website/front-end/ && npm install",
     "postinstall": "npm run create-env && npm run activate-env && npm run install:back-end && npm run install:front-end",
     "create-env-mac": "python3 -m venv env",
     "activate-env-mac": ". env/bin/activate",
