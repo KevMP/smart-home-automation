@@ -14,9 +14,9 @@
     "install-mac": "npm run create-env-mac && npm run activate-env-mac && npm run install:back-end-mac && npm run install:front-end",
     "start:frontend": "cd ./website/front-end && npm start",
     "start:backend": "npm run activate-env && nodemon --exec python ./website/back-end/app.py",
-    "start": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm run start:frontend\" \"npm run start:backend\"",
+    "start": "npm run activate-env && concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm run start:frontend\" \"npm run start:backend\"",
     "start-backend-mac": "npm run activate-env-mac && nodemon --exec python3 ./website/back-end/app.py",
-    "start-mac": "concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm run start:frontend\" \"npm run start-backend-mac\""
+    "start-mac": "npm run activate-env-mac && concurrently -n \"Front-end,Back-end\" -c \"blue,green\" \"npm run start:frontend\" \"npm run start-backend-mac\""
   },
   "author": "",
   "license": "ISC",
