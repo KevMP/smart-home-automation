@@ -1,82 +1,156 @@
 from kivy.lang import Builder
 from kivymd.app import MDApp
-from kivymd.uix.button import MDIconButton
-from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.core.window import Window
-from kivymd.icon_definitions import md_icons
+from kivy.animation import Animation
+from kivy.properties import NumericProperty
 
-Window.size = (360, 640)
+
+Window.size = (800, 480)
 
 KV = '''
-MDBoxLayout:
-    orientation: 'vertical'
-    spacing: dp(8)
-    size_hint_y: None
-    height: self.minimum_height
+BoxLayout:
+    canvas.before:
+        Color:
+            rgba: 0,0,0,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
-    MDBoxLayout:
+    orientation: 'vertical'
+    
+
+    # Temperature display at the top
+    MDLabel:
+        text: "75°F"
+        color: 0.678, 0.847, 0.902, 1
+        halign: "center"
+        valign: "center"
+        font_style: "H2"
+        size_hint_y: None
+        height: self.texture_size[1]
+        pos_hint: {'center_x': 0.5}
+
+    # Filler widget for spacing
+    Widget:
         size_hint_y: None
         height: dp(48)
-        padding: dp(24), dp(8), dp(24), dp(8)
 
-        MDLabel:
-            text: 'Smart Home'
-            halign: 'center'
-            font_style: 'H5'
-            size_hint_y: None
-            height: self.texture_size[1]
-            theme_text_color: 'Custom'
-            text_color: app.theme_cls.primary_color
-
-    MDGridLayout:
-        cols: 3
+    # Centered grid of buttons
+    GridLayout:
+        cols: 4
         size_hint_y: None
         height: self.minimum_height
-        padding: dp(24), dp(8), dp(24), dp(8)
-        spacing: dp(8)
+        size_hint_x: None
+        width: self.minimum_width
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        padding: dp(10)
+        spacing: dp(10)
+        
+        # First row of buttons
+        MDFillRoundFlatButton:
+            text: "Profile"
+            on_release: app.on_profile()
+        MDFillRoundFlatButton:
+            text: "AI"
+            on_release: app.on_ai()
+        MDFillRoundFlatButton:
+            text: "Alerts"
+            on_release: app.on_alerts_messages()
+        MDFillRoundFlatButton:
+            text: "Service"
+            on_release: app.on_service()
+        
+        # Second row of buttons
+        MDFillRoundFlatButton:
+            text: "Settings"
+            on_release: app.on_settings()
+        MDFillRoundFlatButton:
+            text: "Weather"
+            on_release: app.on_weather()
+        MDFillRoundFlatButton:
+            text: "System"
+            on_release: app.on_system()
+        MDFillRoundFlatButton:
+            text: "Schedules"
+            on_release: app.on_schedules()
 
-        MDIconButton:
-            icon: 'fan'
-            user_font_size: '48sp'
-            on_release: app.open_smart_vents()
-            md_bg_color: app.theme_cls.primary_color
-            theme_text_color: 'Custom'
-            text_color: 1, 1, 1, 1
-            ripple_color: app.theme_cls.accent_light
+    # Filler widget for spacing
+    Widget:
+        size_hint_y: None
+        height: dp(48)
 
-        MDIconButton:
-            icon: 'air-conditioner'
-            user_font_size: '48sp'
-            on_release: app.view_ac_status()
-            md_bg_color: app.theme_cls.primary_color
-            theme_text_color: 'Custom'
-            text_color: 1, 1, 1, 1
-            ripple_color: app.theme_cls.accent_light
+    # Separator line
+    MDBoxLayout:
+        size_hint_y: None
+        height: "1dp"
+        md_bg_color: app.theme_cls.divider_color
 
+    # Footer with 'Back', 'Info', and 'Done' buttons
+    MDBoxLayout:
+        size_hint_y: None
+        height: dp(69)
+        MDFlatButton:
+            text: "Back"
+            pos_hint: {'center_y': 0.5}
+            on_release: app.on_back()
+        Widget:
         MDIconButton:
-            icon: 'cog-outline'
-            user_font_size: '48sp'
-            on_release: app.open_settings()
-            md_bg_color: app.theme_cls.primary_color
-            theme_text_color: 'Custom'
-            text_color: 1, 1, 1, 1
-            ripple_color: app.theme_cls.accent_light
+            icon: "information-outline"
+            pos_hint: {'center_x': 0.5}
+            on_release: app.on_info()
+        Widget:
+        MDFlatButton:
+            text: "Done"
+            pos_hint: {'center_y': 0.5}
+            on_release: app.on_done()
 '''
+
+
+
+class TemperatureLabel(Label):
+    temperature = NumericProperty(0)
+
+def on_temperature(self, instance, value):
+    if value <= 20: 
+        
+
 
 class SmartHomeApp(MDApp):
     def build(self):
-        self.theme_cls.primary_palette = 'BlueGray'  # Set your primary theme color here
-        self.theme_cls.accent_palette = 'Amber'  # Set your accent color here
-        self.theme_cls.theme_style = 'Dark'  # Choose between 'Light' or 'Dark'
         return Builder.load_string(KV)
 
-    def open_smart_vents(self):
-        print("Opening Smart Vents...")
+    def on_profile(self):
+        print("Profile button pressed")
 
-    def view_ac_status(self):
-        print("Viewing AC Status...")
+    def on_ai(self):
+        print("AI button pressed")
 
-    def open_settings(self):
-        print("Opening Settings...")
+    def on_alerts_messages(self):
+        print("Alerts & Messages button pressed")
 
-SmartHomeApp().run()
+    def on_service(self):
+        print("Service button pressed")
+
+    def on_settings(self):
+        print("Settings button pressed")
+
+    def on_weather(self):
+        print("Weather button pressed")
+
+    def on_system(self):
+        print("System button pressed")
+
+    def on_schedules(self):
+        print("Schedules button pressed")
+
+    def on_back(self):
+        print("Back button pressed")
+
+    def on_info(self):
+        print("Info button pressed")
+
+    def on_done(self):
+        print("Done button pressed")
+
+if __name__ == '__main__':
+    SmartHomeApp().run()
