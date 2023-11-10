@@ -48,6 +48,12 @@ class Database:
         ''')
         self.conn.commit()
 
+    def createAllTables(self):
+        self.createProfilesTable()
+        self.createModelTable()
+        self.createSensorTable()
+        self.createAirconditionerTable()
+
     def setTargetTemperature(self, timestamp: str, target_temperature: float):
         try:
             # Check if the timestamp exists in the 'airconditioner' table

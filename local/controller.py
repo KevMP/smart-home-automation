@@ -1,5 +1,5 @@
 from database import *
-import datetime
+from datetime import datetime
 
 class Controller():
     def __init__(self, db_name='local/data.db'):
@@ -17,3 +17,5 @@ class Controller():
         current_temperature -= 1
         ## Hours, Minutes, Seconds, Milliseconds
         Database().setTargetTemperature(datetime.now().strftime("%H:%M:%S.%f")[:-3], current_temperature)
+    
+Controller().increaseTemperature()
