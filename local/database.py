@@ -285,6 +285,7 @@ class Database:
 if __name__ == "__main__":
     print('creating database object')
     db = Database()
+    db.createAirconditionerTable()
     profileArray = db.getAllProfilesAsArray()
     print(profileArray)
     db.closeConnection()
