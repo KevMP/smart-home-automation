@@ -5,6 +5,9 @@ class Database():
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
 
+    def closeConnection(self):
+        self.conn.close()
+
     def createProfilesTable(self):
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS profile (
@@ -35,14 +38,26 @@ class Database():
             )
         ''')
         self.conn.commit()
+    
+    def removeTable(self, table_name):
+        try:
+            self.cursor.execute(f'DROP TABLE IF EXISTS {table_name}')
+            self.conn.commit()
+            print(f'Table "{table_name}" removed successfully.')
+        except sqlite3.Error as e:
+            print(f'Error removing table "{table_name}": {e}')
 
-    def close(self):
-        self.conn.close()
+    def removeAllTables(self):
+        self.removeTable('sensor')
+        self.removeTable('profile')
+        self.removeTable('model')
+        self.closeConnection()
 
 # Example usage
 if __name__ == "__main__":
+    print('creating database object')
     db = Database()
     db.createProfilesTable()
     db.createModelTable()
     db.createSensorTable()
-    db.close()
+    db.closeConnection()
