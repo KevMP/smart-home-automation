@@ -123,6 +123,19 @@ class Database():
         except sqlite3.Error as e:
             print(f'Error setting current move: {e}')
 
+    def getCurrentMove(self):
+        try:
+            self.cursor.execute('SELECT current_move FROM model ORDER BY timestamp DESC LIMIT 1')
+            result = self.cursor.fetchone()
+            if result:
+                return result[0]  # Extract the most recent current move
+            else:
+                print("No current move records found.")
+                return None
+        except sqlite3.Error as e:
+            print(f'Error getting current move: {e}')
+            return None
+
 # Example usage
 if __name__ == "__main__":
     print('creating database object')
