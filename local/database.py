@@ -1,6 +1,6 @@
 import sqlite3
 
-class Database():
+class Database:
     def __init__(self, db_name='local/data.db'):
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
