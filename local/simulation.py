@@ -11,8 +11,7 @@ class AiModel():
         self.min = Database().getMinimumPreferredTemperature(self.profile)
         self.max = Database().getMaximumPreferredTemperature(self.profile)
 
-def main():
+if __name__ == "__main__":
     model = AiModel()
     model.setProfile(0)
     print(model.min)
-main()
