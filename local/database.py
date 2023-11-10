@@ -121,7 +121,7 @@ class Database():
             print(f'Error retrieving maximum preferred temperature: {e}')
             return None
     
-    def setMinimumPreferredTemperature(self, profile_identification, value):
+    def setMinimumPreferredTemperature(self, profile_identification: int, value: float):
         try:
             # Check if the profile exists
             self.cursor.execute('SELECT profile_id FROM profile WHERE profile_id = ?', (profile_identification,))
