@@ -1,4 +1,5 @@
 from database import Database
+from controller import Controller
 import random
 
 class AiModel:
