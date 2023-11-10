@@ -52,6 +52,32 @@ class Database():
         self.removeTable('profile')
         self.removeTable('model')
         self.closeConnection()
+    
+    def getMinimumPreferredTemperature(self, profile_identification):
+        try:
+            self.cursor.execute('SELECT min_preferred_temperature FROM profiles WHERE profile_id = ?', (profile_identification,))
+            result = self.cursor.fetchone()
+            if result:
+                return result[0]  # Extract the preferred value
+            else:
+                print(f"Profile with ID {profile_identification} not found.")
+                return None
+        except sqlite3.Error as e:
+            print(f'Error retrieving minimum preferred temperature: {e}')
+            return None
+
+    def getMaximumPreferredTemperature(self, profile_identification):
+        try:
+            self.cursor.execute('SELECT max_preferred_temperature FROM profiles WHERE profile_id = ?', (profile_identification,))
+            result = self.cursor.fetchone()
+            if result:
+                return result[0]  # Extract the preferred value
+            else:
+                print(f"Profile with ID {profile_identification} not found.")
+                return None
+        except sqlite3.Error as e:
+            print(f'Error retrieving maximum preferred temperature: {e}')
+            return None
 
 # Example usage
 if __name__ == "__main__":
