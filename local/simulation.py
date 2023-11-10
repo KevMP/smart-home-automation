@@ -13,7 +13,7 @@ class AiModel:
         self.min = Database().getMinimumPreferredTemperature(self.profile)
         self.max = Database().getMaximumPreferredTemperature(self.profile)
 
-    def chooseDirection(self, state):
+    def learnDirection(self, state):
         if state < self.min:
             self.actionMatrix[random.randint(0, len(self.actionMatrix) - 1)] = 1
         elif state > self.max:
