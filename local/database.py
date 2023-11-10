@@ -78,6 +78,15 @@ class Database():
             print(f'Error getting all profiles: {e}')
             return []
 
+    def doesProfileExist(self, profile_identification: int):
+        try:
+            self.cursor.execute('SELECT COUNT(*) FROM profile WHERE profile_id = ?', (profile_identification,))
+            result = self.cursor.fetchone()
+            return result[0] > 0 if result else False
+        except sqlite3.Error as e:
+            print(f'Error checking profile existence: {e}')
+            return False
+
     def deleteProfile(self, profile_identification: int):
         try:
             self.cursor.execute('DELETE FROM profile WHERE profile_id = ?', (profile_identification,))
