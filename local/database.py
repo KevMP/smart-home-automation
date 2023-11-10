@@ -69,6 +69,15 @@ class Database():
         except IOError as e:
             print(f'Error setting current profile: {e}')
 
+    def getAllProfilesAsArray(self):
+        try:
+            self.cursor.execute('SELECT DISTINCT profile_id FROM profile')
+            result = self.cursor.fetchall()
+            return [row[0] for row in result] if result else []
+        except sqlite3.Error as e:
+            print(f'Error getting all profiles: {e}')
+            return []
+
     def getMinimumPreferredTemperature(self, profile_identification: int):
         try:
             self.cursor.execute('SELECT min_preferred_temperature FROM profile WHERE profile_id = ?', (profile_identification,))
@@ -252,5 +261,5 @@ class Database():
 if __name__ == "__main__":
     print('creating database object')
     db = Database()
-    db.getMedianTemperature()
+    db.getAllProfilesAsArray()
     db.closeConnection()
