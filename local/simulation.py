@@ -6,12 +6,12 @@ class AiModel():
         self.min = 70
         self.max = 75
 
-    def setProfile(self, profile_identification):
-        self.profile = profile_identification
+    def setProfile(self):
+        self.profile = Database().getCurrentProfile()
         self.min = Database().getMinimumPreferredTemperature(self.profile)
         self.max = Database().getMaximumPreferredTemperature(self.profile)
 
 if __name__ == "__main__":
     model = AiModel()
-    model.setProfile(0)
+    model.setProfile()
     print(model.min)

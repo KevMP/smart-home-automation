@@ -54,7 +54,7 @@ class Database():
 
     def getCurrentProfile(self):
         try:
-            with open('currentProfile.txt', 'r') as file:
+            with open('local/currentProfile.txt', 'r') as file:
                 profile_identification = file.read()
                 return int(profile_identification) if profile_identification.isdigit() else None
         except (IOError, ValueError) as e:
