@@ -52,6 +52,23 @@ class Database():
         self.removeTable('profile')
         self.removeTable('model')
 
+    def getCurrentProfile(self):
+        try:
+            with open('currentProfile.txt', 'r') as file:
+                profile_identification = file.read()
+                return int(profile_identification) if profile_identification.isdigit() else None
+        except (IOError, ValueError) as e:
+            print(f'Error reading current profile: {e}')
+            return None
+
+    def setCurrentProfile(self, profile_identification: int):
+        try:
+            with open('currentProfile.txt', 'w') as file:
+                file.write(str(profile_identification))
+            print(f'Current profile set to {profile_identification}.')
+        except IOError as e:
+            print(f'Error setting current profile: {e}')
+
     def getMinimumPreferredTemperature(self, profile_identification: int):
         try:
             self.cursor.execute('SELECT min_preferred_temperature FROM profile WHERE profile_id = ?', (profile_identification,))
@@ -228,6 +245,8 @@ class Database():
         except sqlite3.Error as e:
             print(f'Error getting median humidity data: {e}')
             return None
+
+
 
 # Example usage
 if __name__ == "__main__":
