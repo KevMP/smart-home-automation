@@ -278,5 +278,4 @@ if __name__ == "__main__":
     db = Database()
     profileArray = db.getAllProfilesAsArray()
     print(profileArray)
-    db.recordSensorData('102030', 0, 70, 14)
     db.closeConnection()
