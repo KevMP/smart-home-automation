@@ -39,7 +39,7 @@ class Database():
         ''')
         self.conn.commit()
     
-    def removeTable(self, table_name):
+    def removeTable(self, table_name: str):
         try:
             self.cursor.execute(f'DROP TABLE IF EXISTS {table_name}')
             self.conn.commit()
