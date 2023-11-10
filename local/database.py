@@ -55,7 +55,7 @@ class Database():
     
     def getMinimumPreferredTemperature(self, profile_identification):
         try:
-            self.cursor.execute('SELECT min_preferred_temperature FROM profiles WHERE profile_id = ?', (profile_identification,))
+            self.cursor.execute('SELECT min_preferred_temperature FROM profile WHERE profile_id = ?', (profile_identification,))
             result = self.cursor.fetchone()
             if result:
                 return result[0]  # Extract the preferred value
@@ -68,7 +68,7 @@ class Database():
 
     def getMaximumPreferredTemperature(self, profile_identification):
         try:
-            self.cursor.execute('SELECT max_preferred_temperature FROM profiles WHERE profile_id = ?', (profile_identification,))
+            self.cursor.execute('SELECT max_preferred_temperature FROM profile WHERE profile_id = ?', (profile_identification,))
             result = self.cursor.fetchone()
             if result:
                 return result[0]  # Extract the preferred value
@@ -86,4 +86,5 @@ if __name__ == "__main__":
     db.createProfilesTable()
     db.createModelTable()
     db.createSensorTable()
+    db.getMinimumPreferredTemperature(0)
     db.closeConnection()
