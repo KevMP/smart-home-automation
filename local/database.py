@@ -53,7 +53,7 @@ class Database():
         self.removeTable('model')
         self.closeConnection()
     
-    def getMinimumPreferredTemperature(self, profile_identification):
+    def getMinimumPreferredTemperature(self, profile_identification: int):
         try:
             self.cursor.execute('SELECT min_preferred_temperature FROM profile WHERE profile_id = ?', (profile_identification,))
             result = self.cursor.fetchone()
@@ -66,7 +66,7 @@ class Database():
             print(f'Error retrieving minimum preferred temperature: {e}')
             return None
 
-    def getMaximumPreferredTemperature(self, profile_identification):
+    def getMaximumPreferredTemperature(self, profile_identification: int):
         try:
             self.cursor.execute('SELECT max_preferred_temperature FROM profile WHERE profile_id = ?', (profile_identification,))
             result = self.cursor.fetchone()
@@ -97,7 +97,7 @@ class Database():
         except sqlite3.Error as e:
             print(f'Error setting minimum preferred temperature: {e}')
 
-    def setMaximumPreferredTemperature(self, profile_identification, value):
+    def setMaximumPreferredTemperature(self, profile_identification: int, value: float):
         try:
             # Check if the profile exists
             self.cursor.execute('SELECT profile_id FROM profile WHERE profile_id = ?', (profile_identification,))
@@ -114,6 +114,14 @@ class Database():
             print(f'Maximum preferred temperature set for Profile ID {profile_identification}: {value}')
         except sqlite3.Error as e:
             print(f'Error setting maximum preferred temperature: {e}')
+
+    def setCurrentMove(self, timestamp: str, profile_identification: int, model_temperature_direction: str):
+        try:
+            self.cursor.execute('INSERT INTO model (timestamp, profile_id, current_move) VALUES (?, ?, ?)', (timestamp, profile_identification, model_temperature_direction))
+            self.conn.commit()
+            print(f"Current move set for Profile ID {profile_identification} at timestamp {timestamp}: {model_temperature_direction}")
+        except sqlite3.Error as e:
+            print(f'Error setting current move: {e}')
 
 # Example usage
 if __name__ == "__main__":

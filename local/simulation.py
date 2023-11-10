@@ -1,3 +1,5 @@
+from database import Database
+
 class AiModel():
     def __init__(self):
         self.profile = 0
@@ -11,5 +13,6 @@ class AiModel():
 
 def main():
     model = AiModel()
-    model.setProfile('001')
+    model.setProfile(0)
+    print(model.min)
 main()
