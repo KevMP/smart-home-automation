@@ -39,6 +39,15 @@ class Database:
         ''')
         self.conn.commit()
     
+    def createAirconditionerTable(self):
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS airconditioner (
+                timestamp TEXT,
+                target_temperature REAL
+            )
+        ''')
+        self.conn.commit()
+
     def removeTable(self, table_name: str):
         try:
             self.cursor.execute(f'DROP TABLE IF EXISTS {table_name}')
