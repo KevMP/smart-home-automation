@@ -51,7 +51,6 @@ class Database():
         self.removeTable('sensor')
         self.removeTable('profile')
         self.removeTable('model')
-        self.closeConnection() 
 
     def getMinimumPreferredTemperature(self, profile_identification: int):
         try:
