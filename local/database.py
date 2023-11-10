@@ -272,11 +272,10 @@ class Database():
             print(f'Error getting median humidity data: {e}')
             return None
 
-
-
 # Example usage
 if __name__ == "__main__":
     print('creating database object')
     db = Database()
-    db.getAllProfilesAsArray()
+    profileArray = db.getAllProfilesAsArray()
+    print(profileArray)
     db.closeConnection()
