@@ -78,13 +78,47 @@ class Database():
         except sqlite3.Error as e:
             print(f'Error retrieving maximum preferred temperature: {e}')
             return None
+    
+    def setMinimumPreferredTemperature(self, profile_identification, value):
+        try:
+            # Check if the profile exists
+            self.cursor.execute('SELECT profile_id FROM profile WHERE profile_id = ?', (profile_identification,))
+            existing_profile = self.cursor.fetchone()
+
+            if existing_profile:
+                # Profile exists, update the value
+                self.cursor.execute('UPDATE profile SET min_preferred_temperature = ? WHERE profile_id = ?', (value, profile_identification))
+            else:
+                # Profile does not exist, create a new profile
+                self.cursor.execute('INSERT INTO profile (profile_id, min_preferred_temperature, max_preferred_temperature) VALUES (?, ?, ?)', (profile_identification, value, 0.0))
+
+            self.conn.commit()
+            print(f'Minimum preferred temperature set for Profile ID {profile_identification}: {value}')
+        except sqlite3.Error as e:
+            print(f'Error setting minimum preferred temperature: {e}')
+
+    def setMaximumPreferredTemperature(self, profile_identification, value):
+        try:
+            # Check if the profile exists
+            self.cursor.execute('SELECT profile_id FROM profile WHERE profile_id = ?', (profile_identification,))
+            existing_profile = self.cursor.fetchone()
+
+            if existing_profile:
+                # Profile exists, update the value
+                self.cursor.execute('UPDATE profile SET max_preferred_temperature = ? WHERE profile_id = ?', (value, profile_identification))
+            else:
+                # Profile does not exist, create a new profile
+                self.cursor.execute('INSERT INTO profile (profile_id, min_preferred_temperature, max_preferred_temperature) VALUES (?, ?, ?)', (profile_identification, 0.0, value))
+
+            self.conn.commit()
+            print(f'Maximum preferred temperature set for Profile ID {profile_identification}: {value}')
+        except sqlite3.Error as e:
+            print(f'Error setting maximum preferred temperature: {e}')
 
 # Example usage
 if __name__ == "__main__":
     print('creating database object')
     db = Database()
-    db.createProfilesTable()
-    db.createModelTable()
-    db.createSensorTable()
-    db.getMinimumPreferredTemperature(0)
+    db.setMinimumPreferredTemperature(0, 72)
+    db.setMaximumPreferredTemperature(0, 75)
     db.closeConnection()
