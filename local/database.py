@@ -136,6 +136,22 @@ class Database():
             print(f'Error getting current move: {e}')
             return None
 
+    def setSensorHumidity(self, timestamp: str, sensor_identification: int, temperature: float, humidity: float):
+        try:
+            # Check if the timestamp and sensor identification combination already exists in the 'sensor' table
+            self.cursor.execute('SELECT timestamp FROM sensor WHERE timestamp = ? AND sensor_id = ?', (timestamp, sensor_identification))
+            existing_data = self.cursor.fetchone()
+
+            if existing_data:
+                print(f"Sensor data for timestamp {timestamp} and sensor ID {sensor_identification} already exists.")
+            else:
+                # Timestamp and sensor identification do not exist, insert the new sensor data
+                self.cursor.execute('INSERT INTO sensor (timestamp, sensor_id, temperature, humidity) VALUES (?, ?, ?, ?)', (timestamp, sensor_identification, temperature, humidity))
+                self.conn.commit()
+                print(f"Sensor data recorded for timestamp {timestamp}, Sensor ID {sensor_identification}: Temperature = {temperature}, Humidity = {humidity}")
+        except sqlite3.Error as e:
+            print(f'Error setting sensor data: {e}')
+
 # Example usage
 if __name__ == "__main__":
     print('creating database object')
