@@ -1,3 +1,6 @@
+note, depending on how you imported the database module to your specific python file. 
+You may need to call it with the class prefix, for example, Database().getAllProfilesAsArray()
+
 # Creating a profile:
 ### Function names in red.
 ![instructions_creation](https://github.com/KevMP/smart-home-automation/assets/100045145/b66f3226-2fb5-42a1-b03b-be401ddc881a)
