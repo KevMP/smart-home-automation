@@ -51,8 +51,8 @@ class Database():
         self.removeTable('sensor')
         self.removeTable('profile')
         self.removeTable('model')
-        self.closeConnection()
-    
+        self.closeConnection() 
+
     def getMinimumPreferredTemperature(self, profile_identification: int):
         try:
             self.cursor.execute('SELECT min_preferred_temperature FROM profile WHERE profile_id = ?', (profile_identification,))
@@ -152,10 +152,87 @@ class Database():
         except sqlite3.Error as e:
             print(f'Error setting sensor data: {e}')
 
+    def getTemperature(self, sensor_identification: int):
+        try:
+            self.cursor.execute('SELECT temperature FROM sensor WHERE sensor_id = ? ORDER BY timestamp DESC LIMIT 1', (sensor_identification,))
+            result = self.cursor.fetchone()
+            if result:
+                return result[0]  # Extract the most recent temperature
+            else:
+                print(f"No temperature data found for Sensor ID {sensor_identification}.")
+                return None
+        except sqlite3.Error as e:
+            print(f'Error getting temperature data: {e}')
+            return None
+
+    def getHumidity(self, sensor_identification: int):
+        try:
+            self.cursor.execute('SELECT humidity FROM sensor WHERE sensor_id = ? ORDER BY timestamp DESC LIMIT 1', (sensor_identification,))
+            result = self.cursor.fetchone()
+            if result:
+                return result[0]  # Extract the most recent humidity
+            else:
+                print(f"No humidity data found for Sensor ID {sensor_identification}.")
+                return None
+        except sqlite3.Error as e:
+            print(f'Error getting humidity data: {e}')
+            return None
+
+    def getMedianTemperature(self):
+        try:
+            # Retrieve the most recent timestamp common to all sensors
+            self.cursor.execute('SELECT timestamp FROM sensor GROUP BY timestamp HAVING COUNT(*) = (SELECT COUNT(DISTINCT sensor_id) FROM sensor)')
+            timestamp = self.cursor.fetchone()
+
+            if timestamp:
+                timestamp = timestamp[0]
+
+                # Retrieve the temperature data for the common timestamp
+                self.cursor.execute('SELECT temperature FROM sensor WHERE timestamp = ?', (timestamp,))
+                result = self.cursor.fetchall()
+                if result:
+                    temperature_values = [row[0] for row in result]
+                    median_temperature = sorted(temperature_values)[len(temperature_values) // 2]
+                    return median_temperature
+                else:
+                    print("No temperature data found for the common timestamp.")
+                    return None
+            else:
+                print("No common timestamp found for all sensors.")
+                return None
+        except sqlite3.Error as e:
+            print(f'Error getting median temperature data: {e}')
+            return None
+
+    def getMedianHumidity(self):
+        try:
+            # Retrieve the most recent timestamp common to all sensors
+            self.cursor.execute('SELECT timestamp FROM sensor GROUP BY timestamp HAVING COUNT(*) = (SELECT COUNT(DISTINCT sensor_id) FROM sensor)')
+            timestamp = self.cursor.fetchone()
+
+            if timestamp:
+                timestamp = timestamp[0]
+
+                # Retrieve the humidity data for the common timestamp
+                self.cursor.execute('SELECT humidity FROM sensor WHERE timestamp = ?', (timestamp,))
+                result = self.cursor.fetchall()
+                if result:
+                    humidity_values = [row[0] for row in result]
+                    median_humidity = sorted(humidity_values)[len(humidity_values) // 2]
+                    return median_humidity
+                else:
+                    print("No humidity data found for the common timestamp.")
+                    return None
+            else:
+                print("No common timestamp found for all sensors.")
+                return None
+        except sqlite3.Error as e:
+            print(f'Error getting median humidity data: {e}')
+            return None
+
 # Example usage
 if __name__ == "__main__":
     print('creating database object')
     db = Database()
-    db.setMinimumPreferredTemperature(0, 72)
-    db.setMaximumPreferredTemperature(0, 75)
+    db.getMedianTemperature()
     db.closeConnection()
