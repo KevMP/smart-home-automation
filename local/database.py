@@ -78,6 +78,14 @@ class Database():
             print(f'Error getting all profiles: {e}')
             return []
 
+    def deleteProfile(self, profile_identification: int):
+        try:
+            self.cursor.execute('DELETE FROM profile WHERE profile_id = ?', (profile_identification,))
+            self.conn.commit()
+            print(f'Profile with ID {profile_identification} deleted successfully.')
+        except sqlite3.Error as e:
+            print(f'Error deleting profile: {e}')
+
     def getMinimumPreferredTemperature(self, profile_identification: int):
         try:
             self.cursor.execute('SELECT min_preferred_temperature FROM profile WHERE profile_id = ?', (profile_identification,))
