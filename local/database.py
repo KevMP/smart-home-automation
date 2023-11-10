@@ -1,13 +1,13 @@
 import sqlite3
 
 class Database():
-    def __init__(self, db_name='data.db'):
+    def __init__(self, db_name='local/data.db'):
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
 
     def createProfilesTable(self):
         self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS profiles (
+            CREATE TABLE IF NOT EXISTS profile (
                 profile_id INTEGER PRIMARY KEY,
                 min_preferred_temperature REAL,
                 max_preferred_temperature REAL
