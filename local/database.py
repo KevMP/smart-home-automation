@@ -48,6 +48,22 @@ class Database:
         ''')
         self.conn.commit()
 
+    def setTargetTemperature(self, timestamp: str, target_temperature: float):
+        try:
+            # Check if the timestamp exists in the 'airconditioner' table
+            self.cursor.execute('SELECT target_temperature FROM airconditioner WHERE timestamp = ?', (timestamp,))
+            existing_temperature = self.cursor.fetchone()
+
+            if existing_temperature and existing_temperature[0] == target_temperature:
+                print(f"Target temperature for timestamp {timestamp} already set to {target_temperature}.")
+            else:
+                # Timestamp does not exist or the temperature is different, insert the new target temperature
+                self.cursor.execute('INSERT INTO airconditioner (timestamp, target_temperature) VALUES (?, ?)', (timestamp, target_temperature))
+                self.conn.commit()
+                print(f"Target temperature set for timestamp {timestamp}: {target_temperature}")
+        except sqlite3.Error as e:
+            print(f'Error setting target temperature: {e}')
+
     def removeTable(self, table_name: str):
         try:
             self.cursor.execute(f'DROP TABLE IF EXISTS {table_name}')
