@@ -178,7 +178,7 @@ class Database():
             print(f'Error getting current move: {e}')
             return None
 
-    def setSensorHumidity(self, timestamp: str, sensor_identification: int, temperature: float, humidity: float):
+    def recordSensorData(self, timestamp: str, sensor_identification: int, temperature: float, humidity: float):
         try:
             # Check if the timestamp and sensor identification combination already exists in the 'sensor' table
             self.cursor.execute('SELECT timestamp FROM sensor WHERE timestamp = ? AND sensor_id = ?', (timestamp, sensor_identification))
