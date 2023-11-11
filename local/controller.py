@@ -18,4 +18,8 @@ class Controller():
         ## Hours, Minutes, Seconds, Milliseconds
         Database().setTargetTemperature(datetime.now().strftime("%H:%M:%S.%f")[:-3], current_temperature)
     
-Controller().increaseTemperature()
+    def getTargetTemperature(self):
+        return Database().getTargetTemperature()
+
+    def setTargetTemperature(self, target_temp: float):
+        Database().setTargetTemperature(datetime.now().strftime("%H:%M:%S.%f")[:-3], target_temp)
