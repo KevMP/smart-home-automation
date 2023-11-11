@@ -1,5 +1,0 @@
-{
-    "ignore": ["*ai_agent*", "*smart_ac_simulation*"],
-    "watch": ["*website/back-end*"]
-}
-  
