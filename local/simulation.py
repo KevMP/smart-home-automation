@@ -1,5 +1,6 @@
 from database import Database
 from controller import Controller
+import time
 import random
 
 class AiModel:
@@ -28,6 +29,7 @@ if __name__ == "__main__":
     currentTemperature = Controller().getTargetTemperature()
     
     while True:
+        time.sleep(1)
         print(model.actionMatrix)
         print(model.min)
         print(model.max)
