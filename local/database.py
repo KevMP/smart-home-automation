@@ -54,6 +54,15 @@ class Database:
         self.createSensorTable()
         self.createAirconditionerTable()
 
+    def getTargetTemperature(self):
+        try:
+            self.cursor.execute('SELECT target_temperature FROM airconditioner ORDER BY timestamp DESC LIMIT 1')
+            result = self.cursor.fetchone()
+            return int(result[0]) if result else None
+        except (sqlite3.Error, TypeError) as e:
+            print(f'Error getting target temperature: {e}')
+            return None
+
     def setTargetTemperature(self, timestamp: str, target_temperature: float):
         try:
             # Check if the timestamp exists in the 'airconditioner' table
@@ -307,7 +316,8 @@ class Database:
 if __name__ == "__main__":
     print('creating database object')
     db = Database()
-    db.createAirconditionerTable()
+    db.setMinimumPreferredTemperature(1, 50)
+    db.setMaximumPreferredTemperature(1, 53)
     profileArray = db.getAllProfilesAsArray()
     print(profileArray)
     db.closeConnection()
