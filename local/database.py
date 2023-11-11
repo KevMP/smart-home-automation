@@ -1,6 +1,6 @@
 import sqlite3
 
-class Database():
+class Database:
     def __init__(self, db_name='local/data.db'):
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
@@ -39,6 +39,37 @@ class Database():
         ''')
         self.conn.commit()
     
+    def createAirconditionerTable(self):
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS airconditioner (
+                timestamp TEXT,
+                target_temperature REAL
+            )
+        ''')
+        self.conn.commit()
+
+    def createAllTables(self):
+        self.createProfilesTable()
+        self.createModelTable()
+        self.createSensorTable()
+        self.createAirconditionerTable()
+
+    def setTargetTemperature(self, timestamp: str, target_temperature: float):
+        try:
+            # Check if the timestamp exists in the 'airconditioner' table
+            self.cursor.execute('SELECT target_temperature FROM airconditioner WHERE timestamp = ?', (timestamp,))
+            existing_temperature = self.cursor.fetchone()
+
+            if existing_temperature and existing_temperature[0] == target_temperature:
+                print(f"Target temperature for timestamp {timestamp} already set to {target_temperature}.")
+            else:
+                # Timestamp does not exist or the temperature is different, insert the new target temperature
+                self.cursor.execute('INSERT INTO airconditioner (timestamp, target_temperature) VALUES (?, ?)', (timestamp, target_temperature))
+                self.conn.commit()
+                print(f"Target temperature set for timestamp {timestamp}: {target_temperature}")
+        except sqlite3.Error as e:
+            print(f'Error setting target temperature: {e}')
+
     def removeTable(self, table_name: str):
         try:
             self.cursor.execute(f'DROP TABLE IF EXISTS {table_name}')
@@ -54,7 +85,7 @@ class Database():
 
     def getCurrentProfile(self):
         try:
-            with open('currentProfile.txt', 'r') as file:
+            with open('local/currentProfile.txt', 'r') as file:
                 profile_identification = file.read()
                 return int(profile_identification) if profile_identification.isdigit() else None
         except (IOError, ValueError) as e:
@@ -276,6 +307,7 @@ class Database():
 if __name__ == "__main__":
     print('creating database object')
     db = Database()
+    db.createAirconditionerTable()
     profileArray = db.getAllProfilesAsArray()
     print(profileArray)
     db.closeConnection()
