@@ -5,7 +5,6 @@ from kivymd.uix.button import MDIconButton
 from kivymd.uix.label import MDLabel
 from kivy.properties import StringProperty
 
-
 Window.size = (800, 480)
 
 KV = '''
@@ -24,65 +23,85 @@ Screen:
                 theme_text_color: 'Secondary'
                 size_hint_x: 1
 
-        # Icon grid centered
+
+        Widget:
+            size_hint_y: None
+            height: dp(50)
         GridLayout:
+            rows: 4
             cols: 4
-            size_hint: 1, None
+            size_hint: None, None
+            width: self.minimum_width
             height: self.minimum_height
+            pos_hint: {'center_x': 0.5, 'y': 0.3}
             padding: dp(24)
             spacing: dp(24)
-
-            # Define buttons
+            x: self.parent.x + dp(80)
             MDIconButton:
                 icon: 'thermostat'
-                user_font_size: '48dp'
-                on_release: app.button_pressed('Comfort Profiles', 'comfort profiles')
+                user_font_size: '64dp'
+                halign: 'center'
+                on_release: app.button_pressed('Comfort Profiles', 'thermostat')
                 md_bg_color: app.theme_cls.accent_color
-                radius: dp(12)
+                radius: dp(24)
+                on_touch_down: app.show_label(self, label)
+                on_touch_up: app.hide_label(label)
             MDIconButton:
                 icon: 'calendar-today'
-                user_font_size: '48dp'
-                on_release: app.button_pressed('Schedules', 'schedules')
+                user_font_size: '64dp'
+                halign: 'center'
+                on_release: app.button_pressed('Schedules', 'calendar-today')
                 md_bg_color: app.theme_cls.accent_color
-                radius: dp(12)
+                radius: dp(24)
             MDIconButton:
                 icon: 'beach'
-                user_font_size: '48dp'
-                on_release: app.button_pressed('Vacation', 'vacation')
+                user_font_size: '64dp'
+                halign: 'center'
+                on_release: app.button_pressed('Vacation', 'beach')
                 md_bg_color: app.theme_cls.accent_color
-                radius: dp(12)
+                radius: dp(24)
             MDIconButton:
                 icon: 'cogs'
-                user_font_size: '48dp'
-                on_release: app.button_pressed('Settings', 'settings')
+                user_font_size: '64dp'
+                halign: 'center'
+                on_release: app.button_pressed('Settings', 'cogs')
                 md_bg_color: app.theme_cls.accent_color
-                radius: dp(12)
+                radius: dp(24)
             MDIconButton:
                 icon: 'weather-partly-cloudy'
-                user_font_size: '48dp'
-                on_release: app.button_pressed('Weather', 'weather')
+                user_font_size: '64dp'
+                halign: 'center'
+                on_release: app.button_pressed('Weather', 'weather-partly-cloudy')
                 md_bg_color: app.theme_cls.accent_color
-                radius: dp(12)
+                radius: dp(24)
             MDIconButton:
                 icon: 'bell-outline'
-                user_font_size: '48dp'
-                on_release: app.button_pressed('Alerts & Reminders', 'alerts & reminders')
+                user_font_size: '64dp'
+                halign: 'center'
+                on_release: app.button_pressed('Alerts & Reminders', 'bell-outline')
                 md_bg_color: app.theme_cls.accent_color
-                radius: dp(12)
+                radius: dp(24)
             MDIconButton:
                 icon: 'information-outline'
-                user_font_size: '48dp'
-                on_release: app.button_pressed('System', 'system')
+                user_font_size: '64dp'
+                halign: 'center'
+                on_release: app.button_pressed('System', 'information-outline')
                 md_bg_color: app.theme_cls.accent_color
-                radius: dp(12)
+                radius: dp(24)
             MDIconButton:
                 icon: 'account-cog-outline'
-                user_font_size: '48dp'
-                on_release: app.button_pressed('Service', 'service')
+                user_font_size: '64dp'
+                halign: 'center'
+                on_release: app.button_pressed('Service', 'account-cog-outline')
                 md_bg_color: app.theme_cls.accent_color
-                radius: dp(12)
+                radius: dp(24)
+            Widget:
+                size_hint_y: None
+                height: dp(50)
 
-        # Fancy Notification bar in the footer
+            
+
+        #footer 
         MDBoxLayout:
             size_hint_y: None
             height: '40dp'
@@ -91,7 +110,7 @@ Screen:
             MDIconButton:
                 icon: 'arrow-left'
                 user_font_size: '32sp'
-                on_release: app.footer_button_pressed('Back')
+                on_release: app.footer_button_pressed('Back', 'arrow-left')
             MDLabel:
                 text: 'No new Notifications'
                 halign: 'center'
@@ -100,19 +119,26 @@ Screen:
                 size_hint_x: 0.8
             
             MDIconButton:
+                id: mj_button
+                icon: 
+                user_font_size: '32sp'
+                on_press: app.mj_button_pressed()
+
+            MDIconButton:
                 id: recent_button
                 icon: app.recent_icon
                 user_font_size: '32sp'
-                on_release: app.footer_button_pressed('Recent', 'history')
+                on_release: app.footer_button_pressed('Recent', 'recent_button')
             
 '''
+
 
 class SmartThermostatApp(MDApp):
     recent_icon = StringProperty('history')
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "BlueGray"
-        self.theme_cls.accent_palette = "Teal" 
+        self.theme_cls.accent_palette = "LightBlue"
         return Builder.load_string(KV)
 
     def button_pressed(self, button_text):
@@ -125,6 +151,17 @@ class SmartThermostatApp(MDApp):
         print(f'{button_text} button pressed')
         print(self.recent_icon)
         self.recent_icon = icon
+
+    def mj_button_pressed(self):
+        if self.theme_cls.theme_style == 'Dark':
+            self.theme_cls.theme_style = 'Light'
+            print("Its light ")
+        else:
+            self.theme_cls.theme_style = 'Dark'
+            print("its dark")
+
+
+
     
 
 if __name__ == '__main__':
