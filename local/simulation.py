@@ -5,8 +5,8 @@ import random
 class AiModel:
     def __init__(self):
         self.profile = 0
-        self.min = 70
-        self.max = 75
+        self.min = 90
+        self.max = 120
         self.actionMatrix = [0, 0, 0]
 
     def setProfile(self):
@@ -14,7 +14,7 @@ class AiModel:
         self.min = Database().getMinimumPreferredTemperature(self.profile)
         self.max = Database().getMaximumPreferredTemperature(self.profile)
 
-    def learnDirection(self, state):
+    def learnDirection(self, state: float):
         if state < self.min:
             self.actionMatrix[random.randint(0, len(self.actionMatrix) - 1)] = 1
         elif state > self.max:
@@ -25,10 +25,17 @@ class AiModel:
 if __name__ == "__main__":
     model = AiModel()
     model.setProfile()
+    currentTemperature = Controller().getTargetTemperature()
     
     while True:
+        print(model.actionMatrix)
+        print(model.min)
+        print(model.max)
+        print(currentTemperature)
         action = random.choice(model.actionMatrix)
         if action == 1:
-            Controller().increaseTemperature()
+            Controller().setTargetTemperature(currentTemperature + 1)
         elif action == -1:
-            Controller().decreaseTemperature()
+            Controller().setTargetTemperature(currentTemperature - 1)
+        model.learnDirection(currentTemperature)
+        currentTemperature = Controller().getTargetTemperature()
