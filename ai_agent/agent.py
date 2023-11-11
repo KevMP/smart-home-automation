@@ -1,9 +1,11 @@
 import random
+import tensorflow as tf
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
 import numpy as np
 import os
+import platform
 
 feature_order = ['temperature', 'humidity', 'occupancy', 'ac_status', 'target_temperature']
 
@@ -11,23 +13,26 @@ def extract_features(data_dict):
     return np.array([data_dict[key] for key in feature_order])
 
 class DQNAgent:
-    def __init__(self, state_size = 3, action_size = 3, learning_rate=0.01):
+    def __init__(self, state_size = 5, action_size = 3, learning_rate=0.01, gamma=0.09, epsilon=1, epsilon_min=0.01, epsilon_decay=0.995):
         self.state_size = state_size # temperature, humidity, status
         self.action_size = action_size
         self.learning_rate = learning_rate
 
         self.memory = []  # store (state, action, reward, next_state, done)
-        self.gamma = 0.9  # discount rate
-        self.epsilon = 1.
-        self.epsilon_min = 0.01
-        self.epsilon_decay = 0.995
+        self.gamma = gamma
+        self.epsilon = epsilon
+        self.epsilon_min = epsilon_min
+        self.epsilon_decay = epsilon_decay
         self.q_network = self._build_q_network()
 
-    def _build_q_network(self):
+    def _build_q_network(self, neurons=64, activation='relu'):
         model = Sequential()
-        model.add(Dense(units=64, activation='relu', input_shape=(5,)))
+        model.add(Dense(units=neurons, activation=activation, input_shape=(self.state_size,)))
         model.add(Dense(self.action_size, activation='linear'))
-        model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
+        if platform.system() == 'Darwin':
+            model.compile(loss='mse', optimizer=tf.keras.optimizers.legacy.Adam(learning_rate=self.learning_rate))
+        else:
+            model.compile(loss='mse', optimizer=Adam(learning_rater=self.learning_rate))
         return model
 
     def remember(self, state, action, reward, next_state, done):
