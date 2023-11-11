@@ -102,13 +102,6 @@ BoxLayout:
             size: '140dp', '50dp'
             font_size: '22dp'
             on_release: app.go_to_home()
-     Image: 
-        id: gif
-        source: r'C:\Users\emili\OneDrive\Documents\GitHub\smart-home-automation\local-gui\Assets\House Frames\frame_0.png'
-        center: self.parent.center
-        size_hint: None, None
-        size: 500, 500
-        allow_stretch: False
 
         Widget:
             size_hint_x: 1

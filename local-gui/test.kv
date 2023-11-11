@@ -1,0 +1,10 @@
+#:kivy 2.0
+
+<TestScreen>:
+    name: 'Test Test'
+
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text: 'Go Back'
+            on_release: app.root.current = 'Register'

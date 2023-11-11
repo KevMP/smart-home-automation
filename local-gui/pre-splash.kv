@@ -1,0 +1,10 @@
+#:kivy 2.0
+
+<PreSplashScreen>:
+    name: 'PreSplash'
+
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text: 'Go to Register'
+            on_release: app.root.current = 'Register'
