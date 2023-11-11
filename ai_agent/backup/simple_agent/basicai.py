@@ -38,7 +38,6 @@ class BasicAi:
         self.file = open(self.filepath, 'r')
         self.state = self.file.read()
         self.file.close()
-        print(self.state)
         return self.state
 
     def simulation(self):
