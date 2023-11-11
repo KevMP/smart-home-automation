@@ -1,19 +1,39 @@
-import React from 'react'
-import { Button, Form, Col } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap'
 import { BiSolidThermometer } from 'react-icons/bi'
 import { MdWbSunny, MdOpacity } from 'react-icons/md'
 import axios from 'axios'
 
-function ACComponent ({ formData, setFormData }) {
-  const handleSave = () => {
-    const payload = {
-      origin: 'AC',
-      action: 'update'
-    }
+function CombinedACComponent () {
+  const [formData, setFormData] = useState({
+    max_temp: 0,
+    min_temp: 0,
+    max_humidity: 0,
+    min_humidity: 0,
+    max_occupancy: 0,
+    occupancy: 0,
+    is_celsius: false,
+    ac_status: false,
+    humidity: 0,
+    temperature: 0
+  })
 
-    axios.post('localhost:3001/api/developer', { ...payload, ...formData })
+  useEffect(() => {
+    (async () => {
+      try {
+        axios.get('http://localhost:3001/api/v1/ac')
+          .then(response => {
+            setFormData(response.data)
+          })
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    })()
+  }, [])
+
+  const handleSave = () => {
+    axios.post('http://localhost:3001/api/AC', formData)
       .then(response => {
-        console.log(response.data)
         alert('Settings saved successfully!')
       })
       .catch(error => {
@@ -25,7 +45,7 @@ function ACComponent ({ formData, setFormData }) {
   function convertTemperature (value, isCelsius) {
     const numericValue = parseFloat(value)
     console.log(numericValue)
-    return parseFloat(isCelsius ? ((numericValue * 9) / 5) + 32 : ((numericValue - 32) * 5) / 9).toFixed(2)
+    return parseFloat(isCelsius ? ((numericValue - 32) * 5) / 9 : ((numericValue * 9) / 5) + 32).toFixed(2)
   }
 
   const handleSwitch = () => {
@@ -42,7 +62,37 @@ function ACComponent ({ formData, setFormData }) {
   }
 
   return (
-        <Col xs={12} md={4} className="mb-4">
+    <Container fluid>
+       <Row className="justify-content-center align-items-center">
+          <Col xs={12} md={4} className="mb-4">
+              <Card className="shadow" style={{ backgroundColor: 'rgb(9, 69, 120)' }}>
+                  <Card.Body>
+                      <Card.Title className="text-white text-center">AC Status</Card.Title>
+
+                      <div className="d-flex align-items-center justify-content-between mb-3">
+                          <div className="d-flex align-items-center">
+                              <BiSolidThermometer className="text-white me-2" />
+                              <Card.Text className="text-white mb-0">
+                                  Temperature: {formData.is_celsius ? `${formData.temperature}°C` : `${formData.temperature}°F`}
+                              </Card.Text>
+                          </div>
+
+                          <div className={`text-center bg-${formData.ac_status ? 'success' : 'danger'} bg-gradient text-white rounded-3 p-2`}>
+                              <span>{formData.ac_status ? 'ON' : 'OFF'}</span>
+                          </div>
+                      </div>
+
+                      <div className="d-flex align-items-center">
+                          <MdOpacity className="text-white me-2" />
+                          <Card.Text className="text-white mb-0">
+                              Humidity: {formData.humidity}%
+                          </Card.Text>
+                      </div>
+                  </Card.Body>
+              </Card>
+        </Col>
+
+          <Col xs={12} md={4} className="mb-4 mt-5">
             <div className="p-3 shadow rounded" style={{ backgroundColor: 'rgb(9, 69, 120)' }}>
                 <h3 className="text-white text-center mb-4">AC Controls</h3>
 
@@ -54,7 +104,7 @@ function ACComponent ({ formData, setFormData }) {
                         <div className="d-flex align-items-center">
                             <MdWbSunny className="text-white me-2" />
                             <p className='text-white lh-sm text-center'>Temperature: </p>
-                            <p className='text-white ms-3'>{formData.is_celsius ? `${formData.min_temp}°F - ${formData.max_temp}°F` : `${formData.min_temp}°C - ${formData.max_temp}°C`}</p>
+                            <p className='text-white ms-3'>{formData.is_celsius ? `${parseFloat(formData.min_temp).toFixed(2)}°C - ${parseFloat(formData.max_temp).toFixed(2)}°C` : `${parseFloat(formData.min_temp).toFixed(2)}°F - ${parseFloat(formData.max_temp).toFixed(2)}°F`}</p>
                         </div>
                         <div className="d-flex align-items-center">
                             <MdOpacity className="text-white me-2" />
@@ -69,14 +119,15 @@ function ACComponent ({ formData, setFormData }) {
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <Form.Range
                         value={formData.min_temp}
-                        min={formData.is_celsius ? 32 : 0}
-                        max={formData.is_celsius ? 104 : 40}
+                        min={formData.is_celsius ? 0 : 32}
+                        step={0.01}
+                        max={formData.is_celsius ? 40 : 104}
                         onChange={(e) => setFormData({ ...formData, min_temp: parseFloat(e.target.value) })}
                     />
                     <Form.Range
                         value={formData.max_temp}
-                        min={formData.is_celsius ? 32 : 0}
-                        max={formData.is_celsius ? 104 : 40}
+                        min={formData.is_celsius ? 0 : 32}
+                        max={formData.is_celsius ? 40 : 104}
                         onChange={(e) => setFormData({ ...formData, max_temp: parseFloat(e.target.value) })}
                     />
                 </div>
@@ -85,6 +136,7 @@ function ACComponent ({ formData, setFormData }) {
                     <Form.Range
                         value={formData.min_humidity}
                         min={0}
+                        step={0.01}
                         max={100}
                         onChange={(e) => setFormData({ ...formData, min_humidity: parseInt(e.target.value) })}
                     />
@@ -96,19 +148,21 @@ function ACComponent ({ formData, setFormData }) {
                     />
                 </div>
 
-                <label className="text-white d-block mb-2">Occupancy Max: {formData.occupancy_max}</label>
+                <label className="text-white d-block mb-2">Occupancy Max: {formData.max_occupancy}</label>
                     <Form.Range
-                            value={formData.occupancy_max}
-                            min={0}
-                            max={100}
-                            onChange={(e) => setFormData({ ...formData, occupancy_max: parseInt(e.target.value) })}
-                        />
+                      value={formData.max_occupancy}
+                      min={0}
+                      max={100}
+                      onChange={(e) => setFormData({ ...formData, max_occupancy: parseInt(e.target.value) })}
+                      />
                 <div>
                     <Button variant="primary" className="mb-3 mt-5" onClick={handleSave}>Save Settings</Button>
                 </div>
             </div>
         </Col>
+      </Row>
+    </Container>
   )
 }
 
-export default ACComponent
+export default CombinedACComponent

@@ -34,11 +34,11 @@ class BasicAi:
         self.file = open(self.filepath, 'w')
         self.file.write(f'{targetedTemperature}')
         self.file.close()
+
     def getState(self):
         self.file = open(self.filepath, 'r')
         self.state = self.file.read()
         self.file.close()
-        print(self.state)
         return self.state
 
     def simulation(self):

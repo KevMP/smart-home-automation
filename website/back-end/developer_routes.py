@@ -1,50 +1,53 @@
-from flask import Blueprint, jsonify, request
-from smart_ac_simulation.smart_ac_simulation import SmartACEnvironment, SmartThermostat, OccupancySensor, TemperatureSensor, HumiditySensor
-import numpy as np
-import logging
+from flask import Blueprint, jsonify, request, current_app
+from smart_ac_simulation.smart_ac_simulation import SmartACEnvironment
+import asyncio
+import websockets
+import json
 
 developer_bp = Blueprint('developer', __name__)
 
-@developer_bp.route('/api/v1/developer', methods=['GET', 'POST'])
-def developer():
-    if request.method == 'POST':
+async def ai_agent_request(state):
+    uri = "ws://localhost:6789"
+    async with websockets.connect(uri) as websocket:
+        await websocket.send(json.dumps(state))
+        
+        response = await websocket.recv()
+        return json.loads(response)
+
+async def ai_agent_train():
+    uri = "ws://localhost:6789"
+    async with websockets.connect(uri) as websocket:
+        await websocket.send(json.dumps({ 'command': "start_training" }))
+        
+        response = await websocket.recv()
+        return json.loads(response)
+
+def convert(val, is_celsius):
+    return val * 9 / 5 + 32 if is_celsius else val - 32 * 5 / 9
+
+@developer_bp.route('/api/v1/ac', methods=['GET', 'POST'])
+def ac():
+    if request.method == "POST":
+        current_app.logger.debug(f"Updating AC Parameters...")
         data = request.get_json()
-        action = data.get('action', None)
-        origin = data.get('origin', None)
+        env = SmartACEnvironment()
+        state = env.get_current_state()
         
-        logging.info(f"Developer endpoint hit with action: {action} and origin: {origin}")
-        
-        if origin == "AI":
-            if action == "train":
-                # smart_ac_environment.OccupancySensor()
-                # global global_agent
-                # global_agent = BasicAi()
-                # global_agent.simulation()
-                # logging.info("Training completed")
-                return jsonify()
-            elif action == "query":
-                # if not global_agent:
-                #     logging.error("Agent not trained!")
-                #     return jsonify({"error": "Agent not trained!"}), 400
-
-                # environment = SmartACEnvironment()
-                # state = np.array([environment.get_current_state()])
-                # action = global_agent.choose_action(state)
-                # environment.step(action)
-
-                # return jsonify(environment.get_ac_status())
-                return jsonify()
-        elif origin == "DB":
-            pass
-        elif origin == "AC":
-            if action == "update":
-                data.get('temperature', None)
-                data.get('humidity', None)
-                data.get('occupancy', None)
-                data.get('temperature', None)
-
-        else:
-            logging.warning(f"Unrecognized origin: {origin}")
-            return jsonify({"error": "Unrecognized origin!"}), 400
+        if env['is_celsius'] != data.get('is_celsius'):
+            env.smart_thermostat.set_temperature(convert(state['temperature'], env['is_celsius']))
+            env.temperature_sensor.set_range(convert(env['min_temp'], env['is_celsius']), convert(env['max_temp'], env['is_celsius']))
     else:
-        return jsonify(SmartACEnvironment().get_current_state())
+        current_app.logger.debug(f"Fetching AC parameters...")
+        env = SmartACEnvironment()
+        # current_app.logger.debug(f"Loading AC with values: {env.get_current_state()}")
+        return jsonify(env.get_current_state())
+    
+
+@developer_bp.route('/api/v1/ai', methods=['GET', 'POST'])
+def ai():
+    if request.method == "POST":
+        current_app.logger.debug(f"Sending signal to train...")
+        asyncio.run(ai_agent_train())
+        return jsonify()
+    else:
+        return jsonify()
