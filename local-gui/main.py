@@ -44,8 +44,6 @@ Screen:
                 on_release: app.button_pressed('Comfort Profiles', 'thermostat')
                 md_bg_color: app.theme_cls.accent_color
                 radius: dp(24)
-                on_touch_down: app.show_label(self, label)
-                on_touch_up: app.hide_label(label)
             MDIconButton:
                 icon: 'calendar-today'
                 user_font_size: '64dp'
@@ -120,9 +118,8 @@ Screen:
             
             MDIconButton:
                 id: mj_button
-                icon: 
                 user_font_size: '32sp'
-                on_press: app.mj_button_pressed()
+                on_release: app.mj_button_pressed()
 
             MDIconButton:
                 id: recent_button
@@ -159,6 +156,9 @@ class SmartThermostatApp(MDApp):
         else:
             self.theme_cls.theme_style = 'Dark'
             print("its dark")
+        self.root.clear_widgets()
+        self.root.add_widget(Builder.load_string(KV))
+        print(" UI has refreshed to apply new theme")
 
 
 
