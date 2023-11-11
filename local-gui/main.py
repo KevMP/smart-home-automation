@@ -120,12 +120,14 @@ Screen:
                 id: mj_button
                 user_font_size: '32sp'
                 on_release: app.mj_button_pressed()
+                radius: dp(24)
 
             MDIconButton:
                 id: recent_button
                 icon: app.recent_icon
                 user_font_size: '32sp'
                 on_release: app.footer_button_pressed('Recent', 'recent_button')
+                radius: dp(24)
             
 '''
 
@@ -141,7 +143,7 @@ class SmartThermostatApp(MDApp):
     def button_pressed(self, button_text):
         print(f'{button_text} button pressed')
 
-    def footer_button_pressed(self, button_text):
+    def footer_button_pressed(self, button_text, next):
         print(f'{button_text} button pressed')
     
     def button_pressed(self, button_text, icon):

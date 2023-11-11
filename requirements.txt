@@ -5,3 +5,5 @@ flask
 Flask-CORS
 websockets
 watchdog
+kivy
+kivymd

@@ -6,6 +6,9 @@ from tensorflow.keras.optimizers import Adam
 import numpy as np
 import os
 import platform
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 feature_order = ['temperature', 'humidity', 'occupancy', 'ac_status', 'target_temperature']
 
@@ -14,6 +17,7 @@ def extract_features(data_dict):
 
 class DQNAgent:
     def __init__(self, state_size = 5, action_size = 3, learning_rate=0.01, gamma=0.09, epsilon=1, epsilon_min=0.01, epsilon_decay=0.995):
+        logging.info("Initializing agent...")
         self.state_size = state_size # temperature, humidity, status
         self.action_size = action_size
         self.learning_rate = learning_rate
@@ -23,12 +27,13 @@ class DQNAgent:
         self.epsilon = epsilon
         self.epsilon_min = epsilon_min
         self.epsilon_decay = epsilon_decay
-        self.q_network = self._build_q_network()
+        self.load()
 
     def _build_q_network(self, neurons=64, activation='relu'):
         model = Sequential()
         model.add(Dense(units=neurons, activation=activation, input_shape=(self.state_size,)))
         model.add(Dense(self.action_size, activation='linear'))
+
         if platform.system() == 'Darwin':
             model.compile(loss='mse', optimizer=tf.keras.optimizers.legacy.Adam(learning_rate=self.learning_rate))
         else:
@@ -102,5 +107,9 @@ class DQNAgent:
     def load(self, directory="ai_agent/saved_model"):
         model_path = os.path.join(directory, 'dqn_model.h5')
         if os.path.exists(model_path):
+            logging.info("Loading existing q_network...")
             self.q_network = load_model(model_path)
+        else:
+            logging.info("Building new q_network...")
+            self.q_network = self._build_q_network()
     
