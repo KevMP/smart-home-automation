@@ -9,9 +9,9 @@ from smart_ac_simulation.smart_ac_simulation import SmartACEnvironment
 
 logging.basicConfig(level=logging.INFO)
 
-state_size = 3  # occupancy, temperature, humidity
-action_size = 3  # TURN_ON_AC, TURN_OFF_AC, SET_TEMP
-agent = DQNAgent(state_size, action_size)
+# state_size = 3  # occupancy, temperature, humidity
+# action_size = 3  # TURN_ON_AC, TURN_OFF_AC, SET_TEMP
+agent = DQNAgent()
 
 async def handler(websocket, path):
     logging.info("WebSocket connection opened")
@@ -19,22 +19,24 @@ async def handler(websocket, path):
         async for message in websocket:
             logging.info(f"Received message from client: {message}")
             data = json.loads(message)
-
             if data.get('command') == 'start_training':
-                asyncio.create_task(start_training(agent))
-                await websocket.send(json.dumps({'status': 'training_started'}))
+                asyncio.create_task(start_training(agent, websocket))
+            if data.get('command') == 'get_hyperparameters':
+                await websocket.send(json.dumps(agent.get_hyperparameters()))
             else:
                 pass
 
     except websockets.exceptions.ConnectionClosed as e:
         logging.warning(f"WebSocket connection closed: {e}")
 
-async def start_training(agent):
+async def start_training(agent, websocket):
     logging.info("Starting training...")
     logging.info("Opening environment...")
     environment = SmartACEnvironment()
     logging.info("Beginning Training...")
-    agent.train_agent_fixed(environment)
+    
+    await agent.train_agent_fixed(environment, websocket=websocket)
+    
     logging.info("Training finished. Saving the model...")
     agent.save()
 

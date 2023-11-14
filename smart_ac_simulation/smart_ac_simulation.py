@@ -130,7 +130,7 @@ class SmartACEnvironment:
     def step(self, action):
         if action not in [0, 1, 2]:
             raise ValueError("Invalid action. Must be 0 (turn on AC), 1 (turn off AC), or 2 (set temperature).")
-        
+
         if action == 0:
             self.state['ac_status'] = True
         elif action == 1:

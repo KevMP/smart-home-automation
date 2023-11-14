@@ -2,11 +2,12 @@ import random
 import tensorflow as tf
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam, SGD, RMSprop, Adagrad, Adadelta, Adamax, Nadam, Ftrl
 import numpy as np
 import os
 import platform
 import logging
+import json
 
 logging.basicConfig(level=logging.INFO)
 
@@ -16,29 +17,59 @@ def extract_features(data_dict):
     return np.array([data_dict[key] for key in feature_order])
 
 class DQNAgent:
-    def __init__(self, state_size = 5, action_size = 3, learning_rate=0.01, gamma=0.09, epsilon=1, epsilon_min=0.01, epsilon_decay=0.995):
+    def __init__(self, state_size=5, action_size=3, learning_rate=0.01, gamma=0.09, epsilon=1, epsilon_min=0.01, epsilon_decay=0.995):
         logging.info("Initializing agent...")
         self.state_size = state_size # temperature, humidity, status
-        self.action_size = action_size
+        self.action_size = action_size # turn on, turn off, set temp
         self.learning_rate = learning_rate
 
+        self.model_identification = None
+    
         self.memory = []  # store (state, action, reward, next_state, done)
         self.gamma = gamma
         self.epsilon = epsilon
         self.epsilon_min = epsilon_min
         self.epsilon_decay = epsilon_decay
+
         self.load()
 
-    def _build_q_network(self, neurons=64, activation='relu'):
-        model = Sequential()
-        model.add(Dense(units=neurons, activation=activation, input_shape=(self.state_size,)))
-        model.add(Dense(self.action_size, activation='linear'))
+    def build_dense_layer(self, neurons, activation_func, state_size):
+        return Dense(neurons, activation=activation_func, input_shape=(state_size,))
 
-        if platform.system() == 'Darwin':
-            model.compile(loss='mse', optimizer=tf.keras.optimizers.legacy.Adam(learning_rate=self.learning_rate))
-        else:
-            model.compile(loss='mse', optimizer=Adam(learning_rater=self.learning_rate))
+    def build_compiler(self, model, learning_rate, optimizer):
+        if optimizer == 'Adam':
+            model.compile(loss='mse', optimizer=Adam(learning_rate=learning_rate))
+        elif optimizer == 'SGD':
+            model.compile(loss='mse', optimizer=SGD(learning_rate=learning_rate))
+        elif optimizer == 'RMSprop':
+            model.compile(loss='mse', optimizer=RMSprop(learning_rate=learning_rate))
+        elif optimizer == 'Adagrad':
+            model.compile(loss='mse', optimizer=Adagrad(learning_rate=learning_rate))
+        elif optimizer == 'Adadelta':
+            model.compile(loss='mse', optimizer=Adadelta(learning_rate=learning_rate))
+        elif optimizer == 'Adamax':
+            model.compile(loss='mse', optimizer=Adamax(learning_rate=learning_rate))
+        elif optimizer == 'Nadam':
+            model.compile(loss='mse', optimizer=Nadam(learning_rate=learning_rate))
+        elif optimizer == 'Ftrl':
+            model.compile(loss='mse', optimizer=Ftrl(learning_rate=learning_rate))
+
+    def _build_q_network(self, neurons=64, entrance_layer='relu', output_layer='linear'):
+        model = Sequential()
+        model.add(Dense(neurons, activation=entrance_layer, input_shape=(self.state_size,)))
+        model.add(Dense(self.action_size, activation=output_layer))
+
+        # if platform.system() == 'Darwin':
+        #     model.compile(loss='mse', optimizer=tf.keras.optimizers.legacy.Adam(learning_rate=self.learning_rate))
+        # else:
+        #     model.compile(loss='mse', optimizer=Adam(learning_rater=self.learning_rate))
+        
+        self.build_compiler(model, self.learning_rate, 'Adam')
+        
         return model
+    
+    def get_layers(self):
+        return self.q_network.layers
 
     def remember(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
@@ -70,13 +101,16 @@ class DQNAgent:
             if self.epsilon > self.epsilon_min:
                 self.epsilon *= self.epsilon_decay
 
-    def train_agent_fixed(self, environment, episodes=10, max_steps=10, save_interval=10):
+    async def train_agent_fixed(self, environment, episodes=10, max_steps=10, save_interval=10, websocket=None):
         for episode in range(episodes):
             state_dict = environment.get_status()
             state = extract_features(state_dict).reshape(1, -1)
             total_reward = 0
 
             for step in range(max_steps):
+                logging.info({'episode': episode+1, 'step': step+1})
+                await websocket.send(json.dumps({'episode': episode+1, 'step': step+1}))
+                
                 action = self.choose_action(state)
                 next_state_dict, reward, done = environment.step(action)
                 next_state = extract_features(next_state_dict).reshape(1, -1)
@@ -90,8 +124,8 @@ class DQNAgent:
                 if done:
                     break
 
-            if episode % save_interval == 0:
-                self.save()
+            # if episode % save_interval == 0:
+            #     self.save()
 
         return {
             'total_reward': total_reward,
@@ -99,17 +133,86 @@ class DQNAgent:
             'last_state': state.tolist()
         }
 
+    def get_model_identifier(self):
+        if self.is_default_parameters():
+            return "default"
+        else:
+            layer_descriptions = []
+            for layer in self.q_network.layers:
+                # Example: Dense layer with 32 units and relu activation becomes "D32relu"
+                desc = f"{layer.__class__.__name__[0]}{layer.output_shape[-1]}{layer.activation.__name__}"
+                layer_descriptions.append(desc)
+
+            layers_str = "_".join(layer_descriptions)
+
+            return (f"lr{self.learning_rate}_gamma{self.gamma}_eps{self.epsilon}_epsmin{self.epsilon_min}_"
+                    f"epsdecay{self.epsilon_decay}_layers{layers_str}")
+
+    def list_model_files(self, directory="ai_agent/saved_model", file_extension='.h5'):
+        logging.info("Looking for model files...")
+        model_files = []
+        logging.info(directory)
+        for file in os.listdir(directory):
+            if file.endswith(file_extension):
+                model_files.append(file)
+        return model_files
+
+    def update_hyperparameters(self, params):
+        if 'learning_rate' in params:
+            self.learning_rate = params['learning_rate']
+        if 'gamma' in params:
+            self.gamma = params['gamma']
+        if 'epsilon' in params:
+            self.epsilon = params['epsilon']
+        if 'epsilon_min' in params:
+            self.epsilon_min = params['epsilon_min']
+        if 'epsilon_decay' in params:
+            self.epsilon_decay = params['epsilon_decay']
+
+
+    def get_hyperparameters(self):
+        return {
+            'learning_rate': self.learning_rate,
+            'gamma': self.gamma,
+            'epsilon': self.epsilon,
+            'epsilon_min': self.epsilon_min,
+            'epsilon_decay': self.epsilon_decay,
+            'state_size': self.state_size,
+            'action_size': self.action_size,
+            'layers': [
+                        {'neurons': dense_layer.units,
+                        'activation': dense_layer.activation.__name__,
+                        'input_shape': dense_layer.input_shape[1]} 
+                        for dense_layer in self.get_layers()
+                        ],
+            'models': self.list_model_files(),
+            'model_identification': self.model_identification
+        }
+
+    def is_default_parameters(self):
+        return (self.learning_rate == 0.01 and self.gamma == 0.09 and 
+                self.epsilon == 1 and self.epsilon_min == 0.01 and self.epsilon_decay == 0.995)
+
     def save(self, directory="ai_agent/saved_model"):
         if not os.path.exists(directory):
             os.makedirs(directory)
-        self.q_network.save(os.path.join(directory, 'dqn_model.h5'))
+        
+        identifier = self.get_model_identifier()
+        filename = f"dqn_{identifier}.h5"
+        self.q_network.save(os.path.join(directory, filename))
 
     def load(self, directory="ai_agent/saved_model"):
-        model_path = os.path.join(directory, 'dqn_model.h5')
-        if os.path.exists(model_path):
+        identifier = self.get_model_identifier()
+        filename = f"dqn_{identifier}.h5"
+        
+        self.model_identification = filename
+
+        if os.path.exists(os.path.join(directory, filename)):
             logging.info("Loading existing q_network...")
-            self.q_network = load_model(model_path)
+            self.q_network = load_model(os.path.join(directory, filename))
         else:
             logging.info("Building new q_network...")
             self.q_network = self._build_q_network()
+            self.save()
+
     
