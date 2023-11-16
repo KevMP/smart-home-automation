@@ -7,7 +7,7 @@
     "postinstall": "python -m venv env && ./env/Scripts/activate.bat && pip install -r requirements.txt && npm run install:front-end",
     "start:backend": "nodemon --ext py --ignore '*ai_agent*' --ignore '*smart_ac_simulation*' --watch 'website/back-end' --exec python ./website/back-end/app.py",
     "start": "concurrently -n \"Front-end,Back-end,Model\" -c \"blue,green,red\" \"npm run start:frontend\" \"npm run start:backend\" \"npm run start-model\"",
-    "start-model": "nodemon --ext py --watch '*ai_agent*' --ignore '*smart_ac_simulation*' --ignore 'website/back-end' --exec './env/Scripts/activate.bat && python -m ./ai_agent/app.py'",
+    "start-model": "nodemon --ext py --watch 'ai_agent' --ignore 'smart_ac_simulation' --ignore 'website/back-end' --exec python -m ai_agent.app",
     
     "start:frontend": "cd ./website/front-end && npm start",
 

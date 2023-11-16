@@ -7,3 +7,4 @@ websockets
 watchdog
 kivy
 kivymd
+flask_socketio
