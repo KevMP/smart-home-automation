@@ -6,6 +6,8 @@ class Controller():
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
 
+    ## Need to rewrite this to send signals to the controllers.
+    ## Currently it is used for simulation purposes.
     def increaseTemperature(self):
         current_temperature = Database().getMedianTemperature()
         current_temperature += 1
