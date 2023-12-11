@@ -6,8 +6,7 @@ class Simulation:
     def __init__(self):
         self.current_temperature = 0
         self.previous_temperature = self.current_temperature
-        self.preferred_temperatures = [70, 71]
-
+        self.preferred_temperatures = [70, 74]
     def getCurrentTemperature(self):
         return self.current_temperature
 
@@ -38,7 +37,6 @@ class Simulation:
             else:
                 return -1
 
-
 class App:
     def __init__(self, master):
         self.master = master
@@ -64,13 +62,11 @@ class App:
         self.ai.reward(self.environment.isAiGettingCloserToTarget())
         self.master.after(int(self.CYCLE_SPEED * 1000), self.run_simulation)
 
-
 def main():
     root = tk.Tk()
     app = App(root)
     root.after(int(app.CYCLE_SPEED * 1000), app.run_simulation)
     root.mainloop()
-
 
 if __name__ == "__main__":
     main()
