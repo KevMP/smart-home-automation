@@ -53,7 +53,6 @@ class Simulation:
         self.lower_bound = self.preferred_temperatures[0] - 2
         self.upper_bound = self.preferred_temperatures[1] + 2
 
-
 class App:
     def __init__(self, master):
         self.master = master
@@ -79,7 +78,7 @@ class App:
         self.update_temperature()
 
     def update_temperature(self):
-        self.temperature_label.config(text=f"Current Temperature: {self.environment.getCurrentTemperature()}")
+        self.temperature_label.config(text=f"Current Temperature: {self.environment.getCurrentTemperature()} F")
         self.master.after(10, self.update_temperature)
 
     def run_simulation(self):
@@ -99,7 +98,6 @@ def main():
     app = App(root)
     root.after(int(app.CYCLE_SPEED * 1000), app.run_simulation)
     root.mainloop()
-
 
 if __name__ == "__main__":
     main()
