@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import font
 
 class Simulation:
-    def __init__(self, num_sensors=4):
+    def __init__(self, num_sensors=6):  # Increase the number of sensors
         self.lower_bound = 70 - 2
         self.upper_bound = 71 + 2
         self.current_temperature = self.lower_bound
@@ -70,7 +70,6 @@ class Simulation:
     def incrementCycles(self):
         self.cycles += 1
 
-
 class App:
     def __init__(self, master):
         self.master = master
@@ -81,7 +80,7 @@ class App:
         self.temperature_font = font.Font(family="Helvetica", size=20)
 
         self.ai = Model()
-        self.environment = Simulation(num_sensors=4)
+        self.environment = Simulation(num_sensors=6)  # Increase the number of sensors
 
         self.temperature_label = tk.Label(master, text="Current Temperature: 0", font=self.temperature_font)
         self.temperature_label.grid(row=0, column=0, columnspan=2, pady=10)
@@ -99,7 +98,10 @@ class App:
         # Labels to display individual sensor temperatures
         self.sensor_labels = [tk.Label(self.sensor_frame, text=f"Sensor {i+1}: 0.00") for i in range(len(self.environment.sensors))]
         for i, label in enumerate(self.sensor_labels):
-            label.grid(row=0, column=i, pady=5)
+            # Arrange sensors in pairs, stacked vertically
+            row = i // 2
+            col = i % 2
+            label.grid(row=row, column=col, pady=5)
 
         self.CYCLE_SPEED = 1 / 100
 
@@ -108,7 +110,7 @@ class App:
     def update_temperature(self):
         self.environment.updateSensors()
         current_temperature = self.environment.getCurrentTemperature()
-        self.temperature_label.config(text=f"Current Temperature: {current_temperature:.2f} F")
+        self.temperature_label.config(text=f"Temperature: {current_temperature:.2f} F")
 
         # Update individual sensor labels
         sensor_temperatures = self.environment.getSensorTemperatures()
@@ -130,13 +132,11 @@ class App:
     def decrease_temperature(self):
         self.environment.decreasePreferredTemperature()
 
-
 def main():
     root = tk.Tk()
     app = App(root)
     root.after(int(app.CYCLE_SPEED * 1000), app.run_simulation)
     root.mainloop()
-
 
 if __name__ == "__main__":
     main()
