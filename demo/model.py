@@ -12,10 +12,8 @@ class Model:
                 self.reward_index = 0
             else:
                 self.reward_index += 1
-            self.action_matrix[random.randint(0, 2)] = self.reward_choices[self.reward_index]
-        elif reward_value == 1:
-            self.action_matrix[random.randint(0, 2)] = self.reward_choices[self.reward_index]
-    
+        self.action_matrix[random.choice([0, 1, 2])] = self.reward_choices[self.reward_index]
+
     def getAction(self):
         return random.choice(self.action_matrix)
 
