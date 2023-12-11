@@ -57,7 +57,7 @@ class App:
     def __init__(self, master):
         self.master = master
         self.master.title("Temperature Monitor")
-        self.master.geometry("500x500")
+        self.master.geometry("350x200")
 
         # Set a larger font for the temperature label
         self.temperature_font = font.Font(family="Helvetica", size=20)
