@@ -1,8 +1,8 @@
 class Sensor:
-    def __init__(self, distanceFromTemperatureSource: float):
-        self.distanceFromTemperatureSource = distanceFromTemperatureSource
+    def __init__(self, distance_from_temperature_source: float):
+        self.distance_from_temperature_source = distance_from_temperature_source
         self.temperature = 0
+        self.temperature_modifier = 0
     
-    def setTemperature(self, cycles: int, temperatureModifier: int):
-        if cycles % self.distanceFromTemperatureSource == 0:
-            self.temperature += temperatureModifier
+    def setTemperatureModifier(self, modifier):
+        self.temperature_modifier = modifier

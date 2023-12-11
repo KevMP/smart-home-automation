@@ -1,35 +1,8 @@
+from model import Model
+from sensor import Sensor
 import random
 import tkinter as tk
 from tkinter import font
-import time
-
-class Model:
-    def __init__(self):
-        self.action_matrix = [-1, 0, 1]
-        self.reward_choices = [-1, 0, 1]
-        self.reward_index = 0
-    
-    def reward(self, reward_value: int):
-        if reward_value == -1:
-            if self.reward_index == 2:
-                self.reward_index = 0
-            else:
-                self.reward_index += 1
-        self.action_matrix[random.choice([0, 1, 2])] = self.reward_choices[self.reward_index]
-
-    def getAction(self):
-        return random.choice(self.action_matrix)
-
-
-class Sensor:
-    def __init__(self, distance_from_temperature_source: float):
-        self.distance_from_temperature_source = distance_from_temperature_source
-        self.temperature = 0
-        self.temperature_modifier = 0
-    
-    def setTemperatureModifier(self, modifier):
-        self.temperature_modifier = modifier
-
 
 class Simulation:
     def __init__(self, num_sensors=4):
@@ -102,7 +75,7 @@ class App:
     def __init__(self, master):
         self.master = master
         self.master.title("Temperature Monitor")
-        self.master.geometry("350x300")
+        self.master.geometry("400x300")
 
         # Set a larger font for the temperature label
         self.temperature_font = font.Font(family="Helvetica", size=20)
