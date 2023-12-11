@@ -80,7 +80,7 @@ class App:
         self.temperature_font = font.Font(family="Helvetica", size=20)
 
         self.ai = Model()
-        self.environment = Simulation(num_sensors=6)  # Increase the number of sensors
+        self.environment = Simulation(num_sensors=9)  # Increase the number of sensors
 
         self.temperature_label = tk.Label(master, text="Current Temperature: 0", font=self.temperature_font)
         self.temperature_label.grid(row=0, column=0, columnspan=2, pady=10)
