@@ -317,8 +317,8 @@ class Database:
 if __name__ == "__main__":
     print('creating database object')
     db = Database()
-    db.setMinimumPreferredTemperature(1, 50)
-    db.setMaximumPreferredTemperature(1, 53)
+    db.setMinimumPreferredTemperature(1, 60)
+    db.setMaximumPreferredTemperature(1, 70)
     profileArray = db.getAllProfilesAsArray()
     print(profileArray)
     db.closeConnection()
