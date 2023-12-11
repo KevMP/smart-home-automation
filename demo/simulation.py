@@ -94,7 +94,6 @@ class App:
     def decrease_temperature(self):
         self.environment.decreasePreferredTemperature()
 
-
 def main():
     root = tk.Tk()
     app = App(root)
