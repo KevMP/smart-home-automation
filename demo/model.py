@@ -18,15 +18,3 @@ class Model:
 
     def getAction(self):
         return random.choice(self.action_matrix)
-
-'''
-example usage;
-
-ai = Model()
-while true:
-    action = ai.getAction()
-    if action did bad thing:
-        ai.reward(-1)
-    if action did good thing:
-        ai.reward(1)
-'''

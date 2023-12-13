@@ -1,19 +1,21 @@
-## simulation.py
-
 from model import Model
 from sensor import Sensor
+from airconditioner import AirConditioner
+from profiles import Profile
 import random
 import tkinter as tk
 from tkinter import font
 
 class Simulation:
-    def __init__(self, num_sensors=6):  # Increase the number of sensors
+    def __init__(self, num_sensors=9):  # Increase the number of sensors
         self.lower_bound = 70 - 2
         self.upper_bound = 71 + 2
         self.current_temperature = self.lower_bound
         self.previous_temperature = self.current_temperature
         self.preferred_temperatures = [70, 71]
         self.sensors = [Sensor(distance_from_temperature_source=2.0) for _ in range(num_sensors)]
+        self.air_conditioner = AirConditioner(self.current_temperature)
+        self.profile = Profile(min_preferred_temperature=70, max_preferred_temperature=75, identification="Default")
         self.cycles = 0
 
     def getCurrentTemperature(self):
@@ -21,28 +23,36 @@ class Simulation:
 
     def setCurrentTemperature(self, action: int):
         self.previous_temperature = self.current_temperature
+
+        # Update the temperature based on the air conditioner status
         if action == 1:
+            self.air_conditioner.raise_temperature()
             self.current_temperature += 1
         elif action == -1:
+            self.air_conditioner.lower_temperature()
             self.current_temperature -= 1
+        else:
+            self.air_conditioner.do_nothing_to_temperature()
 
+        # Ensure the temperature stays within bounds
         self.current_temperature = max(self.lower_bound, min(self.current_temperature, self.upper_bound))
 
     def getDirection(self):
         return self.current_temperature - self.previous_temperature
 
     def isAiGettingCloserToTarget(self):
-        if self.current_temperature > self.preferred_temperatures[0] and self.current_temperature < self.preferred_temperatures[1]:
+        preferred_temperature_range = self.profile.getPreferredTemperature()
+        if self.current_temperature > preferred_temperature_range[0] and self.current_temperature < preferred_temperature_range[1]:
             if self.getDirection() == 0:
                 return 1
             else:
                 return -1
-        elif self.current_temperature < self.preferred_temperatures[0]:
+        elif self.current_temperature < preferred_temperature_range[0]:
             if self.getDirection() == 1:
                 return 1
             else:
                 return -1
-        elif self.current_temperature > self.preferred_temperatures[1]:
+        elif self.current_temperature > preferred_temperature_range[1]:
             if self.getDirection() == -1:
                 return 1
             else:
@@ -60,14 +70,14 @@ class Simulation:
         return [sensor.temperature for sensor in self.sensors]
 
     def increasePreferredTemperature(self):
-        self.preferred_temperatures = [temp + 1 for temp in self.preferred_temperatures]
-        self.lower_bound = self.preferred_temperatures[0] - 2
-        self.upper_bound = self.preferred_temperatures[1] + 2
+        self.profile.preferred_temperatures = [temp + 1 for temp in self.profile.preferred_temperatures]
+        self.lower_bound = self.profile.getLowerBound() - 2
+        self.upper_bound = self.profile.getUpperBound() + 2
 
     def decreasePreferredTemperature(self):
-        self.preferred_temperatures = [temp - 1 for temp in self.preferred_temperatures]
-        self.lower_bound = self.preferred_temperatures[0] - 2
-        self.upper_bound = self.preferred_temperatures[1] + 2
+        self.profile.preferred_temperatures = [temp - 1 for temp in self.profile.preferred_temperatures]
+        self.lower_bound = self.profile.getLowerBound() - 2
+        self.upper_bound = self.profile.getUpperBound() + 2
 
     def incrementCycles(self):
         self.cycles += 1
@@ -111,11 +121,16 @@ class App:
 
     def update_temperature(self):
         self.environment.updateSensors()
-        current_temperature = self.environment.getCurrentTemperature()
-        self.temperature_label.config(text=f"Temperature: {current_temperature:.2f} F")
+
+        # Calculate the average sensor temperature
+        sensor_temperatures = self.environment.getSensorTemperatures()
+        average_sensor_temperature = sum(sensor_temperatures) / len(sensor_temperatures)
+
+        # Update the current temperature
+        self.environment.current_temperature = average_sensor_temperature
+        self.temperature_label.config(text=f"Temperature: {average_sensor_temperature:.2f} F")
 
         # Update individual sensor labels
-        sensor_temperatures = self.environment.getSensorTemperatures()
         for i, label in enumerate(self.sensor_labels):
             label.config(text=f"Sensor {i + 1}: {sensor_temperatures[i]:.2f} F")
 
@@ -126,6 +141,18 @@ class App:
         action = self.ai.getAction()
         self.environment.setCurrentTemperature(action)
         self.ai.reward(self.environment.isAiGettingCloserToTarget())
+
+        # Update air conditioner status based on the selected profile
+        preferred_temperature_range = self.environment.profile.getPreferredTemperature()
+        average_sensor_temperature = sum(self.environment.getSensorTemperatures()) / len(self.environment.sensors)
+
+        if average_sensor_temperature < preferred_temperature_range[0]:
+            self.environment.air_conditioner.lower_temperature()
+        elif average_sensor_temperature > preferred_temperature_range[1]:
+            self.environment.air_conditioner.raise_temperature()
+        else:
+            self.environment.air_conditioner.do_nothing_to_temperature()
+
         self.master.after(int(self.CYCLE_SPEED * 1000), self.run_simulation)
 
     def increase_temperature(self):

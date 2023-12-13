@@ -1,4 +1,4 @@
-## aircondtioner.py
+## airconditioner.py
 
 class AirConditioner:
     def __init__(self, average_of_all_sensors):
