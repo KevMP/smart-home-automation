@@ -86,13 +86,13 @@ class App:
     def __init__(self, master):
         self.master = master
         self.master.title("Temperature Monitor")
-        self.master.geometry("400x300")
+        self.master.geometry("400x350")  # Increased height to accommodate the dropdown menu
 
         # Set a larger font for the temperature label
         self.temperature_font = font.Font(family="Helvetica", size=20)
 
         self.ai = Model()
-        self.environment = Simulation(num_sensors=9)  # Increase the number of sensors
+        self.environment = Simulation(num_sensors=9)
 
         self.temperature_label = tk.Label(master, text="Current Temperature: 0", font=self.temperature_font)
         self.temperature_label.grid(row=0, column=0, columnspan=2, pady=10)
@@ -115,9 +115,36 @@ class App:
             col = i % 2
             label.grid(row=row, column=col, pady=5)
 
+        self.create_profile_dropdown()  # Add the profile dropdown menu
+
         self.CYCLE_SPEED = 1 / 100
 
         self.update_temperature()
+
+    def create_profile_dropdown(self):
+        profiles = ["Default", "Away", "Cat"]  # Add more profiles as needed
+
+        def on_profile_change(event):
+            selected_profile = profile_var.get()
+            # Update the current profile and preferred temperature range
+            self.environment.profile = self.profile_mapping[selected_profile]
+            self.environment.lower_bound = self.environment.profile.getLowerBound() - 2
+            self.environment.upper_bound = self.environment.profile.getUpperBound() + 2
+
+        # Dropdown menu
+        profile_var = tk.StringVar(self.master)
+        profile_var.set("Default")  # Default profile
+
+        profile_dropdown = tk.OptionMenu(self.master, profile_var, *profiles, command=on_profile_change)
+        profile_dropdown.grid(row=3, column=0, columnspan=2, pady=10)
+
+        # Create a mapping between profile names and Profile instances
+        self.profile_mapping = {
+            "Default": Profile(min_preferred_temperature=70, max_preferred_temperature=75, identification="Default"),
+            "Away": Profile(min_preferred_temperature=65, max_preferred_temperature=78, identification="Away"),
+            "Cat": Profile(min_preferred_temperature=72, max_preferred_temperature=74, identification="Cat"),
+            # Add more profiles as needed
+        }
 
     def update_temperature(self):
         self.environment.updateSensors()
