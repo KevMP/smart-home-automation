@@ -1,3 +1,5 @@
+## sensor.py
+
 class Sensor:
     def __init__(self, distance_from_temperature_source: float):
         self.distance_from_temperature_source = distance_from_temperature_source

@@ -1,3 +1,5 @@
+## profiles.py
+
 class Profile:
     def __init__(self, min_preferred_temperature: int, max_preferred_temperature: int, identification: str):
         self.preferred_temperatures = [min_preferred_temperature, max_preferred_temperature]
