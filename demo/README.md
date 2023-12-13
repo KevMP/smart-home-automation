@@ -1,1 +1,1 @@
-# Run the simulation.py to showcase demo.
+# Run the demo.py to showcase demo.
