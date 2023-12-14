@@ -1,7 +1,12 @@
-from profiles import Profile
+## simulation.py
+
 from model import Model
+from sensor import Sensor
+from airconditioner import AirConditioner
+from profiles import Profile
 import tkinter as tk
 from tkinter import font
+import random
 
 class Gui:
     def __init__(self, master, simulation_instance, model_instance, num_sensors):
@@ -15,73 +20,52 @@ class Gui:
         self.temperature_font = font.Font(family="Helvetica", size=20)
         self.simulation_instance = simulation_instance
 
-        # Create a huge frame to encompass everything
         self.main_frame = tk.Frame(master)
         self.main_frame.pack(expand=True, fill='both')
 
-        # Temperature Label
         self.temperature_label = tk.Label(self.main_frame, text="Current Temperature: 0", font=self.temperature_font)
         self.temperature_label.grid(row=0, column=0, columnspan=2, pady=10)
 
-        # Controls Frame
         self.create_controls_frame()
-
-        # Sensor Frame
         self.create_sensor_frame(num_sensors)
-
-        # Profile Dropdown
         self.create_profile_dropdown()
 
-        # Set the cycle speed
         self.CYCLE_SPEED = 1 / 100
-
-        # Start the simulation
         self.update_temperature()
 
     def create_controls_frame(self):
-        # Frame for controls
         self.controls_frame = tk.Frame(self.main_frame)
         self.controls_frame.grid(row=1, column=0, pady=5)
 
-        # Frame for preferred temperature range
         self.range_frame = tk.Frame(self.controls_frame, bg="white")
-        self.range_frame.grid(row=0, column=0, pady=10, columnspan=3, sticky='n')  # Center horizontally
+        self.range_frame.grid(row=0, column=0, pady=10, columnspan=3, sticky='n')
 
-        # Label to display preferred temperature range
         self.range_label = tk.Label(self.range_frame, text="Preferred Temperature Range:", font=("Helvetica", 10), bg="white")
         self.range_label.grid(row=0, column=0, pady=5)
 
-        # Display the temperature range in a Label with a white background
         self.range_data_label = tk.Label(self.range_frame, text="[72, 74]", font=("Helvetica", 10), bg="white")
         self.range_data_label.grid(row=1, column=0, pady=5)
 
-        # Frame for temperature buttons
         self.button_frame = tk.Frame(self.controls_frame)
         self.button_frame.grid(row=0, column=3, pady=10)
 
-        # Up arrow button
         self.up_button = tk.Button(self.button_frame, text="↑", command=self.increase_temperature_range)
         self.up_button.grid(row=0, column=0, pady=0, padx=5)
 
-        # Down arrow button
         self.down_button = tk.Button(self.button_frame, text="↓", command=self.decrease_temperature_range)
         self.down_button.grid(row=1, column=0, pady=0, padx=5)
 
     def create_sensor_frame(self, num_sensors):
-        # Frame for sensor labels and visualization
         self.sensor_frame = tk.Frame(self.main_frame, borderwidth=2, relief="groove")
-        self.sensor_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky='n')  # Center horizontally
+        self.sensor_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10, sticky='n')
 
-        # Labels to display individual sensor temperatures
         self.sensor_labels = [tk.Label(self.sensor_frame, text=f"Sensor {i + 1}: 0.00") for i in range(num_sensors)]
         for i, label in enumerate(self.sensor_labels):
-            # Arrange sensors in pairs, stacked vertically
             row = i // 2
             col = i % 2
             label.grid(row=row, column=col, pady=5)
 
-        # Create a Canvas for sensor visualization
-        canvas_height = len(self.sensor_labels) * 60  # Adjusted the height dynamically
+        canvas_height = len(self.sensor_labels) * 60
         self.visualization_canvas = tk.Canvas(self.sensor_frame, width=400, height=canvas_height, bg="white")
         self.visualization_canvas.grid(row=0, column=2, rowspan=len(self.sensor_labels), padx=10)
 
@@ -95,14 +79,12 @@ class Gui:
             self.simulation_instance.upper_bound = self.simulation_instance.profile.getUpperBound() + 2
             self.range_data_label.config(text="[{}, {}]".format(*self.simulation_instance.profile.getPreferredTemperature()))
 
-        # Dropdown menu
         profile_var = tk.StringVar(self.main_frame)
         profile_var.set("Default")
 
         profile_dropdown = tk.OptionMenu(self.main_frame, profile_var, *profiles, command=on_profile_change)
-        profile_dropdown.grid(row=3, column=0, columnspan=2, pady=10, sticky='n')  # Center horizontally
+        profile_dropdown.grid(row=3, column=0, columnspan=2, pady=10, sticky='n')
 
-        # Create a mapping between profile names and Profile instances
         self.profile_mapping = {
             "Default": Profile(min_preferred_temperature=70, max_preferred_temperature=75, identification="Default"),
             "Away": Profile(min_preferred_temperature=65, max_preferred_temperature=78, identification="Away"),
@@ -110,27 +92,22 @@ class Gui:
         }
 
     def update_temperature(self):
+        """
+        Update the displayed temperature and sensor information on the GUI.
+        This function is called periodically to reflect changes in the simulation environment.
+        It calculates the average sensor temperature, updates GUI labels, and visualizes sensor data.
+        """
         self.simulation_instance.updateSensors()
-
-        # Calculate the average sensor temperature
         sensor_temperatures = self.simulation_instance.getSensorTemperatures()
         average_sensor_temperature = sum(sensor_temperatures) / len(sensor_temperatures)
-
-        # Update the current temperature
         self.simulation_instance.current_temperature = average_sensor_temperature
         self.temperature_label.config(text=f"Temperature: {average_sensor_temperature:.2f} F")
 
-        # Update individual sensor labels
         for i, label in enumerate(self.sensor_labels):
             label.config(text=f"Sensor {i + 1}: {sensor_temperatures[i]:.2f} F")
 
-        # Clear previous visualization
         self.visualization_canvas.delete("all")
-
-        # Draw lines connecting sensors to AC
         ac_position = (50, 200)
-
-        # Sort sensors by distance (for drawing order)
         sorted_sensors = sorted(enumerate(self.simulation_instance.sensors),
                                 key=lambda x: x[1].distance_from_temperature_source, reverse=True)
 
@@ -144,15 +121,8 @@ class Gui:
         self.master.after(10, self.update_temperature)
 
     def draw_line(self, start, end, temperature_change):
-        # Draw a black line for the connection
         self.visualization_canvas.create_line(start, end, fill="black", width=2)
-
-        # Draw a circle for the AC
-        ac_radius = 10
-        self.visualization_canvas.create_oval(start[0] - ac_radius, start[1] - ac_radius, start[0] + ac_radius,
-                                              start[1] + ac_radius, outline="black", fill="black")
-
-        # Draw a circle for the sensor at the end position
+        ac_position = (50, 200)
         sensor_radius = 8
         index = int((end[1] - 50) / 60)
         temperature = self.simulation_instance.getSensorTemperatureByIndex(index)
@@ -160,7 +130,6 @@ class Gui:
         self.visualization_canvas.create_oval(end[0] - sensor_radius, end[1] - sensor_radius, end[0] + sensor_radius,
                                               end[1] + sensor_radius, outline=node_color, fill=node_color)
 
-        # Draw the label for the sensor
         sensor_label = self.get_sensor_label(end)
         self.visualization_canvas.create_text(end[0], end[1] - sensor_radius - 5, text=sensor_label, fill="black")
 
@@ -188,6 +157,10 @@ class Gui:
             return "green"
 
     def run_simulation(self):
+        """
+        Run the simulation loop, where the AI model takes actions based on the current state of the simulation.
+        The AI model's action influences the behavior of the temperature control system and the simulation environment.
+        """
         action = self.model.getAction()
         self.simulation_instance.setCurrentTemperature(action)
         self.model.reward(self.simulation_instance.isAiGettingCloserToTarget())

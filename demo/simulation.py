@@ -7,7 +7,7 @@ from profiles import Profile
 import random
 
 class Simulation:
-    def __init__(self, num_sensors=9):  # Increase the number of sensors
+    def __init__(self, num_sensors=9):
         self.lower_bound = 70 - 2
         self.upper_bound = 71 + 2
         self.current_temperature = self.lower_bound
@@ -28,8 +28,6 @@ class Simulation:
 
     def setCurrentTemperature(self, action: int):
         self.previous_temperature = self.current_temperature
-
-        # Update the temperature based on the air conditioner status
         if action == 1:
             self.air_conditioner.raise_temperature()
             self.current_temperature += 1
@@ -38,30 +36,31 @@ class Simulation:
             self.current_temperature -= 1
         else:
             self.air_conditioner.do_nothing_to_temperature()
-
-        # Ensure the temperature stays within bounds
         self.current_temperature = max(self.lower_bound, min(self.current_temperature, self.upper_bound))
 
     def getDirection(self):
         return self.current_temperature - self.previous_temperature
 
     def isAiGettingCloserToTarget(self):
+        """
+        Determine if the AI-controlled temperature is getting closer to the preferred temperature range.
+
+        The method evaluates the current temperature relative to the preferred temperature range
+        and the direction of temperature change, indicating whether the AI is approaching or moving away
+        from the desired temperature range.
+        """
         preferred_temperature_range = self.profile.getPreferredTemperature()
+
         if self.current_temperature > preferred_temperature_range[0] and self.current_temperature < preferred_temperature_range[1]:
-            if self.getDirection() == 0:
-                return 1
-            else:
-                return -1
+            # Within the preferred temperature range
+            return 1 if self.getDirection() == 0 else -1
         elif self.current_temperature < preferred_temperature_range[0]:
-            if self.getDirection() == 1:
-                return 1
-            else:
-                return -1
+            # Below the preferred temperature range
+            return 1 if self.getDirection() == 1 else -1
         elif self.current_temperature > preferred_temperature_range[1]:
-            if self.getDirection() == -1:
-                return 1
-            else:
-                return -1
+            # Above the preferred temperature range
+            return 1 if self.getDirection() == -1 else -1
+
 
     def updateSensors(self):
         for sensor in self.sensors:
