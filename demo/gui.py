@@ -185,8 +185,11 @@ class Gui:
         self.simulation_instance.decreasePreferredTemperature()
         self.range_data_label.config(text="[{}, {}]".format(*self.simulation_instance.profile.getPreferredTemperature()))
 
-
 if __name__ == "__main__":
+    """
+    Initializes the simulation, model, and GUI for the temperature monitoring system. 
+    The Simulation class is not imported here, as it is expected to be imported in the demo.py file where the program is launched.
+    """
     root = tk.Tk()
     num_sensors = 9
     simulation_instance = Simulation(num_sensors=num_sensors)
