@@ -1,10 +1,11 @@
-# gui.py
+## gui.py
+
 import tkinter as tk
 from tkinter import font
 from model import Model
 from simulation import Profile
 
-class App:
+class Gui:
     def __init__(self, master, simulation_instance):
         self.master = master
         self.master.title("Temperature Monitor")
