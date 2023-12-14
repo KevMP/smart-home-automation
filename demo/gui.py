@@ -59,13 +59,13 @@ class App:
         self.button_frame = tk.Frame(self.controls_frame)
         self.button_frame.grid(row=0, column=1, pady=10)
 
-        # Increase Temperature button
-        self.increase_button = tk.Button(self.button_frame, text="Increase", command=self.increase_temperature_range)
-        self.increase_button.grid(row=0, column=0, pady=0, padx=5)  # Set pady to 0
+        # Up arrow button
+        self.up_button = tk.Button(self.button_frame, text="↑", command=self.increase_temperature_range)
+        self.up_button.grid(row=0, column=0, pady=0, padx=5)  # Set pady to 0
 
-        # Decrease Temperature button
-        self.decrease_button = tk.Button(self.button_frame, text="Decrease", command=self.decrease_temperature_range)
-        self.decrease_button.grid(row=1, column=0, pady=0, padx=5)  # Set pady to 0
+        # Down arrow button
+        self.down_button = tk.Button(self.button_frame, text="↓", command=self.decrease_temperature_range)
+        self.down_button.grid(row=1, column=0, pady=0, padx=5)  # Set pady to 0
 
     def create_profile_dropdown(self):
         profiles = ["Default", "Away", "Cat"]  # Add more profiles as needed
