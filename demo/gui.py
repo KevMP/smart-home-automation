@@ -2,7 +2,7 @@
 
 import tkinter as tk
 from tkinter import font
-from model import Model  # Add this import statement
+from model import Model
 from simulation import Profile
 
 class App:
