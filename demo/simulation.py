@@ -18,6 +18,11 @@ class Simulation:
         self.profile = Profile(min_preferred_temperature=70, max_preferred_temperature=75, identification="Default")
         self.cycles = 0
 
+    def getSensorTemperatureByIndex(self, index):
+        if 0 <= index < len(self.sensors):
+            return self.sensors[index].temperature
+        return None
+
     def getCurrentTemperature(self):
         return self.current_temperature
 
