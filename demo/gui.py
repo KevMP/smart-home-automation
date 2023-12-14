@@ -1,5 +1,4 @@
-## gui.py
-
+# gui.py
 import tkinter as tk
 from tkinter import font
 from model import Model
@@ -20,15 +19,12 @@ class App:
         self.temperature_label = tk.Label(master, text="Current Temperature: 0", font=self.temperature_font)
         self.temperature_label.grid(row=0, column=0, columnspan=2, pady=10)
 
-        self.increase_button = tk.Button(master, text="Increase Temperature", command=self.increase_temperature)
-        self.increase_button.grid(row=1, column=0, padx=10, pady=10)
-
-        self.decrease_button = tk.Button(master, text="Decrease Temperature", command=self.decrease_temperature)
-        self.decrease_button.grid(row=1, column=1, padx=10, pady=10)
+        self.create_controls_frame()  # Create a frame for controls
+        self.create_profile_dropdown()  # Create the profile dropdown menu
 
         # Frame for sensor labels
         self.sensor_frame = tk.Frame(master, borderwidth=2, relief="groove")
-        self.sensor_frame.grid(row=2, column=0, columnspan=2, pady=10)
+        self.sensor_frame.grid(row=2, column=0, columnspan=2, pady=10, padx=10)
 
         # Labels to display individual sensor temperatures
         self.sensor_labels = [tk.Label(self.sensor_frame, text=f"Sensor {i+1}: 0.00") for i in range(len(self.environment.sensors))]
@@ -38,11 +34,38 @@ class App:
             col = i % 2
             label.grid(row=row, column=col, pady=5)
 
-        self.create_profile_dropdown()  # Add the profile dropdown menu
-
         self.CYCLE_SPEED = 1 / 100
 
         self.update_temperature()
+
+    def create_controls_frame(self):
+        # Frame for controls
+        self.controls_frame = tk.Frame(self.master)
+        self.controls_frame.grid(row=1, column=0, pady=5)
+
+        # Frame for preferred temperature range
+        self.range_frame = tk.Frame(self.controls_frame, bg="white")  # Set the background color to white
+        self.range_frame.grid(row=0, column=0, pady=10)
+
+        # Label to display preferred temperature range
+        self.range_label = tk.Label(self.range_frame, text="Preferred Temperature Range:", font=("Helvetica", 10), bg="white")
+        self.range_label.grid(row=0, column=0, pady=5)
+
+        # Display the temperature range in a Label with a white background
+        self.range_data_label = tk.Label(self.range_frame, text="[72, 74]", font=("Helvetica", 10), bg="white")
+        self.range_data_label.grid(row=1, column=0, pady=5)
+
+        # Frame for temperature buttons
+        self.button_frame = tk.Frame(self.controls_frame)
+        self.button_frame.grid(row=0, column=1, pady=10)
+
+        # Increase Temperature button
+        self.increase_button = tk.Button(self.button_frame, text="Increase", command=self.increase_temperature_range)
+        self.increase_button.grid(row=0, column=0, pady=0, padx=5)  # Set pady to 0
+
+        # Decrease Temperature button
+        self.decrease_button = tk.Button(self.button_frame, text="Decrease", command=self.decrease_temperature_range)
+        self.decrease_button.grid(row=1, column=0, pady=0, padx=5)  # Set pady to 0
 
     def create_profile_dropdown(self):
         profiles = ["Default", "Away", "Cat"]  # Add more profiles as needed
@@ -53,6 +76,9 @@ class App:
             self.environment.profile = self.profile_mapping[selected_profile]
             self.environment.lower_bound = self.environment.profile.getLowerBound() - 2
             self.environment.upper_bound = self.environment.profile.getUpperBound() + 2
+
+            # Update the displayed temperature range
+            self.range_data_label.config(text="[{}, {}]".format(*self.environment.profile.getPreferredTemperature()))
 
         # Dropdown menu
         profile_var = tk.StringVar(self.master)
@@ -105,8 +131,10 @@ class App:
 
         self.master.after(int(self.CYCLE_SPEED * 1000), self.run_simulation)
 
-    def increase_temperature(self):
+    def increase_temperature_range(self):
         self.environment.increasePreferredTemperature()
+        self.range_data_label.config(text="[{}, {}]".format(*self.environment.profile.getPreferredTemperature()))
 
-    def decrease_temperature(self):
+    def decrease_temperature_range(self):
         self.environment.decreasePreferredTemperature()
+        self.range_data_label.config(text="[{}, {}]".format(*self.environment.profile.getPreferredTemperature()))
