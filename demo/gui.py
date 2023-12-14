@@ -9,7 +9,9 @@ class Gui:
     def __init__(self, master, simulation_instance):
         self.master = master
         self.master.title("Temperature Monitor")
-        self.master.geometry("400x350")  # Increased height to accommodate the dropdown menu
+        self.WINDOW_WIDTH = str(300)
+        self.WINDOW_HEIGHT = str(400)
+        self.master.geometry(f"{self.WINDOW_WIDTH}x{self.WINDOW_HEIGHT}")  # Increased height to accommodate the dropdown menu
 
         # Set a larger font for the temperature label
         self.temperature_font = font.Font(family="Helvetica", size=20)
