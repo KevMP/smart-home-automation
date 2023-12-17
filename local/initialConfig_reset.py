@@ -4,13 +4,16 @@ import time
 
 def deleteDatabase():
     print("REMOVING FILE")
+    time.sleep(1)
     os.remove("local/database.db")
-    time.sleep(2)
-
+    print("FILE REMOVED")
+    
 def createDatabase():
     print("CREATING DATABASE")
+    time.sleep(1)
     file = open("local/database.db", 'w')
     file.close()
+    print("DATABASE CREATED")
 
 if __name__ == "__main__":
     deleteDatabase()
