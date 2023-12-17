@@ -33,7 +33,6 @@ function AIComponent () {
     learning_rate: '',
     state_size: '',
     action_size: '',
-    neurons: '',
     learning_rate_optimizer: '',
     activation_functions: '',
     layers: [],
@@ -77,7 +76,11 @@ function AIComponent () {
       console.log('Error')
     }
     try {
-      axios.post('http://localhost:3001/api/v1/ai', formData)
+      axios.post('http://localhost:3001/api/v1/ai', { ...formData, command: 'update_parameters' }).then(() => {
+        toast.success('Successfully updated the parameters', {
+          position: toast.POSITION.TOP_CENTER
+        })
+      })
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -99,16 +102,16 @@ function AIComponent () {
     const floatFields = ['gamma', 'epsilon', 'epsilon_min', 'epsilon_decay', 'learning_rate']
     floatFields.forEach(field => {
       if (!formData[field] || isNaN(formData[field]) || parseFloat(formData[field]) < 0) {
-        toast.error('Must be a positive floating point number', {
+        toast.error(`${field} must be a positive floating point number`, {
           position: toast.POSITION.TOP_CENTER
         })
       }
     })
 
-    const integerFields = ['state_size', 'action_size', 'neurons']
+    const integerFields = ['state_size', 'action_size']
     integerFields.forEach(field => {
       if (!formData[field] || isNaN(formData[field]) || parseInt(formData[field]) < 1) {
-        toast.error('Must be a positive integer', {
+        toast.error(`${field} must be a positive integer`, {
           position: toast.POSITION.TOP_CENTER
         })
       }
@@ -137,6 +140,14 @@ function AIComponent () {
     setFormData({ ...formData, layers: formData.layers.filter(layer => layer.id !== id) })
   }
 
+  const selectProfile = () => {
+    axios.post('http://localhost:3001/api/v1/ai', { command: 'select_profile', profile: selectedModel }).then(() => {
+      toast.success('Successfully updated the parameters', {
+        position: toast.POSITION.TOP_CENTER
+      })
+    })
+  }
+
   return (
     <>
     <ToastContainer />
@@ -158,6 +169,9 @@ function AIComponent () {
               ))}
             </Dropdown.Menu>
           </Dropdown>
+          <Button variant="success" className="mb-2 d-block mx-auto" onClick={selectProfile}>
+              Set Profile
+          </Button>
         </div>
       </Col>
     </Row>
@@ -216,7 +230,7 @@ function AIComponent () {
 
               <Form.Group className="mb-3" controlId="formActivationFunctions">
                 <Form.Label className="text-white">Optimizer</Form.Label>
-                <Form.Select name="activation_functions" value={formData.optimizers} onChange={handleChange}>
+                <Form.Select name="learning_rate_optimizer" value={formData.learning_rate_optimizer} onChange={handleChange}>
                 {optimizers.map((func, index) => (
                 <option key={index} value={func}>{func}</option>
                 ))}

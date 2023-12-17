@@ -19,17 +19,17 @@ const Header = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/dashboard" style={{
+          {/* <Nav.Link href="/dashboard" style={{
             color: '#0056b3',
             fontSize: '18px'
           }}>
             Home
-          </Nav.Link>
+          </Nav.Link> */}
           {/* <Nav.Link href="/login" style={{ color: '#0056b3', fontSize: '18px' }}>Login</Nav.Link>
           <Nav.Link href="/admin" style={{ color: '#0056b3', fontSize: '18px' }}>Admin</Nav.Link>
           <Nav.Link href="/developer" style={{ color: '#0056b3', fontSize: '18px' }}>Developer</Nav.Link> */}
           <Nav.Link href="/ac" style={{ color: '#0056b3', fontSize: '18px' }}>AC</Nav.Link>
-          <Nav.Link href="/database" style={{ color: '#0056b3', fontSize: '18px' }}>Database</Nav.Link>
+          {/* <Nav.Link href="/database" style={{ color: '#0056b3', fontSize: '18px' }}>Database</Nav.Link> */}
           <Nav.Link href="/ai" style={{ color: '#0056b3', fontSize: '18px' }}>AI</Nav.Link>
           <Nav.Link href="/train" style={{ color: '#0056b3', fontSize: '18px' }}>Train</Nav.Link>
         </Nav>

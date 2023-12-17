@@ -19,12 +19,16 @@ async def handler(websocket, path):
         async for message in websocket:
             logging.info(f"Received message from client: {message}")
             data = json.loads(message)
-            if data.get('command') == 'start_training':
+
+            action = data.pop('command', {})
+            if action == 'start_training':
                 asyncio.create_task(start_training(agent, websocket))
-            if data.get('command') == 'get_hyperparameters':
+            if action == 'get_hyperparameters':
                 await websocket.send(json.dumps(agent.get_hyperparameters()))
-            else:
-                pass
+            if action == 'update_hyperparameters':
+                agent.update_hyperparameters(data)
+            if action == 'select_profile':
+                agent.select_model(data['profile'])
 
     except websockets.exceptions.ConnectionClosed as e:
         logging.warning(f"WebSocket connection closed: {e}")

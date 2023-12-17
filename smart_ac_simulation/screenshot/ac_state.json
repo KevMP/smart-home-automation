@@ -1,13 +1,13 @@
 {
     "max_occupancy": 1,
-    "occupancy": 1,
-    "ac_status": true,
+    "occupancy": 0,
+    "ac_status": false,
     "is_celsius": true,
     "target_temperature": 20,
     "humidity": 54,
     "min_humidity": 30,
     "max_humidity": 60,
-    "temperature": 18,
+    "temperature": 19,
     "min_temp": 18,
     "max_temp": 30
 }

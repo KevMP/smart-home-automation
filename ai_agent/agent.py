@@ -11,16 +11,16 @@ import json
 
 logging.basicConfig(level=logging.INFO)
 
-feature_order = ['temperature', 'humidity', 'occupancy', 'ac_status', 'target_temperature']
+feature_order = ['temperature', 'humidity', 'target_temperature']
 
 def extract_features(data_dict):
     return np.array([data_dict[key] for key in feature_order])
 
 class DQNAgent:
-    def __init__(self, state_size=5, action_size=3, learning_rate=0.01, gamma=0.09, epsilon=1, epsilon_min=0.01, epsilon_decay=0.995):
+    def __init__(self, state_size=3, action_size=3, learning_rate=0.01, gamma=0.09, epsilon=1, epsilon_min=0.01, epsilon_decay=0.995):
         logging.info("Initializing agent...")
-        self.state_size = state_size # temperature, humidity, status
-        self.action_size = action_size # turn on, turn off, set temp
+        self.state_size = state_size
+        self.action_size = action_size # raise / lower / do nothing
         self.learning_rate = learning_rate
 
         self.model_identification = None
@@ -30,6 +30,8 @@ class DQNAgent:
         self.epsilon = epsilon
         self.epsilon_min = epsilon_min
         self.epsilon_decay = epsilon_decay
+        self.optimizer = 'Adam'
+        self.q_network = self._build_q_network()
 
         self.load()
 
@@ -64,10 +66,10 @@ class DQNAgent:
         # else:
         #     model.compile(loss='mse', optimizer=Adam(learning_rater=self.learning_rate))
         
-        self.build_compiler(model, self.learning_rate, 'Adam')
+        self.build_compiler(model, self.learning_rate, self.optimizer)
         
         return model
-    
+
     def get_layers(self):
         return self.q_network.layers
 
@@ -146,7 +148,7 @@ class DQNAgent:
             layers_str = "_".join(layer_descriptions)
 
             return (f"lr{self.learning_rate}_gamma{self.gamma}_eps{self.epsilon}_epsmin{self.epsilon_min}_"
-                    f"epsdecay{self.epsilon_decay}_layers{layers_str}")
+                    f"epsdecay{self.epsilon_decay}_layers{layers_str}_statesize{self.state_size}_actionsize{self.action_size}")
 
     def list_model_files(self, directory="ai_agent/saved_model", file_extension='.h5'):
         logging.info("Looking for model files...")
@@ -158,17 +160,33 @@ class DQNAgent:
         return model_files
 
     def update_hyperparameters(self, params):
-        if 'learning_rate' in params:
-            self.learning_rate = params['learning_rate']
-        if 'gamma' in params:
-            self.gamma = params['gamma']
-        if 'epsilon' in params:
-            self.epsilon = params['epsilon']
-        if 'epsilon_min' in params:
-            self.epsilon_min = params['epsilon_min']
-        if 'epsilon_decay' in params:
-            self.epsilon_decay = params['epsilon_decay']
+        logging.info(params)
 
+        self.learning_rate = params['learning_rate']
+        self.gamma = params['gamma']
+        self.epsilon = params['epsilon']
+        self.epsilon_min = params['epsilon_min']
+        self.epsilon_decay = params['epsilon_decay']
+        self.action_size = params['action_size']
+        self.learning_rate = params['learning_rate']
+        self.state_size = params['state_size']
+        
+        model = Sequential()
+        
+        for layer in params['layers']:
+            model.add(self.build_dense_layer(layer['neurons'], layer['activation'], layer['input_shape']))
+        
+        self.build_compiler(model, params['learning_rate'], params['optimizer'])
+        
+        self.save()
+        
+    def select_model(self, model_name):
+        filename = f"dqn_{model_name}.keras"
+        self.model_identification = filename
+        if os.path.exists(os.path.join("ai_agent/saved_model", filename)):
+            logging.info(f"Selecting model {model_name}...")
+            self.q_network = load_model(os.path.join("ai_agent/saved_model", filename))
+        logging.info("Agent listening...")
 
     def get_hyperparameters(self):
         return {
@@ -186,24 +204,35 @@ class DQNAgent:
                         for dense_layer in self.get_layers()
                         ],
             'models': self.list_model_files(),
+            'optimizer': self.optimizer,
             'model_identification': self.model_identification
         }
 
     def is_default_parameters(self):
+        default = [{'activation': 'relu', 'input_shape': 5, 'neurons': 64}, 
+         {'activation': 'linear', 'input_shape': 64, 'neurons': 3}]
+        
+        
         return (self.learning_rate == 0.01 and self.gamma == 0.09 and 
-                self.epsilon == 1 and self.epsilon_min == 0.01 and self.epsilon_decay == 0.995)
+                self.epsilon == 1 and self.epsilon_min == 0.01 and self.epsilon_decay == 0.995 and self.state_size == 5 and 
+                self.action_size == 3 and self.optimizer == 'Adam' and sorted([
+                        {'neurons': dense_layer.units,
+                        'activation': dense_layer.activation.__name__,
+                        'input_shape': dense_layer.input_shape[1]} 
+                        for dense_layer in self.get_layers()], 
+                        key=lambda d: d['neurons']) == sorted(default, key=lambda d: d['neurons']))
 
     def save(self, directory="ai_agent/saved_model"):
         if not os.path.exists(directory):
             os.makedirs(directory)
         
         identifier = self.get_model_identifier()
-        filename = f"dqn_{identifier}.h5"
+        filename = f"dqn_{identifier}.keras"
         self.q_network.save(os.path.join(directory, filename))
 
     def load(self, directory="ai_agent/saved_model"):
         identifier = self.get_model_identifier()
-        filename = f"dqn_{identifier}.h5"
+        filename = f"dqn_{identifier}.keras"
         
         self.model_identification = filename
 
@@ -212,7 +241,12 @@ class DQNAgent:
             self.q_network = load_model(os.path.join(directory, filename))
         else:
             logging.info("Building new q_network...")
-            self.q_network = self._build_q_network()
             self.save()
 
-    
+    def load_current_profile(self):
+        with open('profile', 'r') as f:
+            loaded_state = json.load(f)
+            
+    def dump_current_profile(self):
+        with open('profile', 'r') as f:
+            loaded_state = json.load(f)

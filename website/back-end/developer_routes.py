@@ -17,10 +17,16 @@ async def ai_agent_train(data):
             progress_data = json.loads(message)
             socketio.emit('training_update', progress_data)
 
-async def ai_agent_request(message):
+async def ai_agent_request(message, data={}):
     uri = "ws://localhost:6789"
     async with websockets.connect(uri) as websocket:
-        await websocket.send(json.dumps(message))
+        current_app.logger.debug(message)
+        if message['command'] == 'update_hyperparameters':
+            current_app.logger.debug("Sending parameterrs to AI...")
+            await websocket.send(json.dumps({**message, **data}))
+        else:
+            await websocket.send(json.dumps(message))   
+            
         response = await websocket.recv()
         return json.loads(response)
 
@@ -52,15 +58,24 @@ def ac():
 
 @developer_bp.route('/api/v1/ai', methods=['GET', 'POST'])
 def ai():
-    if request.method == "POST":
-        current_app.logger.debug(f"Changing parameters...")
-        asyncio.run(ai_agent_request({ 'command': "update_parameters" }))
-        return jsonify()
-    else:
-        current_app.logger.debug(f"Fetching hyperparameters...")
-        response = asyncio.run(ai_agent_request({ 'command': "get_hyperparameters" }))
-        response['layers'] = [{**layer, 'id': uuid.uuid4()} for layer in response['layers']]
-        return jsonify(response)
+    try:
+        if request.method == "POST":
+            data = request.get_json()
+            if data['command'] == 'update_hyperparameters':
+                current_app.logger.debug(f"Changing parameters...")
+                asyncio.run(ai_agent_request(message=data.pop('command'), data=data))
+                return jsonify(), 200
+            elif data['command'] == 'select_profile':
+                current_app.logger.debug(f"Selecting profile...")
+                asyncio.run(ai_agent_request(message=data.pop('command'), data=data))
+                return jsonify(), 200
+        else:
+            current_app.logger.debug(f"Fetching hyperparameters...")
+            response = asyncio.run(ai_agent_request({ 'command': "get_hyperparameters" }))
+            response['layers'] = [{**layer, 'id': uuid.uuid4()} for layer in response['layers']]
+            return jsonify(response), 200
+    except Exception as e:
+        current_app.logger.error(f"There was an exception...\n{e}")
 
 @developer_bp.route('/api/v1/train', methods=['GET', 'POST'])
 def train():
