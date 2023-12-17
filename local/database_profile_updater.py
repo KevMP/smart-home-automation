@@ -121,10 +121,15 @@ class Updater(Database):
         except sql.Error as e:
             print(f"Error updating profile preference: {e}")
 
+    """
+    If the user modifies the thermostat by either increasing it
+    or decreasing it, that action will be logged by the Gui and
+    written to the database in the field (change_in_thermostat)
+    """
     def increaseOrDecreaseProfilePreference(self):
-        if self.change_in_thermostat == 'raise':
+        if self.change_in_thermostat == 'increase':
             self.increaseProfilePreference()
-        elif self.change_in_thermostat == 'lower':
+        elif self.change_in_thermostat == 'decrease':
             self.decreaseProfilePreference()
 
 def main():
