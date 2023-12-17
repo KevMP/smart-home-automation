@@ -51,6 +51,6 @@ if __name__ == "__main__":
     Gui.createTable()
 
     TemperatureModel = Table("TemperatureModel")
-    TemperatureModel.addField("timestamp", 'timestamp', True, True)
+    TemperatureModel.addField("timestamp", 'timestamp', False, True)
     TemperatureModel.addField("airconditioner_command", str)
     TemperatureModel.createTable()

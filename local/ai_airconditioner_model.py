@@ -1,5 +1,5 @@
 from class_model import *
-import random
+import random, time
 
 class AirconditionerModel(Model):
     def __init__(self):
