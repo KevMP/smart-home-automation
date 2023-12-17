@@ -51,13 +51,21 @@ class AirconditionerModel(Model):
         except sql.Error as e:
             print(f"Error fetching data: {e}")
 
+
+    """
+    The following calculates the feels like temperature, so that the Ai can use that as a
+    reference point in adjusting the air conditioner.
+    """
     def calculateFeelsLikeTemperature(self):
-        """
-        calculates the feels like temperature, using the
-        self.averageTemperature and the self.averageHumdity,
-        assigns that value to the feelsLikeTemperature.
-        """
-        pass
+        self.coefficients = [-42.379, 2.04901523, 10.14333127, -0.22475541, -6.83783e-3,
+            -5.481717e-2, 1.22874e-3, 8.5282e-4, -1.99e-6]
+        
+        self.relative_humidity = self.averageHumidity / 100.0
+
+        self.feelsLikeTemperature = self.coefficients[0] + self.coefficients[1] * self.averageTemperature + self.coefficients[2] * self.relative_humidity + \
+                    self.coefficients[3] * self.averageTemperature  * self.relative_humidity + self.coefficients[4] * self.averageTemperature **2 + \
+                    self.coefficients[5] * self.relative_humidity**2 + self.coefficients[6] * self.averageTemperature **2 * self.relative_humidity + \
+                    self.coefficients[7] * self.averageTemperature  * self.relative_humidity**2 + self.coefficients[8] * self.averageTemperature **2 * self.relative_humidity**2
 
 model = AirconditionerModel()
 model.getAverageTemperature()
@@ -65,3 +73,5 @@ model.getAverageHumidity()
 model.closeConnection()
 print(model.averageTemperature)
 print(model.averageHumidity)
+model.calculateFeelsLikeTemperature()
+print(model.feelsLikeTemperature)
