@@ -9,18 +9,18 @@ if __name__ == "__main__":
 
     Sensor = Table("Sensor")
     Sensor.addField("id", int)
-    Sensor.addField("timestamp", 'timestamp')
+    Sensor.addField("timestamp", 'timestamp', False, True)
     Sensor.addField("temperature", float)
     Sensor.addField("humidity", float)
     Sensor.createTable()
 
     Airconditioner = Table("Airconditioner")
     Airconditioner.addField("id", int)
-    Airconditioner.addField("timestamp", 'timestamp')
+    Airconditioner.addField("timestamp", 'timestamp', False, True)
     Airconditioner.addField("command", str)
     Airconditioner.createTable()
 
     TemperatureModel = Table("TemperatureModel")
-    TemperatureModel.addField("timestamp", 'timestamp')
+    TemperatureModel.addField("timestamp", 'timestamp', False, True)
     TemperatureModel.addField("airconditioner_command", str)
     TemperatureModel.createTable()

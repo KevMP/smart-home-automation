@@ -19,8 +19,6 @@ class Sensor(Database):
         return self.temperature
     def getHumidity(self):
         return self.humidity
-    def getTimestamp(self):
-        return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     def updateDatabase(self):
         if not self.database_connection:
@@ -33,12 +31,11 @@ class Sensor(Database):
         **********************************************************************************
         """
         insert_query = """
-            INSERT INTO Sensor (id, timestamp, temperature, humidity)
-            VALUES (?, ?, ?, ?);
+            INSERT INTO Sensor (id, temperature, humidity)
+            VALUES (?, ?, ?);
         """
 
-        timestamp = self.getTimestamp()
-        self.cursor.execute(insert_query, (self.getSensorIdentification(), timestamp, self.getTemperature(), self.getHumidity()))
+        self.cursor.execute(insert_query, (self.getSensorIdentification(), self.getTemperature(), self.getHumidity()))
         self.database_connection.commit()
 
         self.closeConnection()

@@ -21,7 +21,7 @@ class Table(Database):
         self.name = table_name
         self.fields = []
 
-    def addField(self, field_name: str, data_type, unique=False):
+    def addField(self, field_name: str, data_type, unique=False, autotimestamp=False):
         self.data_conversion = {
             str: 'TEXT',
             int: 'INTEGER',
@@ -31,7 +31,9 @@ class Table(Database):
         field_declaration = f"{field_name} {self.data_conversion[data_type]}"
         if unique:
             field_declaration += " UNIQUE"
-
+        if autotimestamp:
+            field_declaration += " DEFAULT CURRENT_TIMESTAMP"
+            print(field_declaration)
         self.fields.append(field_declaration)
 
     """
