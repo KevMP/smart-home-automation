@@ -1,5 +1,4 @@
 from database_root import *
-from datetime import datetime
 
 class Sensor(Database):
     def __init__(self, id: int):
