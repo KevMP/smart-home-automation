@@ -23,7 +23,7 @@ class Sensor(Database):
     def updateDatabase(self):
         if not self.database_connection:
             print("Cannot update database. Database connection not available.")
-            return
+            return None
         """
         **********************************************************************************
         The insert_query below will insert new sensor data depending on the timestamp and
