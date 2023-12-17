@@ -4,12 +4,12 @@ from class_sensor import Sensor
 def fakeSensorData():
     sensor0 = Sensor(0)
     sensor0.setHumidity(60.54)
-    sensor0.setTemperature(71.02)
+    sensor0.setTemperature(74.02)
     sensor0.updateDatabase()
 
     sensor1 = Sensor(1)
     sensor1.setHumidity(60.42)
-    sensor1.setTemperature(70.48)
+    sensor1.setTemperature(72.48)
     sensor1.updateDatabase()
 
 def fakeProfileData():
