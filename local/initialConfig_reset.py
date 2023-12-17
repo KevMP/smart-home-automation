@@ -37,7 +37,17 @@ if __name__ == "__main__":
     Airconditioner.addField("command", str)
     Airconditioner.createTable()
 
+    Gui = Table("Gui")
+    """
+    Note that setting the UNIQUE to false would mean
+    that if two people set the temperature at the same time there
+    could be a discrepancy for the ai.
+    """
+    Gui.addField("timestamp", 'timestamp', False, True)
+    Gui.addField("current_profile", str)
+    Gui.addField("change_in_thermostat", str)
+
     TemperatureModel = Table("TemperatureModel")
-    TemperatureModel.addField("timestamp", 'timestamp', False, True)
+    TemperatureModel.addField("timestamp", 'timestamp', True, True)
     TemperatureModel.addField("airconditioner_command", str)
     TemperatureModel.createTable()
