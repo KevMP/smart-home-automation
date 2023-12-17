@@ -126,6 +126,7 @@ class AirconditionerModel(Model):
             print(f"Error fetching profile maximum temperature: {e}")
 
     """
+    **********************************************************************************
     The following will make a command to the airconditioner that will later pass it
     to a function that writes it to the database.
 
@@ -141,6 +142,7 @@ class AirconditionerModel(Model):
                 PUNISH
         ELSE
             REWARD
+    **********************************************************************************
     """
     def getCommandBasedOnCurrentProfile(self):
         self.command_to_airconditioner = random.choice(self.airconditioner_model.action_matrix)
