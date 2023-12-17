@@ -9,7 +9,7 @@ def deleteDatabase():
 
 def createDatabase():
     print("CREATING DATABASE")
-    file = open("local/databasel.db", 'w')
+    file = open("local/database.db", 'w')
     file.close()
 
 if __name__ == "__main__":
