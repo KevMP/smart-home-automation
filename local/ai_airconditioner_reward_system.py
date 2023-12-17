@@ -1,5 +1,6 @@
-import ai_airconditioner_model as ac_model
+from class_reward_system import Reward
 
-model = ac_model.establish_temperature_model()
-print(model.action_matrix)
-print(model.decision_tree)
+class AirconditionerReward(Reward):
+    def __init__(self, model):
+        super().__init__()
+        self.model = model
