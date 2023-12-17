@@ -28,5 +28,8 @@ def fakeProfileData():
     cat.setMaxTemp(74)
     cat.updateDatabase()
 
+def fakeGuiData():
+    pass
+
 fakeSensorData()
 fakeProfileData()

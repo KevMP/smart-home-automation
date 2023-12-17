@@ -11,7 +11,10 @@ class AirconditionerModel(Model):
         self.average_temperature = 0.0
         self.average_humidity = 0.0
         self.feels_like_temperature = 0.0
+        
         self.current_profile = ''
+        self.profile_min_temp = 0
+        self.profile_max_temp = 0
     
     def getAverageTemperature(self):
         if not self.database_connection:
@@ -87,15 +90,59 @@ class AirconditionerModel(Model):
 
         except sql.Error as e:
             print(f"Error fetching profile: {e}")
-    
+
+    def getProfileMinimumPreferredTemperature(self):
+        if not self.database_connection or not self.current_profile:
+            print("Cannot fetch data. Database connection not available or current_profile not set.")
+            return None
+
+        try:
+            query = """
+                SELECT min_temp
+                FROM Profile
+                WHERE name = ?;
+            """
+
+            result = self.cursor.execute(query, (self.current_profile,)).fetchone()
+            if result:
+                self.profile_min_temp = result[0]
+
+        except sql.Error as e:
+            print(f"Error fetching profile minimum temperature: {e}")
+
+    def getProfileMaximumPreferredTemperature(self):
+        if not self.database_connection or not self.current_profile:
+            print("Cannot fetch data. Database connection not available or current_profile not set.")
+            return None
+
+        try:
+            query = """
+                SELECT max_temp
+                FROM Profile
+                WHERE name = ?;
+            """
+
+            result = self.cursor.execute(query, (self.current_profile,)).fetchone()
+            if result:
+                self.profile_max_temp = result[0]
+
+        except sql.Error as e:
+            print(f"Error fetching profile maximum temperature: {e}")
+
+
     def makeDecisionBasedOnCurrentProfile(self):
         pass
 
 model = AirconditionerModel()
 model.getAverageTemperature()
 model.getAverageHumidity()
+model.calculateFeelsLikeTemperature()
+model.getCurrentProfile()
+model.getProfileMaximumPreferredTemperature()
+model.getProfileMinimumPreferredTemperature()
 model.closeConnection()
 print(model.average_temperature)
 print(model.average_humidity)
-model.calculateFeelsLikeTemperature()
 print(model.feels_like_temperature)
+print(model.current_profile)
+print(model.profile_max_temp)
