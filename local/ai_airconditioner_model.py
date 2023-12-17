@@ -11,6 +11,7 @@ class AirconditionerModel(Model):
         self.averageTemperature = 0.0
         self.averageHumidity = 0.0
         self.feelsLikeTemperature = 0.0
+        self.currentProfile = ''
     
     def getAverageTemperature(self):
         if not self.database_connection:
@@ -66,6 +67,11 @@ class AirconditionerModel(Model):
                     self.coefficients[3] * self.averageTemperature  * self.relative_humidity + self.coefficients[4] * self.averageTemperature **2 + \
                     self.coefficients[5] * self.relative_humidity**2 + self.coefficients[6] * self.averageTemperature **2 * self.relative_humidity + \
                     self.coefficients[7] * self.averageTemperature  * self.relative_humidity**2 + self.coefficients[8] * self.averageTemperature **2 * self.relative_humidity**2
+
+    def getProfile(self):
+        pass
+    def makeDecisionBasedOnCurrentProfile(self):
+        pass
 
 model = AirconditionerModel()
 model.getAverageTemperature()
