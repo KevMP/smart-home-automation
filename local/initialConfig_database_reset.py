@@ -48,6 +48,7 @@ if __name__ == "__main__":
     Gui.addField("timestamp", 'timestamp', False, True)
     Gui.addField("current_profile", str)
     Gui.addField("change_in_thermostat", str)
+    Gui.createTable()
 
     TemperatureModel = Table("TemperatureModel")
     TemperatureModel.addField("timestamp", 'timestamp', True, True)

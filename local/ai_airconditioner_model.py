@@ -13,9 +13,9 @@ class AirconditionerModel(Model):
         self.average_humidity = 0.0
         self.feels_like_temperature = 0.0
         
-        self.current_profile = ''
-        self.profile_min_temp = 0
-        self.profile_max_temp = 0
+        self.current_profile = 'DEFAULT'
+        self.profile_min_temp = 50
+        self.profile_max_temp = 70
     
     def getAverageTemperature(self):
         if not self.database_connection:
@@ -159,8 +159,22 @@ class AirconditionerModel(Model):
             self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.command_to_airconditioner
         return self.command_to_airconditioner
     
-    def writeCommandToDatabase(self, command):
-        pass
+    def writeCommandToDatabase(self, command: str):
+        if not self.database_connection:
+            print("Cannot write data. Database connection not available.")
+            return
+
+        try:
+            query = """
+                INSERT INTO TemperatureModel (airconditioner_command)
+                VALUES (?);
+            """
+
+            self.cursor.execute(query, (command,))
+            self.database_connection.commit()
+
+        except sql.Error as e:
+            print(f"Error writing command to database: {e}")
 
 model = AirconditionerModel()
 model.getAverageTemperature()
@@ -169,9 +183,18 @@ model.calculateFeelsLikeTemperature()
 model.getCurrentProfile()
 model.getProfileMaximumPreferredTemperature()
 model.getProfileMinimumPreferredTemperature()
+command = model.getCommandBasedOnCurrentProfile()
+command = model.getCommandBasedOnCurrentProfile()
+command = model.getCommandBasedOnCurrentProfile()
+command = model.getCommandBasedOnCurrentProfile()
+command = model.getCommandBasedOnCurrentProfile()
+command = model.getCommandBasedOnCurrentProfile()
+command = model.getCommandBasedOnCurrentProfile()
+model.writeCommandToDatabase(command)
 model.closeConnection()
 print(model.average_temperature)
 print(model.average_humidity)
 print(model.feels_like_temperature)
 print(model.current_profile)
 print(model.profile_max_temp)
+print(command)
