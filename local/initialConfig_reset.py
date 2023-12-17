@@ -4,7 +4,7 @@ import time
 
 def deleteDatabase():
     print("REMOVING FILE")
-    time.sleep(1)
+    time.sleep(2)
     os.remove("local/database.db")
     print("FILE REMOVED")
     
