@@ -1,4 +1,5 @@
 from class_model import *
+import random
 
 class AirconditionerModel(Model):
     def __init__(self):
@@ -142,7 +143,24 @@ class AirconditionerModel(Model):
             print(f"Error fetching profile maximum temperature: {e}")
 
     def makeDecisionBasedOnCurrentProfile(self):
-        pass
+        """
+        If the feels like temperature is in between the preferences
+        of the profile.
+        """
+        self.action = random.choice(self.airconditioner_model.action_matrix)
+        self.random_action_matrix_index = random.randint(0, 2)
+        self.random_decision_tree_index = random.randint(0, 2)
+        if (self.feels_like_temperature >= self.profile_min_temp) and (self.feels_like_temperature <= self.profile_max_temp):
+            if self.action != 'do_nothing':
+                self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.airconditioner_model.decision_tree[self.random_decision_tree_index]
+        elif (self.feels_like_temperature < self.profile_min_temp):
+            if self.action != 'raise':
+                self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.airconditioner_model.decision_tree[self.random_decision_tree_index]
+        elif (self.feels_like_temperature > self.profile_max_temp):
+            if self.action != 'lower':
+                self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.airconditioner_model.decision_tree[self.random_decision_tree_index]
+        else:
+            self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.action
 
 model = AirconditionerModel()
 model.getAverageTemperature()
