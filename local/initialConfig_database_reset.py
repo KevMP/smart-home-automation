@@ -39,6 +39,8 @@ if __name__ == "__main__":
 
     Gui = Table("Gui")
     """
+    Gui.addField("timestamp", 'timestamp', False, True)
+    
     Note that setting the UNIQUE to false would mean
     that if two people set the temperature at the same time there
     could be a discrepancy for the ai.
