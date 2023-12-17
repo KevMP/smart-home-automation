@@ -55,7 +55,6 @@ class AirconditionerModel(Model):
         except sql.Error as e:
             print(f"Error fetching data: {e}")
 
-
     """
     The following calculates the feels like temperature, so that the Ai can use that as a
     reference point in adjusting the air conditioner.
@@ -70,6 +69,19 @@ class AirconditionerModel(Model):
                     self.coefficients[3] * self.average_temperature  * self.relative_humidity + self.coefficients[4] * self.average_temperature **2 + \
                     self.coefficients[5] * self.relative_humidity**2 + self.coefficients[6] * self.average_temperature **2 * self.relative_humidity + \
                     self.coefficients[7] * self.average_temperature  * self.relative_humidity**2 + self.coefficients[8] * self.average_temperature **2 * self.relative_humidity**2
+
+    """
+    The following functions will get the preferences of a profile,
+    it will assign those preferrences to the initial variables,
+    i.e. the self.profile_min_temp, and the self.profile_max_temp.
+
+    We're also getting the name of the profile in order to get those
+    previous values.
+
+    therefore our set of instructions has to be like this,
+        GET PROFILE
+        GET PROFILE MIN/MAX PREFERRENCES
+    """
 
     def getCurrentProfile(self):
         if not self.database_connection:
@@ -128,7 +140,6 @@ class AirconditionerModel(Model):
 
         except sql.Error as e:
             print(f"Error fetching profile maximum temperature: {e}")
-
 
     def makeDecisionBasedOnCurrentProfile(self):
         pass
