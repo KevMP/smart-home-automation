@@ -1,6 +1,20 @@
 from database_table import Table
+import os
+import time
+
+def deleteDatabase():
+    print("REMOVING FILE")
+    os.remove("local/database.db")
+    time.sleep(2)
+
+def createDatabase():
+    print("CREATING DATABASE")
+    file = open("local/databasel.db", 'w')
+    file.close()
 
 if __name__ == "__main__":
+    deleteDatabase()
+    createDatabase()
     Profile = Table("Profile")
     Profile.addField("name", str, True)
     Profile.addField("min_temp", int)
