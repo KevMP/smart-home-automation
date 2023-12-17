@@ -33,7 +33,6 @@ class Table(Database):
             field_declaration += " UNIQUE"
         if autotimestamp:
             field_declaration += " DEFAULT CURRENT_TIMESTAMP"
-            print(field_declaration)
         self.fields.append(field_declaration)
 
     """
