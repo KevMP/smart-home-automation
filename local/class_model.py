@@ -5,5 +5,3 @@ class Model:
     
     def addDecision(self, decision):
         self.decision_tree.append(decision)
-    def getDecisionTree(self):
-        return self.decision_tree
