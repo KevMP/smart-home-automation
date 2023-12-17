@@ -9,3 +9,15 @@ class Reward:
             return True
         else:
             return False
+    
+    """
+    **********************************************************************************
+    Overwrites the previous reward value with the current one and writes the current
+    reward value with the value that is passed in.
+            PREVIOUS REWARD = CURRENT
+            CURRENT REWARD = NEW VALUE
+    **********************************************************************************
+    """
+    def overwriteReward(self, value:float):
+        self.previous_reward = self.current_reward
+        self.current_reward = value
