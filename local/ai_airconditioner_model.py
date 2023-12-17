@@ -68,8 +68,26 @@ class AirconditionerModel(Model):
                     self.coefficients[5] * self.relative_humidity**2 + self.coefficients[6] * self.average_temperature **2 * self.relative_humidity + \
                     self.coefficients[7] * self.average_temperature  * self.relative_humidity**2 + self.coefficients[8] * self.average_temperature **2 * self.relative_humidity**2
 
-    def getProfile(self):
-        pass
+    def getCurrentProfile(self):
+        if not self.database_connection:
+            print("Cannot fetch data. Database connection not available.")
+            return None
+
+        try:
+            query = """
+                SELECT current_profile
+                FROM Gui
+                ORDER BY timestamp DESC
+                LIMIT 1;
+            """
+
+            result = self.cursor.execute(query).fetchone()
+            if result:
+                self.current_profile = result[0]
+
+        except sql.Error as e:
+            print(f"Error fetching profile: {e}")
+    
     def makeDecisionBasedOnCurrentProfile(self):
         pass
 
