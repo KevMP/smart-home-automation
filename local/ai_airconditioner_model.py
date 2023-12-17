@@ -14,8 +14,8 @@ class AirconditionerModel(Model):
         self.feels_like_temperature = 0.0
         
         self.current_profile = 'DEFAULT'
-        self.profile_min_temp = 50
-        self.profile_max_temp = 70
+        self.profile_minimum_temp = 50
+        self.profile_maximum_temp = 70
     
     def getAverageTemperature(self):
         if not self.database_connection:
@@ -77,7 +77,6 @@ class AirconditionerModel(Model):
                 SELECT current_profile
                 FROM Gui
                 ORDER BY timestamp DESC
-                LIMIT 1;
             """
 
             result = self.cursor.execute(query).fetchone()
@@ -101,7 +100,7 @@ class AirconditionerModel(Model):
 
             result = self.cursor.execute(query, (self.current_profile,)).fetchone()
             if result:
-                self.profile_min_temp = result[0]
+                self.profile_minimum_temp = result[0]
 
         except sql.Error as e:
             print(f"Error fetching profile minimum temperature: {e}")
@@ -120,7 +119,7 @@ class AirconditionerModel(Model):
 
             result = self.cursor.execute(query, (self.current_profile,)).fetchone()
             if result:
-                self.profile_max_temp = result[0]
+                self.profile_maximum_temp = result[0]
 
         except sql.Error as e:
             print(f"Error fetching profile maximum temperature: {e}")
@@ -148,13 +147,13 @@ class AirconditionerModel(Model):
         self.command_to_airconditioner = random.choice(self.airconditioner_model.action_matrix)
         self.random_action_matrix_index = random.randint(0, 2)
         self.random_decision_tree_index = random.randint(0, 2)
-        if (self.feels_like_temperature >= self.profile_min_temp) and (self.feels_like_temperature <= self.profile_max_temp):
+        if (self.feels_like_temperature >= self.profile_minimum_temp) and (self.feels_like_temperature <= self.profile_maximum_temp):
             if self.command_to_airconditioner != 'do_nothing':
                 self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.airconditioner_model.decision_tree[self.random_decision_tree_index]
-        elif (self.feels_like_temperature < self.profile_min_temp):
+        elif (self.feels_like_temperature < self.profile_minimum_temp):
             if self.command_to_airconditioner != 'raise':
                 self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.airconditioner_model.decision_tree[self.random_decision_tree_index]
-        elif (self.feels_like_temperature > self.profile_max_temp):
+        elif (self.feels_like_temperature > self.profile_maximum_temp):
             if self.command_to_airconditioner != 'lower':
                 self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.airconditioner_model.decision_tree[self.random_decision_tree_index]
         else:
@@ -199,7 +198,7 @@ def test():
     print(model.average_humidity)
     print(model.feels_like_temperature)
     print(model.current_profile)
-    print(model.profile_max_temp)
+    print(model.profile_maximum_temp)
     print(command)
 
 def main():
@@ -215,6 +214,7 @@ def main():
 
         command = model.getCommandBasedOnCurrentProfile()
         model.writeCommandToDatabase(command)
+        print(model.current_profile)
 
 if __name__ == "__main__":
     main()
