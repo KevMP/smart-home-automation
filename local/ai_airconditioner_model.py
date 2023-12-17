@@ -56,10 +56,6 @@ class AirconditionerModel(Model):
         except sql.Error as e:
             print(f"Error fetching data: {e}")
 
-    """
-    The following calculates the feels like temperature, so that the Ai can use that as a
-    reference point in adjusting the air conditioner.
-    """
     def calculateFeelsLikeTemperature(self):
         self.coefficients = [-42.379, 2.04901523, 10.14333127, -0.22475541, -6.83783e-3,
             -5.481717e-2, 1.22874e-3, 8.5282e-4, -1.99e-6]
@@ -70,19 +66,6 @@ class AirconditionerModel(Model):
                     self.coefficients[3] * self.average_temperature  * self.relative_humidity + self.coefficients[4] * self.average_temperature **2 + \
                     self.coefficients[5] * self.relative_humidity**2 + self.coefficients[6] * self.average_temperature **2 * self.relative_humidity + \
                     self.coefficients[7] * self.average_temperature  * self.relative_humidity**2 + self.coefficients[8] * self.average_temperature **2 * self.relative_humidity**2
-
-    """
-    The following functions will get the preferences of a profile,
-    it will assign those preferrences to the initial variables,
-    i.e. the self.profile_min_temp, and the self.profile_max_temp.
-
-    We're also getting the name of the profile in order to get those
-    previous values.
-
-    therefore our set of instructions has to be like this,
-        GET PROFILE
-        GET PROFILE MIN/MAX PREFERRENCES
-    """
 
     def getCurrentProfile(self):
         if not self.database_connection:
@@ -142,25 +125,42 @@ class AirconditionerModel(Model):
         except sql.Error as e:
             print(f"Error fetching profile maximum temperature: {e}")
 
-    def makeDecisionBasedOnCurrentProfile(self):
-        """
-        If the feels like temperature is in between the preferences
-        of the profile.
-        """
-        self.action = random.choice(self.airconditioner_model.action_matrix)
+    """
+    The following will make a command to the airconditioner that will later pass it
+    to a function that writes it to the database.
+
+    the logic is as follows,
+        IF REAL TEMPERATURE IS INSIDE PREFERRENCES RANGE
+            IF COMMAND TO AIR CONDITIONER IS NOT DO NOTHING
+                PUNISH
+        IF REAL TEMPERATURE IS LESS THAN PREFERRED MINIMUM
+            IF COMMAND TO AIR CONDITIONER IS NOT RAISE
+                PUNISH
+        IF REAL TEMPERATURE IS MORE THAN PREFERRED MAXIMUM
+            IF COMMAND TO AIR CONDITIONER IS NOT LOWER
+                PUNISH
+        ELSE
+            REWARD
+    """
+    def getCommandBasedOnCurrentProfile(self):
+        self.command_to_airconditioner = random.choice(self.airconditioner_model.action_matrix)
         self.random_action_matrix_index = random.randint(0, 2)
         self.random_decision_tree_index = random.randint(0, 2)
         if (self.feels_like_temperature >= self.profile_min_temp) and (self.feels_like_temperature <= self.profile_max_temp):
-            if self.action != 'do_nothing':
+            if self.command_to_airconditioner != 'do_nothing':
                 self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.airconditioner_model.decision_tree[self.random_decision_tree_index]
         elif (self.feels_like_temperature < self.profile_min_temp):
-            if self.action != 'raise':
+            if self.command_to_airconditioner != 'raise':
                 self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.airconditioner_model.decision_tree[self.random_decision_tree_index]
         elif (self.feels_like_temperature > self.profile_max_temp):
-            if self.action != 'lower':
+            if self.command_to_airconditioner != 'lower':
                 self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.airconditioner_model.decision_tree[self.random_decision_tree_index]
         else:
-            self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.action
+            self.airconditioner_model.action_matrix[self.random_action_matrix_index] = self.command_to_airconditioner
+        return self.command_to_airconditioner
+    
+    def writeCommandToDatabase(self, command):
+        pass
 
 model = AirconditionerModel()
 model.getAverageTemperature()
