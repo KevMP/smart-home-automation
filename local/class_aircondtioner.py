@@ -31,6 +31,10 @@ class Airconditioner(Database):
 def test():
     print("CREATING OBJECT")
     ac = Airconditioner()
+    print("GETTING FURTHER COMMANDS")
+    ac.get_command_from_ai()
+    print("WRITING TO DATABASE")
+    ac.write_command_to_ac()
 
 if __name__ == "__main__":
     test()
