@@ -27,3 +27,10 @@ class Airconditioner(Database):
 
     def close_connection(self):
         self.closeConnection()
+
+def test():
+    print("CREATING OBJECT")
+    ac = Airconditioner()
+
+if __name__ == "__main__":
+    test()
