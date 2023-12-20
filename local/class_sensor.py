@@ -43,7 +43,10 @@ Example on how to use this for the hardware side of things,
         if (humidity_2 is not None and temperature_2 is not None):
             SENSOR_2.setHumidity(humidity_2)
             SENSOR_2.setTemperature(temperature_2)
-            
+    
+information sources used,
+https://www.thegeekpub.com/236867/using-the-dht11-temperature-sensor-with-the-raspberry-pi/
+https://github.com/adafruit/Adafruit_Python_DHT/tree/master/examples
 **********************************************************************************
 """
 class Sensor(Database):
