@@ -142,6 +142,10 @@ class AirconditionerModel(Model):
                 PUNISH
         ELSE
             REWARD
+    
+    punishing the ai means randomly swapping out a action in its action_matrix,
+    rewarding it on the other hand means randomly swapping out a action with its
+    current output action
     **********************************************************************************
     """
     def getCommandBasedOnCurrentProfile(self):
