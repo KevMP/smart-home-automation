@@ -66,7 +66,7 @@ class Updater(Database):
         except sql.Error as e:
             print(f"Error fetching profile minimum temperature: {e}")
 
-    def getProfileMaximumPreferredTemperature(self):
+    def getMaximumPreferredTemperatureFromProfile(self):
         if not self.database_connection or not self.current_profile:
             print("Cannot fetch data. Database connection not available or current_profile not set.")
             return None
