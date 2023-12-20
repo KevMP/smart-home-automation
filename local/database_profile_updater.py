@@ -126,7 +126,7 @@ class Updater(Database):
     or decreasing it, that action will be logged by the Gui and
     written to the database in the field (change_in_thermostat)
     """
-    def increaseOrDecreaseProfilePreference(self):
+    def increaseOrDecreaseProfileTemperaturePreference(self):
         if self.change_in_thermostat == 'increase':
             self.increaseProfileTemperaturePreference()
         elif self.change_in_thermostat == 'decrease':
@@ -138,7 +138,7 @@ def main():
         print("CHECKING FOR UPDATE IN PROFILE")
         profile_updater.getCurrentProfileFromGui()
         profile_updater.getGuiChangeFromThermostat()
-        profile_updater.increaseOrDecreaseProfilePreference()
+        profile_updater.increaseOrDecreaseProfileTemperaturePreference()
 
 if __name__ == "__main__":
     main()
