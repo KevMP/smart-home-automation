@@ -67,7 +67,7 @@ class AirconditionerModel(Model):
                     self.coefficients[5] * self.relative_humidity**2 + self.coefficients[6] * self.average_temperature **2 * self.relative_humidity + \
                     self.coefficients[7] * self.average_temperature  * self.relative_humidity**2 + self.coefficients[8] * self.average_temperature **2 * self.relative_humidity**2
 
-    def getCurrentProfile(self):
+    def getCurrentProfileFromGui(self):
         if not self.database_connection:
             print("Cannot fetch data. Database connection not available.")
             return None
@@ -182,7 +182,7 @@ def test():
     model.getAverageTemperature()
     model.getAverageHumidity()
     model.calculateFeelsLikeTemperature()
-    model.getCurrentProfile()
+    model.getCurrentProfileFromGui()
     model.getProfileMaximumPreferredTemperature()
     model.getProfileMinimumPreferredTemperature()
     command = model.getCommandBasedOnCurrentProfile()
@@ -202,19 +202,19 @@ def test():
     print(command)
 
 def main():
-    model = AirconditionerModel()
+    temperature_model = AirconditionerModel()
     while True:
-        model.getCurrentProfile()
-        model.getProfileMaximumPreferredTemperature()
-        model.getProfileMinimumPreferredTemperature()
+        temperature_model.getCurrentProfileFromGui()
+        temperature_model.getProfileMaximumPreferredTemperature()
+        temperature_model.getProfileMinimumPreferredTemperature()
 
-        model.getAverageTemperature()
-        model.getAverageHumidity()
-        model.calculateFeelsLikeTemperature()
+        temperature_model.getAverageTemperature()
+        temperature_model.getAverageHumidity()
+        temperature_model.calculateFeelsLikeTemperature()
 
-        command = model.getCommandBasedOnCurrentProfile()
-        model.writeCommandToDatabase(command)
-        print(model.current_profile)
+        command = temperature_model.getCommandBasedOnCurrentProfile()
+        temperature_model.writeCommandToDatabase(command)
+        print(temperature_model.current_profile)
 
 if __name__ == "__main__":
     main()
