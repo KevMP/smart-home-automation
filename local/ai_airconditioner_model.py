@@ -80,6 +80,7 @@ class AirconditionerModel(Model):
             """
 
             result = self.cursor.execute(query).fetchone()
+            print(f"PROFILE RESULT: {result}")
             if result:
                 self.current_profile = result[0]
 
