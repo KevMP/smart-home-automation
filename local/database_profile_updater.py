@@ -28,7 +28,7 @@ class Updater(Database):
         except sql.Error as e:
             print(f"Error fetching data: {e}")
 
-    def getCurrentProfile(self):
+    def getCurrentProfileFromGui(self):
         if not self.database_connection:
             print("Cannot fetch data. Database connection not available.")
             return None
@@ -136,7 +136,7 @@ def main():
     profile_updater = Updater()
     while True:
         print("CHECKING FOR UPDATE IN PROFILE")
-        profile_updater.getCurrentProfile()
+        profile_updater.getCurrentProfileFromGui()
         profile_updater.getGuiChangeFromThermostat()
         profile_updater.increaseOrDecreaseProfilePreference()
 
