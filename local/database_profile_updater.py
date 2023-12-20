@@ -85,7 +85,7 @@ class Updater(Database):
         except sql.Error as e:
             print(f"Error fetching profile maximum temperature: {e}")
 
-    def increaseProfilePreference(self):
+    def increaseProfileTemperaturePreference(self):
         if not self.database_connection:
             print("Cannot update profile preference. Database connection not available.")
             return
@@ -128,7 +128,7 @@ class Updater(Database):
     """
     def increaseOrDecreaseProfilePreference(self):
         if self.change_in_thermostat == 'increase':
-            self.increaseProfilePreference()
+            self.increaseProfileTemperaturePreference()
         elif self.change_in_thermostat == 'decrease':
             self.decreaseProfilePreference()
 
