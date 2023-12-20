@@ -65,16 +65,11 @@ class Sensor(Database):
         if not self.database_connection:
             print("Cannot update database. Database connection not available.")
             return None
-        """
-        **********************************************************************************
-        The insert_query below will insert new sensor data depending on the timestamp and
-        which sensor it is. (More on this when we get to the hardware GPIO part of things)
-        **********************************************************************************
-        """
-        insert_query = """
+
+        self.insert_query = """
             INSERT INTO Sensor (id, temperature, humidity)
             VALUES (?, ?, ?);
         """
 
-        self.cursor.execute(insert_query, (self.sensor_id, self.temperature, self.humidity))
+        self.cursor.execute(self.insert_query, (self.sensor_id, self.temperature, self.humidity))
         self.database_connection.commit()
