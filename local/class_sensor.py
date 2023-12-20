@@ -12,13 +12,6 @@ class Sensor(Database):
     def setHumidity(self, value: float):
         self.humidity = value
 
-    def getSensorIdentification(self):
-        return self.sensor_id
-    def getTemperature(self):
-        return self.temperature
-    def getHumidity(self):
-        return self.humidity
-
     def updateDatabase(self):
         if not self.database_connection:
             print("Cannot update database. Database connection not available.")
@@ -34,5 +27,5 @@ class Sensor(Database):
             VALUES (?, ?, ?);
         """
 
-        self.cursor.execute(insert_query, (self.getSensorIdentification(), self.getTemperature(), self.getHumidity()))
+        self.cursor.execute(insert_query, (self.sensor_id, self.temperature, self.humidity))
         self.database_connection.commit()
