@@ -6,7 +6,7 @@ def getCurrentTime():
     return datetime.now()
 
 def formatTime(current_time):
-    ## Formats the datetime object as a string (e.g., '2023-12-20_13-45-30')
+    ## Formats the datetime object as a string (e.g., '12-20-2023_04')
     return current_time.strftime('%m-%d-%Y_%H')
 
 def writeNewDatabaseWithTime(current_time):
