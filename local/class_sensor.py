@@ -1,6 +1,17 @@
 from database_root import *
 """
 **********************************************************************************
+to install the Adafruit_DHT library,
+use this,
+
+pip install Adafruit-DHT or sudo pip3 install Adafruit_DHT
+
+if that doesn't work use this,
+
+sudo apt-get install python3-dev python3-pip
+sudo python3 -m pip install --upgrade pip setuptools wheel
+sudo pip3 install Adafruit_DHT
+
 Example on how to use this for the hardware side of things,
 
     from class_sensor import *
