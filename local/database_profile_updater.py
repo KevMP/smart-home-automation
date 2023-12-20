@@ -8,7 +8,7 @@ class Updater(Database):
         self.profile_maximum_temperature = 0
         self.profile_minimum_temperature = 0
     
-    def getGuiChangeInThermostat(self):
+    def getGuiChangeFromThermostat(self):
         if not self.database_connection:
             print("Cannot fetch data. Database connection not available.")
             return None
@@ -137,7 +137,7 @@ def main():
     while True:
         print("CHECKING FOR UPDATE IN PROFILE")
         profile_updater.getCurrentProfile()
-        profile_updater.getGuiChangeInThermostat()
+        profile_updater.getGuiChangeFromThermostat()
         profile_updater.increaseOrDecreaseProfilePreference()
 
 if __name__ == "__main__":
