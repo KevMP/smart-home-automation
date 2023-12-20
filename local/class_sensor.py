@@ -20,20 +20,20 @@ Example on how to use this for the hardware side of things,
 
     SENSOR_0 = Sensor(0)
     DHT_SENSOR_0 = Adafruit_DHT.DHT11
-    DHT_GPIO_PIN_0 = 7
+    DHT_PIN_0 = 7
 
     SENSOR_1 = Sensor(1)
     DHT_SENSOR_1 = Adafruit_DHT.DHT11
-    DHT_GPIO_PIN_1 = 4
+    DHT_PIN_1 = 4
 
     SENSOR_2 = Sensor(2)
     DHT_SENSOR_2 = Adafruit_DHT.DHT11
-    DHT_GPIO_PIN_2 = 3
+    DHT_PIN_2 = 3
 
     while True:
-        humidity_0, temperature_0 = Adafruit_DHT.read(DHT_SENSOR0, DHT_PIN)
-        humidity_1, temperature_1 = Adafruit_DHT.read(DHT_SENSOR1, DHT_PIN)
-        humidity_2, temperature_2 = Adafruit_DHT.read(DHT_SENSOR2, DHT_PIN)
+        humidity_0, temperature_0 = Adafruit_DHT.read(DHT_SENSOR0, DHT_PIN_0)
+        humidity_1, temperature_1 = Adafruit_DHT.read(DHT_SENSOR1, DHT_PIN_1)
+        humidity_2, temperature_2 = Adafruit_DHT.read(DHT_SENSOR2, DHT_PIN_2)
         if (humidity_0 is not None and temperature_0 is not None):
             SENSOR_0.setHumidity(humidity_0)
             SENSOR_0.setTemperature(temperature_0)
