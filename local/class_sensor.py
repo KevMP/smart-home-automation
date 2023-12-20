@@ -36,4 +36,3 @@ class Sensor(Database):
 
         self.cursor.execute(insert_query, (self.getSensorIdentification(), self.getTemperature(), self.getHumidity()))
         self.database_connection.commit()
-        self.closeConnection()

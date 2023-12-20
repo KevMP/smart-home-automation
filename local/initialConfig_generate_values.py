@@ -6,11 +6,13 @@ def fakeSensorData():
     sensor0.setHumidity(60.54)
     sensor0.setTemperature(74.02)
     sensor0.updateDatabase()
+    sensor0.closeConnection()
 
     sensor1 = Sensor(1)
     sensor1.setHumidity(60.42)
     sensor1.setTemperature(72.48)
     sensor1.updateDatabase()
+    sensor1.closeConnection()
 
 def fakeProfileData():
     bob = Profile("default")
