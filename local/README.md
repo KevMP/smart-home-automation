@@ -1,37 +1,19 @@
 # Database Schema
 
-```plantuml
-@startuml
+,------------------. ,------------------------------.
+|Profile | ,---------------------. |Gui |
+|------------------| |Sensor | |------------------------------|
+|+ name: String | |---------------------| |+ timestamp: DateTime |
+|+ min_temp: Double| |+ id: String | |+ current_profile: String |
+|+ max_temp: Double| |+ timestamp: DateTime| |+ change_in_thermostat: Double|
+------------------' ---------------------' `------------------------------'
 
-class Profile {
-  + name: String
-  + min_temp: Double
-  + max_temp: Double
-}
-
-class Sensor {
-  + id: String
-  + timestamp: DateTime
-}
-
-class Gui {
-  + timestamp: DateTime
-  + current_profile: String
-  + change_in_thermostat: Double
-}
-
-class Airconditioner {
-  + id: String
-  + timestamp: DateTime
-  + command: String
-}
-
-class TemperatureModel {
-  + timestamp: DateTime
-  + airconditioner_command: String
-}
-
-@enduml
+,---------------------. ,--------------------------------.
+|Airconditioner | |TemperatureModel |
+|---------------------| |--------------------------------|
+|+ id: String | |+ timestamp: DateTime |
+|+ timestamp: DateTime| |+ airconditioner_command: String|
+|+ command: String | --------------------------------' ---------------------'
 
 
 # Database Backup
