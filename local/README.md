@@ -1,23 +1,11 @@
 # Database Schema
-
- ,------------------.                             ,------------------------------.
- |Profile           |   ,---------------------.   |Gui                           |
- |------------------|   |Sensor               |   |------------------------------|
- |+ name: String    |   |---------------------|   |+ timestamp: DateTime         |
- |+ min_temp: Double|   |+ id: String         |   |+ current_profile: String     |
- |+ max_temp: Double|   |+ timestamp: DateTime|   |+ change_in_thermostat: Double|
- `------------------'   `---------------------'   `------------------------------'
-                                                                                  
-                                                                                  
-,---------------------.  ,--------------------------------.                       
-|Airconditioner       |  |TemperatureModel                |                       
-|---------------------|  |--------------------------------|                       
-|+ id: String         |  |+ timestamp: DateTime           |                       
-|+ timestamp: DateTime|  |+ airconditioner_command: String|                       
-|+ command: String    |  `--------------------------------'                       
-`---------------------'                                                           
-
-
+ ,------------------. 
+ |Profile           |
+ |------------------|
+ |+ name: String    |
+ |+ min_temp: Double|
+ |+ max_temp: Double| 
+ `------------------' 
 
 # Database Backup
 * This file "database_backup.py" will backup our database every hour each day, it will have to be run as its own process on the same machine that the database will be stored.
