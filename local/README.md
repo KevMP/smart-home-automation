@@ -1,5 +1,4 @@
 # Database Schema
-![schema](https://github.com/KevMP/smart-home-automation/assets/100045145/cd13137a-ff8d-4604-9ddf-d9a2a7d15d92)
 
 # Database Backup
 * This file "database_backup.py" will backup our database every hour each day, it will have to be run as its own process on the same machine that the database will be stored.
