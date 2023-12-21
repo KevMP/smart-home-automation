@@ -1,4 +1,29 @@
 # Database Schema
+![database](https://github.com/KevMP/smart-home-automation/assets/100045145/46788cd0-9f58-401e-a2ac-2d669e2e6a58)
+
+## Database Schema (written)
+Profile
+* name
+* min_temp
+* max_temp
+
+Sensor
+* id
+* timestamp
+
+Gui
+* timestamp
+* current_profile
+* change_in_thermostat
+
+Airconditioner
+* id
+* timestamp
+* command
+
+TemperatureModel
+* timestamp
+* airconditioner_command
 
 # Database Backup
 * This file "database_backup.py" will backup our database every hour each day, it will have to be run as its own process on the same machine that the database will be stored.
