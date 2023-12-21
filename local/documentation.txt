@@ -1,5 +1,7 @@
+***********************************************************************
 ************************ DATABASE SCHEMA ******************************
-tags: database DATABASE db schema SCHEMA
+***********************************************************************
+tags: database Database DATABASE db schema SCHEMA table Table TABLE
 
 The database looks like this,
 
@@ -26,4 +28,57 @@ TABLE_NAME: TemperatureModel
 FIELD: timestamp, DATA_TYPE: timestamp, automatically written
 FIELD: airconditioner_command, DATA_TYPE: string (text)
 
-***************************************************************
+***********************************************************************
+***************************** SENSOR **********************************
+***********************************************************************
+tags: sensor Sensor SENSOR hardware set up setup set-up
+
+For creating individual sensors and linking them up to the database,
+first we need to install the hardware library to connect to the
+DHT11 sensors for each raspberry pi, steps are below to do so,
+
+to install the Adafruit_DHT library,
+
+pip install Adafruit-DHT or sudo pip3 install Adafruit_DHT
+
+if that doesn't work use this,
+
+sudo apt-get install python3-dev python3-pip
+sudo python3 -m pip install --upgrade pip setuptools wheel
+sudo pip3 install Adafruit_DHT
+
+Example on how to use this for the hardware side of things,
+
+    from class_sensor import *
+    import Adafruit_DHT
+    import time
+
+    SENSOR_0 = Sensor(0)
+    DHT_SENSOR_0 = Adafruit_DHT.DHT11
+    DHT_PIN_0 = 7
+
+    SENSOR_1 = Sensor(1)
+    DHT_SENSOR_1 = Adafruit_DHT.DHT11
+    DHT_PIN_1 = 4
+
+    SENSOR_2 = Sensor(2)
+    DHT_SENSOR_2 = Adafruit_DHT.DHT11
+    DHT_PIN_2 = 3
+
+    while True:
+        humidity_0, temperature_0 = Adafruit_DHT.read(DHT_SENSOR0, DHT_PIN_0)
+        humidity_1, temperature_1 = Adafruit_DHT.read(DHT_SENSOR1, DHT_PIN_1)
+        humidity_2, temperature_2 = Adafruit_DHT.read(DHT_SENSOR2, DHT_PIN_2)
+        if (humidity_0 is not None and temperature_0 is not None):
+            SENSOR_0.setHumidity(humidity_0)
+            SENSOR_0.setTemperature(temperature_0)
+        if (humidity_1 is not None and temperature_1 is not None):
+            SENSOR_1.setHumidity(humidity_1)
+            SENSOR_1.setTemperature(temperature_1)
+        if (humidity_2 is not None and temperature_2 is not None):
+            SENSOR_2.setHumidity(humidity_2)
+            SENSOR_2.setTemperature(temperature_2)
+    
+online information sources used,
+https://www.thegeekpub.com/236867/using-the-dht11-temperature-sensor-with-the-raspberry-pi/
+https://github.com/adafruit/Adafruit_Python_DHT/tree/master/examples
