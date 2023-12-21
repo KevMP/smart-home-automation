@@ -1,7 +1,12 @@
 from database_table import Table
 import os
 import time
-
+"""
+***************************************************************
+If a new table is added or modified, make sure to make note of
+it in the documentation.txt and the README.md
+***************************************************************
+"""
 def deleteDatabase():
     print("REMOVING FILE")
     time.sleep(2)

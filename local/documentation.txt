@@ -1,0 +1,29 @@
+************************ DATABASE SCHEMA ******************************
+tags: database DATABASE db schema SCHEMA
+
+The database looks like this,
+
+TABLE_NAME: Profile
+FIELD: name, DATA_TYPE: string (text)
+FIELD: min_temp, DATA_TYPE: integer
+FIELD: max_temp, DATA_TYPE: integer
+
+TABLE_NAME: Sensor
+FIELD: id, DATA_TYPE: integer
+FIELD: timestamp, DATA_TYPE: timestamp, automatically written
+
+TABLE_NAME: Gui
+FIELD: timestamp, DATA_TYPE: timestamp, automatically written
+FIELD: current_profile, DATA_TYPE: string (text)
+FIELD: change_in_thermostat, DATA_TYPE: string(text)
+
+TABLE_NAME: Airconditioner
+FIELD: id, DATA_TYPE: integer
+FIELD: timestamp, DATA_TYPE: timestamp, automatically written
+FIELD: command, DATA_TYPE: string (text)
+
+TABLE_NAME: TemperatureModel
+FIELD: timestamp, DATA_TYPE: timestamp, automatically written
+FIELD: airconditioner_command, DATA_TYPE: string (text)
+
+***************************************************************
