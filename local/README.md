@@ -1,19 +1,22 @@
 # Database Schema
 
-,------------------. ,------------------------------.
-|Profile | ,---------------------. |Gui |
-|------------------| |Sensor | |------------------------------|
-|+ name: String | |---------------------| |+ timestamp: DateTime |
-|+ min_temp: Double| |+ id: String | |+ current_profile: String |
-|+ max_temp: Double| |+ timestamp: DateTime| |+ change_in_thermostat: Double|
-------------------' ---------------------' `------------------------------'
+ ,------------------.                             ,------------------------------.
+ |Profile           |   ,---------------------.   |Gui                           |
+ |------------------|   |Sensor               |   |------------------------------|
+ |+ name: String    |   |---------------------|   |+ timestamp: DateTime         |
+ |+ min_temp: Double|   |+ id: String         |   |+ current_profile: String     |
+ |+ max_temp: Double|   |+ timestamp: DateTime|   |+ change_in_thermostat: Double|
+ `------------------'   `---------------------'   `------------------------------'
+                                                                                  
+                                                                                  
+,---------------------.  ,--------------------------------.                       
+|Airconditioner       |  |TemperatureModel                |                       
+|---------------------|  |--------------------------------|                       
+|+ id: String         |  |+ timestamp: DateTime           |                       
+|+ timestamp: DateTime|  |+ airconditioner_command: String|                       
+|+ command: String    |  `--------------------------------'                       
+`---------------------'                                                           
 
-,---------------------. ,--------------------------------.
-|Airconditioner | |TemperatureModel |
-|---------------------| |--------------------------------|
-|+ id: String | |+ timestamp: DateTime |
-|+ timestamp: DateTime| |+ airconditioner_command: String|
-|+ command: String | --------------------------------' ---------------------'
 
 
 # Database Backup
