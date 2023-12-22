@@ -26,7 +26,9 @@ def main():
 
         client_data = server.getDataAsList(client)
         while client_data == '':
+            print("GETTING CLIENT DATA")
             client_data = server.getDataAsList(client)
+            print(client_data)
 
         sensor_object.setSensorId(client_data[0])
         sensor_object.setTemperature(client_data[1])

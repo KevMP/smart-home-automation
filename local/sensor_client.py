@@ -8,7 +8,7 @@ def getSensorData(gpio_pin):
     humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PINOUT)
     return humidity, temperature
     """
-    pass
+    return None, None
 
 def main():
     client = Client()
@@ -34,12 +34,16 @@ def main():
     while True:
         for sensor in list_of_sensors:
             while server_data != "CONTINUE":
+                print("GETTING SERVER DATA")
                 server_data = client.getData()
+                print(server_data)
             server_data = ''
 
             humidity, temperature = getSensorData(sensor.sensor_pinout)
-            while humidity is not None and temperature is not None:
+            while humidity is None and temperature is None:
+                print("GETTING SENSOR DATA")
                 humidity, temperature = getSensorData(sensor.sensor_pinout)
+                print(humidity, temperature)
             
             sensor.setHumidity(humidity)
             sensor.setTemperature(temperature)
