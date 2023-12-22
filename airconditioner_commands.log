@@ -1,1 +1,5 @@
 2023-12-21 21:08:23,306:INFO:Database connection closed.
+2023-12-21 21:10:15,346:INFO:Database connection closed.
+2023-12-21 21:10:34,175:INFO:Command written to the database: lower
+2023-12-21 21:10:39,677:INFO:Scanner stopped manually.
+2023-12-21 21:10:39,677:INFO:Database connection closed.
