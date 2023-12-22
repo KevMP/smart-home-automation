@@ -37,6 +37,8 @@ For creating individual sensors and linking them up to the database,
 first we need to install the hardware library to connect to the
 DHT11 sensors for each raspberry pi, steps are below to do so,
 
+NOTE THAT THIS WILL ONLY WORK WITH A LINUX MACHINE!!! (or the raspberrypi os)
+
 to install the Adafruit_DHT library,
 
 pip install Adafruit-DHT or sudo pip3 install Adafruit_DHT
