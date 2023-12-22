@@ -15,14 +15,9 @@ def main():
     client.connectToServer()
     server_data = client.getData()
 
-    sensor0 = Sensor(0)
-    sensor0.sensor_pinout = 5
-
-    sensor1 = Sensor(1)
-    sensor1.sensor_pinout = 5
-
-    sensor2 = Sensor(2)
-    sensor2.sensor_pinout = 5
+    sensor0 = Sensor(0, 21)
+    sensor1 = Sensor(1, 22)
+    sensor2 = Sensor(2, 23)
 
     list_of_sensors = [sensor0, sensor1, sensor2]
     """

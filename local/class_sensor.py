@@ -50,12 +50,12 @@ https://github.com/adafruit/Adafruit_Python_DHT/tree/master/examples
 **********************************************************************************
 """
 class Sensor(Database):
-    def __init__(self, id: int):
+    def __init__(self, id: int, sensor_pinout: int=None):
         super().__init__()
         self.sensor_id = id
         self.temperature = 0.0
         self.humidity = 0.0
-        self.sensor_pinout = None
+        self.sensor_pinout = sensor_pinout
 
     def setSensorId(self, value: int):
         self.sensor_id = value
