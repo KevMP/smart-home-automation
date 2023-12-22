@@ -20,11 +20,19 @@ class Server:
         print("CONNETED ESTABLISHED")
     def listenForConnection(self, amount_of_connections: int):
         self.server.listen(amount_of_connections)
+        print(f"LISTENING FOR {amount_of_connections} CONNECTIONS")
     def acceptClient(self):
         client, client_address = self.server.accept()
+        print("CLIENT ACCEPTED")
         return client, client_address
 
-    def getData(self):
-        return self.server.recv(1024).decode()
-    def sendData(self, data):
-        self.server.sendall(data)
+    """
+    Assuming that the data is being sent to our server as a 
+    list, we can use the eval() function to transform it into
+    a list object from the string that is being sent.
+    """
+    def getDataAsList(self, client):
+        self.client_data = client.recv(1024).decode()
+        return eval(self.client_data)
+    def sendData(self, client, data):
+        client.sendall(data)
