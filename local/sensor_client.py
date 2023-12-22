@@ -45,6 +45,7 @@ def main():
             humidity, temperature = getSensorData(sensor.sensor_pinout)
             while humidity is not None and temperature is not None:
                 humidity, temperature = getSensorData(sensor.sensor_pinout)
+            
             sensor.setHumidity(humidity)
             sensor.setTemperature(temperature)
             client.sendData(f"[{sensor.sensor_id}, {sensor.temperature}, {sensor.humidity}]")
