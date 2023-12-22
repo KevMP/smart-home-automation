@@ -3,3 +3,99 @@
 2023-12-21 21:10:34,175:INFO:Command written to the database: lower
 2023-12-21 21:10:39,677:INFO:Scanner stopped manually.
 2023-12-21 21:10:39,677:INFO:Database connection closed.
+2023-12-21 21:23:51,679:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:51,686:INFO:Command written to the database: lower
+2023-12-21 21:23:52,189:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:52,196:INFO:Command written to the database: lower
+2023-12-21 21:23:52,698:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:52,705:INFO:Command written to the database: lower
+2023-12-21 21:23:53,206:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:53,212:INFO:Command written to the database: lower
+2023-12-21 21:23:53,717:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:53,724:INFO:Command written to the database: lower
+2023-12-21 21:23:54,225:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:54,232:INFO:Command written to the database: lower
+2023-12-21 21:23:54,738:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:54,744:INFO:Command written to the database: lower
+2023-12-21 21:23:55,248:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:55,254:INFO:Command written to the database: lower
+2023-12-21 21:23:55,757:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:55,764:INFO:Command written to the database: lower
+2023-12-21 21:23:56,268:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:56,274:INFO:Command written to the database: lower
+2023-12-21 21:23:56,780:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:56,787:INFO:Command written to the database: lower
+2023-12-21 21:23:57,302:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:57,308:INFO:Command written to the database: lower
+2023-12-21 21:23:57,820:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:57,827:INFO:Command written to the database: lower
+2023-12-21 21:23:58,337:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:58,343:INFO:Command written to the database: lower
+2023-12-21 21:23:58,844:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:58,850:INFO:Command written to the database: lower
+2023-12-21 21:23:59,358:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:59,365:INFO:Command written to the database: lower
+2023-12-21 21:23:59,867:INFO:Command retrieved from AI: lower
+2023-12-21 21:23:59,874:INFO:Command written to the database: lower
+2023-12-21 21:24:00,388:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:00,395:INFO:Command written to the database: lower
+2023-12-21 21:24:00,897:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:00,904:INFO:Command written to the database: lower
+2023-12-21 21:24:01,419:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:01,426:INFO:Command written to the database: lower
+2023-12-21 21:24:01,930:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:01,936:INFO:Command written to the database: lower
+2023-12-21 21:24:02,452:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:02,458:INFO:Command written to the database: lower
+2023-12-21 21:24:02,973:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:02,983:INFO:Command written to the database: lower
+2023-12-21 21:24:03,486:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:03,495:INFO:Command written to the database: lower
+2023-12-21 21:24:04,001:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:04,010:INFO:Command written to the database: lower
+2023-12-21 21:24:04,513:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:04,519:INFO:Command written to the database: lower
+2023-12-21 21:24:05,021:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:05,028:INFO:Command written to the database: lower
+2023-12-21 21:24:05,530:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:05,536:INFO:Command written to the database: lower
+2023-12-21 21:24:06,041:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:06,047:INFO:Command written to the database: lower
+2023-12-21 21:24:06,549:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:06,556:INFO:Command written to the database: lower
+2023-12-21 21:24:07,062:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:07,069:INFO:Command written to the database: lower
+2023-12-21 21:24:07,569:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:07,576:INFO:Command written to the database: lower
+2023-12-21 21:24:08,082:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:08,090:INFO:Command written to the database: lower
+2023-12-21 21:24:08,593:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:08,600:INFO:Command written to the database: lower
+2023-12-21 21:24:09,107:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:09,113:INFO:Command written to the database: lower
+2023-12-21 21:24:09,619:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:09,625:INFO:Command written to the database: lower
+2023-12-21 21:24:10,129:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:10,136:INFO:Command written to the database: lower
+2023-12-21 21:24:10,639:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:10,645:INFO:Command written to the database: lower
+2023-12-21 21:24:11,159:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:11,165:INFO:Command written to the database: lower
+2023-12-21 21:24:11,666:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:11,672:INFO:Command written to the database: lower
+2023-12-21 21:24:12,183:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:12,189:INFO:Command written to the database: lower
+2023-12-21 21:24:12,694:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:12,701:INFO:Command written to the database: lower
+2023-12-21 21:24:13,205:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:13,213:INFO:Command written to the database: lower
+2023-12-21 21:24:13,716:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:13,723:INFO:Command written to the database: lower
+2023-12-21 21:24:14,226:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:14,233:INFO:Command written to the database: lower
+2023-12-21 21:24:14,738:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:14,745:INFO:Command written to the database: lower
+2023-12-21 21:24:15,245:INFO:Command retrieved from AI: lower
+2023-12-21 21:24:15,250:INFO:Command written to the database: lower
+2023-12-21 21:24:15,692:INFO:Scanner stopped manually.
+2023-12-21 21:24:15,692:INFO:Database connection closed.

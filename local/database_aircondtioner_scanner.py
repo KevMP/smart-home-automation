@@ -45,8 +45,10 @@ def database_airconditioner_scanner(scan_interval=0.5):  # Scan every half secon
     try:
         while True:
             command = ac.get_command_from_ai()
+            print(f"COMMAND FROM AI {command}")
             if command:
                 ac.write_command_to_ac()
+                print(f"{command} WRITTEN TO AIR CONDITIONER DATABASE")
             time.sleep(scan_interval)  # Wait for half a second before the next scan
     except KeyboardInterrupt:
         logging.info("Scanner stopped manually.")
