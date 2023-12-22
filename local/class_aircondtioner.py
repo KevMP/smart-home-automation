@@ -38,4 +38,4 @@ def test():
     ac.close_connection()
 
 if __name__ == "__main__":
-    test()
+    pass
