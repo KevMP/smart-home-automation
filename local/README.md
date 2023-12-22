@@ -28,6 +28,10 @@ TemperatureModel
 # Database Backup
 * This file "database_backup.py" will backup our database every hour each day, it will have to be run as its own process on the same machine that the database will be stored.
 
+# Sensor Network Diagram
+![sensor_diagram](https://github.com/KevMP/smart-home-automation/assets/100045145/ebed344c-c0fd-4a77-8028-73fb4aa81cfc)
+
+
 # Ai
 * The ai will receive various pieces of information such as the current profile preferences that is informed by the Gui, and the profile data inside our profile table.
 * Additionally we're also getting the temperature and humidity data so that we can calculate the "Feels Like" temperature.
