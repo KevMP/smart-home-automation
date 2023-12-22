@@ -10,23 +10,20 @@ def getSensorData(gpio_pin):
     """
     pass
 
-def sensorConstructor(identification_number: int, gpio_pin: int):
-    humidity, temperature = getSensorData(gpio_pin)
-    while humidity is not None and temperature is not None:
-        humidity, temperature = getSensorData(gpio_pin)
-        sensor_object = Sensor(identification_number)
-        sensor_object.setHumidity(humidity)
-        sensor_object.setTemperature(temperature)
-    return sensor_object
-
 def main():
     client = Client()
     client.connectToServer()
     server_data = client.getData()
 
-    sensor0 = sensorConstructor(0, 8)
-    sensor1 = sensorConstructor(1, 3)
-    sensor2 = sensorConstructor(2, 7)
+    sensor0 = Sensor(0)
+    sensor0.sensor_pinout = 5
+
+    sensor1 = Sensor(1)
+    sensor1.sensor_pinout = 5
+
+    sensor2 = Sensor(2)
+    sensor2.sensor_pinout = 5
+
     list_of_sensors = [sensor0, sensor1, sensor2]
     """
     **********************************************************************************
@@ -45,6 +42,11 @@ def main():
                 server_data = client.getData()
             server_data = ''
 
+            humidity, temperature = getSensorData(sensor.sensor_pinout)
+            while humidity is not None and temperature is not None:
+                humidity, temperature = getSensorData(sensor.sensor_pinout)
+            sensor.setHumidity(humidity)
+            sensor.setTemperature(temperature)
             client.sendData(f"[{sensor.sensor_id}, {sensor.temperature}, {sensor.humidity}]")
             print("DATA SENT")
 
