@@ -6,17 +6,21 @@ Profile
 * name
 * min_temp
 * max_temp
+
 Sensor
 * id
 * timestamp
+
 Gui
 * timestamp
 * current_profile
 * change_in_thermostat
+
 Airconditioner
 * id
 * timestamp
 * command
+
 TemperatureModel
 * timestamp
 * airconditioner_command
