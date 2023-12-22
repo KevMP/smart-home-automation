@@ -1,8 +1,14 @@
 from class_network_client import *
-def getHumidity():
-    pass
+from class_sensor import *
+
 def getTemperature():
     pass
+def getHumidity():
+    pass
+
+def sensor(identification_number):
+    SENSOR = Sensor(identification_number)
+    SENSOR.setHumidity(getHumidity())
 
 def main():
     sensor = Client()
@@ -14,6 +20,6 @@ def main():
             server_data = sensor.getData()
         server_data = ''
 
-        humidity = getHumidity()
         temperature = getTemperature()
-        sensor.sendData([humidity, temperature])
+        humidity = getHumidity()
+        sensor.sendData([identification_number, temperature, humidity])
