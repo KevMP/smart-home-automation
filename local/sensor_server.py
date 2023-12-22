@@ -25,7 +25,7 @@ def main():
         server.sendData(client, "CONTINUE")
 
         client_data = server.getDataAsList(client)
-        while client_data == '':
+        while client_data is None:
             print("GETTING CLIENT DATA")
             client_data = server.getDataAsList(client)
             print(client_data)
@@ -37,6 +37,6 @@ def main():
         print("DATABASE_UPDATED")
         sensor_object.updateDatabase()
 
-        client_data = ''
+        client_data = None
 if __name__ == "__main__":
     main()
