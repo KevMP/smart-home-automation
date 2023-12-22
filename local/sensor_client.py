@@ -39,6 +39,7 @@ def main():
             server_data = ''
 
             client.sendData(f"[{sensor.sensor_id}, {sensor.temperature}, {sensor.humidity}]")
+            print("DATA SENT")
 
 if __name__ == "__main__":
     main()
