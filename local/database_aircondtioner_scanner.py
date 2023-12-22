@@ -12,11 +12,12 @@ class Airconditioner(Database):
         self.command_to_ac = ""  # Initialize command_to_ac to an empty string
 
     def get_command_from_ai(self):
-        select_query = "SELECT airconditioner_command FROM TemperatureModel ORDER BY timestamp DESC LIMIT 1;"
+        select_query = "SELECT command FROM TemperatureModel ORDER BY timestamp DESC LIMIT 1;"
         self.cursor.execute(select_query)
         result = self.cursor.fetchone()
         if result:
             self.command_to_ac = result[0]  # Set command_to_ac with the command from AI
+            logging.info(f"Command retrieved from AI: {self.command_to_ac}")
             return self.command_to_ac
         else:
             logging.info("No recent command found.")
@@ -34,7 +35,7 @@ class Airconditioner(Database):
     def close_connection(self):
         self.closeConnection()
 
-def database_airconditioner_scanner(scan_interval=60):
+def database_airconditioner_scanner(scan_interval=0.5):  # Scan every half second
     """
     Function to continuously scan for commands from the AI and log them.
     
@@ -46,7 +47,7 @@ def database_airconditioner_scanner(scan_interval=60):
             command = ac.get_command_from_ai()
             if command:
                 ac.write_command_to_ac()
-            time.sleep(scan_interval)
+            time.sleep(scan_interval)  # Wait for half a second before the next scan
     except KeyboardInterrupt:
         logging.info("Scanner stopped manually.")
     finally:
