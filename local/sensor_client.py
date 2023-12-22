@@ -1,6 +1,6 @@
 from class_network_client import *
 from class_sensor import *
-## import Adafruit_DHT
+## import Adafruit_DHT (read documentation.txt for installation instructions)
 def getSensorData(gpio_pin):
     """
     DHT_SENSOR = Adafruit_DHT.DHT11
