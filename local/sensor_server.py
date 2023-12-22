@@ -14,8 +14,7 @@ def main():
     """
     **********************************************************************************
     The following server is going to send the client a message that allows the client
-    to continue or not, after the client receives a list of data it will then move on
-    and write that data.
+    to continue its own processes so it can send the server its sensor data.
 
     This is to prevent a data overflow, where one socket gets much more data leading
     to a "corruption" of sorts on the receiving data.
