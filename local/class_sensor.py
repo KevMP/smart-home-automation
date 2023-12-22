@@ -55,7 +55,7 @@ class Sensor(Database):
         self.sensor_id = id
         self.temperature = 0.0
         self.humidity = 0.0
-        self.sensor_pinout = 0
+        self.sensor_pinout = None
 
     def setSensorId(self, value: int):
         self.sensor_id = value
