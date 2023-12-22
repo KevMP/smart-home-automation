@@ -6,7 +6,7 @@ class Airconditioner(Database):
         self.command_to_ac = command_to_ac  # Initialize the command_to_ac attribute
 
     def get_command_from_ai(self):
-        select_query = "SELECT command FROM TemperatureModel ORDER BY timestamp DESC LIMIT 1;"
+        select_query = "SELECT airconditioner_command FROM TemperatureModel ORDER BY timestamp DESC LIMIT 1;"
         self.cursor.execute(select_query)
         result = self.cursor.fetchone()
         if result:
