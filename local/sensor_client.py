@@ -1,15 +1,15 @@
 from class_network_client import *
 from class_sensor import *
 
-def getTemperature():
+def getTemperature(gpio_pin):
     pass
-def getHumidity():
+def getHumidity(gpio_pin):
     pass
 
-def sensorConstructor(identification_number):
+def sensorConstructor(identification_number: int, gpio_pin: int):
     sensor_object = Sensor(identification_number)
-    sensor_object.setHumidity(getHumidity())
-    sensor_object.setTemperature(getTemperature())
+    sensor_object.setHumidity(getHumidity(gpio_pin))
+    sensor_object.setTemperature(getTemperature(gpio_pin))
     return sensor_object
 
 def main():
@@ -17,9 +17,9 @@ def main():
     client.connectToServer()
     server_data = client.getData()
 
-    sensor0 = sensorConstructor(0)
-    sensor1 = sensorConstructor(1)
-    sensor2 = sensorConstructor(2)
+    sensor0 = sensorConstructor(0, 8)
+    sensor1 = sensorConstructor(1, 3)
+    sensor2 = sensorConstructor(2, 7)
     list_of_sensors = [sensor0, sensor1, sensor2]
     """
     **********************************************************************************
