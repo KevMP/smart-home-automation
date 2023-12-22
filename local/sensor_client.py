@@ -13,10 +13,11 @@ def getSensorData(gpio_pin):
 def sensorConstructor(identification_number: int, gpio_pin: int):
     humidity, temperature = getSensorData(gpio_pin)
     while humidity is not None and temperature is not None:
+        humidity, temperature = getSensorData(gpio_pin)
         sensor_object = Sensor(identification_number)
         sensor_object.setHumidity(humidity)
         sensor_object.setTemperature(temperature)
-        return sensor_object
+    return sensor_object
 
 def main():
     client = Client()
