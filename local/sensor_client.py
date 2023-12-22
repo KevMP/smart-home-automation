@@ -1,16 +1,22 @@
 from class_network_client import *
 from class_sensor import *
-
-def getTemperature(gpio_pin):
-    pass
-def getHumidity(gpio_pin):
+## import Adafruit_DHT
+def getSensorData(gpio_pin):
+    """
+    DHT_SENSOR = Adafruit_DHT.DHT11
+    DHT_PINOUT = gpio_pin
+    humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PINOUT)
+    return humidity, temperature
+    """
     pass
 
 def sensorConstructor(identification_number: int, gpio_pin: int):
-    sensor_object = Sensor(identification_number)
-    sensor_object.setHumidity(getHumidity(gpio_pin))
-    sensor_object.setTemperature(getTemperature(gpio_pin))
-    return sensor_object
+    humidity, temperature = getSensorData(gpio_pin)
+    while humidity is not None and temperature is not None:
+        sensor_object = Sensor(identification_number)
+        sensor_object.setHumidity(humidity)
+        sensor_object.setTemperature(temperature)
+        return sensor_object
 
 def main():
     client = Client()
