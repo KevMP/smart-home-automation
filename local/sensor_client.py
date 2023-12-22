@@ -6,20 +6,29 @@ def getTemperature():
 def getHumidity():
     pass
 
-def sensor(identification_number):
-    SENSOR = Sensor(identification_number)
-    SENSOR.setHumidity(getHumidity())
+def sensorConstructor(identification_number):
+    sensor_object = Sensor(identification_number)
+    sensor_object.setHumidity(getHumidity())
+    sensor_object.setTemperature(getTemperature())
+    return sensor_object
 
 def main():
-    sensor = Client()
-    sensor.connectToServer()
-    server_data = sensor.getData()
+    client = Client()
+    client.connectToServer()
+    server_data = client.getData()
+
+    sensor0 = sensorConstructor(0)
+    sensor1 = sensorConstructor(1)
+    sensor2 = sensorConstructor(2)
+    list_of_sensors = [sensor0, sensor1, sensor2]
 
     while True:
-        while server_data != "CONTINUE":
-            server_data = sensor.getData()
-        server_data = ''
+        for sensor in list_of_sensors:
+            while server_data != "CONTINUE":
+                server_data = client.getData()
+            server_data = ''
 
-        temperature = getTemperature()
-        humidity = getHumidity()
-        sensor.sendData([identification_number, temperature, humidity])
+            client.sendData(f"[{sensor.sensor_id}, {sensor.temperature}, {sensor.humidity}]")
+
+if __name__ == "__main__":
+    main()

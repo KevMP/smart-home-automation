@@ -11,9 +11,9 @@ class Server:
         if self.user_input != '':
             self.ip = self.user_input
     def setPort(self):
-        self.user_inptu = int(input("NEW PORT: "))
+        self.user_input = input("NEW PORT: ")
         if self.user_input != '':
-            self.port = self.user_input
+            self.port = int(self.user_input)
 
     def bindServer(self):
         self.server.bind((self.ip, self.port))
@@ -35,4 +35,4 @@ class Server:
         self.client_data = client.recv(1024).decode()
         return eval(self.client_data)
     def sendData(self, client, data):
-        client.sendall(data)
+        client.sendall(data.encode())

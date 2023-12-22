@@ -18,4 +18,4 @@ class Client:
     def getData(self):
         return self.client.recv(1024).decode('utf-8')
     def sendData(self, data):
-        self.client.sendall(data)
+        self.client.sendall(data.encode('utf-8'))

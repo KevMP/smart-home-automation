@@ -56,6 +56,8 @@ class Sensor(Database):
         self.temperature = 0.0
         self.humidity = 0.0
 
+    def setSensorId(self, value: int):
+        self.sensor_id = value
     def setTemperature(self, value: float):
         self.temperature = value
     def setHumidity(self, value: float):
