@@ -7,9 +7,13 @@ class Client:
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
     def setIp(self):
-        self.ip = input("NEW IP: ")
+        self.user_input = input("NEW IP: ")
+        if self.user_input != '':
+            self.ip = self.user_input
     def setPort(self):
-        self.port = int(input("NEW PORT: "))
+        self.user_input = input("NEW PORT: ")
+        if self.user_input != '':
+            self.port = int(self.user_input)
 
     def connectToServer(self):
         self.client.connect((self.ip, self.port))

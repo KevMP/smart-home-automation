@@ -12,6 +12,8 @@ def getSensorData(gpio_pin):
 
 def main():
     client = Client()
+    client.setIp()
+    client.setPort()
     client.connectToServer()
     server_data = client.getData()
 
