@@ -74,5 +74,6 @@ class Sensor(Database):
             VALUES (?, ?, ?);
         """
 
+        print("DATABASE UPDATED")
         self.cursor.execute(self.insert_query, (self.sensor_id, self.temperature, self.humidity))
         self.database_connection.commit()

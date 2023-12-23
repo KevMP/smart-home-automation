@@ -1,23 +1,19 @@
 import socket
 
 class Server:
-    def __init__(self):
-        self.ip = '127.0.0.1'
-        self.port = 5000
+    def __init__(self, ip: str="127.0.0.1", port: int=5000):
+        self.ip = ip
+        self.port = port
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
     def setIp(self):
         self.user_input = input("NEW IP: ")
         if self.user_input != '':
             self.ip = self.user_input
-    def setPort(self):
-        self.user_input = input("NEW PORT: ")
-        if self.user_input != '':
-            self.port = int(self.user_input)
 
     def bindServer(self):
         self.server.bind((self.ip, self.port))
-        print("CONNETED ESTABLISHED")
+        print("CONNECTION ESTABLISHED")
     def listenForConnection(self, amount_of_connections: int):
         self.server.listen(amount_of_connections)
         print(f"LISTENING FOR {amount_of_connections} CONNECTIONS")

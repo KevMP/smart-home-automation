@@ -2,7 +2,7 @@ import sqlite3 as sql
 class Database:
     def __init__(self):
         try:
-            self.database_connection = sql.connect("local/database.db")
+            self.database_connection = sql.connect("C:\\Users\\alfon\\Documents\\repositories\\smart-home-automation\\local\\database.db")
             self.cursor = self.database_connection.cursor()
             print("Database connection successful.")
         except sql.Error as error_message:
