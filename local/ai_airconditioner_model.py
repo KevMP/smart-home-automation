@@ -141,7 +141,7 @@ def main():
         tuple_average_humidity = eval(client.getData())
         temperature_model.average_humidity = tuple_average_humidity[0]
         
-        ## Writes teh command to the database
+        ## Writes the command to the database
         client.waitForServerContinueFlag()
         client.sendWriteFlag()
         
