@@ -28,7 +28,7 @@ class AirconditionerModel(Model):
     def getAverageTemperature(self):
         return "SELECT AVG(temperature) FROM sensor WHERE temperature IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE temperature IS NOT NULL GROUP BY id);"
     def getAverageHumidity(self):
-            return "SELECT AVG(humidity) FROM sensor WHERE humidity IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE humidity IS NOT NULL GROUP BY id);"
+        return "SELECT AVG(humidity) FROM sensor WHERE humidity IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE humidity IS NOT NULL GROUP BY id);"
 
     def calculateFeelsLikeTemperature(self):
         self.coefficients = [-42.379, 2.04901523, 10.14333127, -0.22475541, -6.83783e-3,
