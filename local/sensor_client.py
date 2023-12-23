@@ -6,7 +6,6 @@ def getSensorData():
 
 def main():
     sensor = Sensor(0)
-    NUMBER_OF_OPERATIONS = 1
 
     client = Client()
     client.connectToServer()
@@ -19,6 +18,7 @@ def main():
         sensor.setHumidity(humidity)
         sensor.setTemperature(temperature)
         sensor_query = sensor.createSensorQuery()
+
         client.sendData(sensor_query)
 
 if __name__ == "__main__":

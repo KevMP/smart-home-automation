@@ -1,5 +1,6 @@
 from class_network_server import *
 from database_root import *
+import time
 
 def main():
     AMOUNT_OF_CLIENTS = 3
@@ -41,7 +42,7 @@ def main():
                 server_data = database.getFromDatabase(client_data)
                 server.sendData(connected_client, server_data)
             client_data = ''
-            
+            time.sleep(0)
 
 if __name__ == "__main__":
     main()

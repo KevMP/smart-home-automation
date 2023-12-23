@@ -24,10 +24,11 @@ class Database:
             print("Cannot update database. Database connection not available.")
             return None
         else:
+            print(f"Executing query: {query}")
             self.cursor.execute(query)
             result = self.cursor.fetchone()
             self.database_connection.commit()
-            print("DATABASE READ")
+            print(f"DATABASE READ {result}")
             return result
 
     def closeConnection(self):

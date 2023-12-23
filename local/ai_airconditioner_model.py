@@ -14,40 +14,17 @@ class AirconditionerModel(Model):
         self.average_humidity = 0.0
         self.feels_like_temperature = 0.0
         
-        self.current_profile = 'DEFAULT'
+        self.current_profile = "default"
         self.profile_minimum_temp = 50
         self.profile_maximum_temp = 70
     
     def getAverageTemperature(self):
-            query = """
-                SELECT id, AVG(temperature) as average_temperature
-                FROM sensor
-                ORDER BY MAX(timestamp) DESC;
-            """
-
-            result = self.cursor.execute(query).fetchone()
-            if result:
-                self.average_temperature = result[1]
-
+        query = "SELECT AVG(temperature) FROM sensor WHERE temperature IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE temperature IS NOT NULL GROUP BY id);"
+        return query
+    
     def getAverageHumidity(self):
-        if not self.database_connection:
-            print("Cannot fetch data. Database connection not available.")
-            return None
-
-        try:
-            # Query to get the average humidity for each sensor id
-            query = """
-                SELECT id, AVG(humidity) as average_humidity
-                FROM sensor
-                ORDER BY MAX(timestamp) DESC;
-            """
-
-            result = self.cursor.execute(query).fetchone()
-            if result:
-                self.average_humidity = result[1]
-
-        except sql.Error as e:
-            print(f"Error fetching data: {e}")
+            query = "SELECT AVG(humidity) FROM sensor WHERE humidity IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE humidity IS NOT NULL GROUP BY id);"
+            return query
 
     def calculateFeelsLikeTemperature(self):
         self.coefficients = [-42.379, 2.04901523, 10.14333127, -0.22475541, -6.83783e-3,
@@ -63,44 +40,17 @@ class AirconditionerModel(Model):
     def getCurrentProfileFromGui(self):
             query = "SELECT current_profile FROM Gui ORDER BY timestamp DESC;"
             return query
-
-    def getProfileMinimumPreferredTemperature(self):
-        if not self.database_connection or not self.current_profile:
-            print("Cannot fetch data. Database connection not available or current_profile not set.")
-            return None
-
-        try:
-            query = """
-                SELECT min_temp
-                FROM Profile
-                WHERE name = ?;
-            """
-
-            result = self.cursor.execute(query, (self.current_profile,)).fetchone()
-            if result:
-                self.profile_minimum_temp = result[0]
-
-        except sql.Error as e:
-            print(f"Error fetching profile minimum temperature: {e}")
-
+    def setCurrentProfile(self, data):
+        if data != None and data != "None":
+            self.current_profile = data
+        print(self.current_profile)
+    
     def getProfileMaximumPreferredTemperature(self):
-        if not self.database_connection or not self.current_profile:
-            print("Cannot fetch data. Database connection not available or current_profile not set.")
-            return None
-
-        try:
-            query = """
-                SELECT max_temp
-                FROM Profile
-                WHERE name = ?;
-            """
-
-            result = self.cursor.execute(query, (self.current_profile,)).fetchone()
-            if result:
-                self.profile_maximum_temp = result[0]
-
-        except sql.Error as e:
-            print(f"Error fetching profile maximum temperature: {e}")
+        query = f"SELECT max_temp FROM Profile WHERE name = '{self.current_profile}';"
+        return query
+    def getProfileMinimumPreferredTemperature(self):
+        query = f"SELECT min_temp FROM Profile WHERE name = '{self.current_profile}';"
+        return query
 
     """
     **********************************************************************************
@@ -151,24 +101,54 @@ def main():
     client = Client()
     client.connectToServer()
     while True:
+        ## Gets the current profile from the Gui table.
         client.waitForServerContinueFlag()
         client.sendReadflag()
 
         client.waitForServerContinueFlag()
         client.sendData(temperature_model.getCurrentProfileFromGui())
-        temperature_model.current_profile = client.getData()
+        temperature_model.setCurrentProfile(client.getData())
+        
+        ## Gets the profiles maximum preferred temperature
+        client.waitForServerContinueFlag()
+        client.sendReadflag()
+
+        client.waitForServerContinueFlag()
+        client.sendData(temperature_model.getProfileMaximumPreferredTemperature())
+        ## Since the data is returned as a string in a tuple format "(data,)"
+        ## we need to convert it to a tuple using the eval function, and then
+        ## select the first index where our temperature is being stored.
+        tuple_maximum_temperature = eval(client.getData())
+        temperature_model.profile_maximum_temp = tuple_maximum_temperature[0]
+
+        ## Gets the minimum preferred temperature
+        client.waitForServerContinueFlag()
+        client.sendReadflag()
+        
+        client.waitForServerContinueFlag()
+        client.sendData(temperature_model.getProfileMinimumPreferredTemperature())
+        tuple_minimum_temperature = eval(client.getData())
+        temperature_model.profile_minimum_temp = tuple_minimum_temperature[0]
+        
+        ## Gets the average temperature
+        client.waitForServerContinueFlag()
+        client.sendReadflag()
+        
+        client.waitForServerContinueFlag()
+        client.sendData(temperature_model.getAverageTemperature())
+        tuple_average_temperature = eval(client.getData())
+        print(tuple_average_temperature)
+        temperature_model.average_temperature = tuple_average_temperature[0]
+        
         """
+        ## Gets the average humidity
         client.waitForServerContinueFlag()
         client.sendReadflag()
-        temperature_model.getProfileMaximumPreferredTemperature()
+        
         client.waitForServerContinueFlag()
-        client.sendReadflag()
-        temperature_model.getProfileMinimumPreferredTemperature()
-
-
-        temperature_model.getAverageTemperature()
-        temperature_model.getAverageHumidity()
-        temperature_model.calculateFeelsLikeTemperature()
+        client.sendData(temperature_model.getAverageHumidity())
+        tuple_average_humidity = eval(client.getData())
+        temperature_model.average_humdidity = tuple_average_temperature[0]
 
         command = temperature_model.getCommandBasedOnCurrentProfile()
 
