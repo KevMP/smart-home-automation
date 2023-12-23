@@ -140,7 +140,7 @@ def main():
         print(tuple_average_temperature)
         temperature_model.average_temperature = tuple_average_temperature[0]
         
-        """
+        
         ## Gets the average humidity
         client.waitForServerContinueFlag()
         client.sendReadflag()
@@ -148,8 +148,9 @@ def main():
         client.waitForServerContinueFlag()
         client.sendData(temperature_model.getAverageHumidity())
         tuple_average_humidity = eval(client.getData())
-        temperature_model.average_humdidity = tuple_average_temperature[0]
-
+        temperature_model.average_humidity = tuple_average_temperature[0]
+        
+        """
         command = temperature_model.getCommandBasedOnCurrentProfile()
 
         temperature_model.writeCommandToDatabase(command)
