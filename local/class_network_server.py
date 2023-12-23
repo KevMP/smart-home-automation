@@ -27,4 +27,4 @@ class Server:
         return self.client_data
     
     def sendData(self, client, data):
-        client.sendall(data.encode())
+        client.sendall(str(data).encode('utf-8'))

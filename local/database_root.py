@@ -24,7 +24,8 @@ class Database:
             print("Cannot update database. Database connection not available.")
             return None
         else:
-            result = self.cursor.execute(query)
+            self.cursor.execute(query)
+            result = self.cursor.fetchone()
             self.database_connection.commit()
             print("DATABASE READ")
             return result

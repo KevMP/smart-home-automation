@@ -2,7 +2,7 @@ from class_network_server import *
 from database_root import *
 
 def main():
-    AMOUNT_OF_CLIENTS = 2    
+    AMOUNT_OF_CLIENTS = 3
 
     database = Database()
 
@@ -30,16 +30,17 @@ def main():
     while True:
         for connected_client in connected_clients:
             server.sendData(connected_client, "CONTINUE")
-            
             client_data = server.getData(connected_client)
             if client_data == "WRITE":
                 server.sendData(connected_client, "CONTINUE")
                 client_data = server.getData(connected_client)
                 database.writeToDatabase(client_data)
             elif client_data == "READ":
+                server.sendData(connected_client, "CONTINUE")
                 client_data = server.getData(connected_client)
                 server_data = database.getFromDatabase(client_data)
                 server.sendData(connected_client, server_data)
+            client_data = ''
             
 
 if __name__ == "__main__":

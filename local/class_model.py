@@ -12,9 +12,8 @@ The decision tree's items would have to be declared on use, example,
 **********************************************************************************
 """
 
-class Model(Database):
+class Model():
     def __init__(self):
-        super().__init__()
         self.action_matrix = ['output_something', 'output_something', 'output_something']
         self.decision_tree = []
     

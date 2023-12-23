@@ -1,4 +1,5 @@
 from class_model import *
+from class_network_client import *
 import random
 
 class AirconditionerModel(Model):
@@ -18,11 +19,6 @@ class AirconditionerModel(Model):
         self.profile_maximum_temp = 70
     
     def getAverageTemperature(self):
-        if not self.database_connection:
-            print("Cannot fetch data. Database connection not available.")
-            return None
-
-        try:
             query = """
                 SELECT id, AVG(temperature) as average_temperature
                 FROM sensor
@@ -32,9 +28,6 @@ class AirconditionerModel(Model):
             result = self.cursor.execute(query).fetchone()
             if result:
                 self.average_temperature = result[1]
-
-        except sql.Error as e:
-            print(f"Error fetching data: {e}")
 
     def getAverageHumidity(self):
         if not self.database_connection:
@@ -68,24 +61,8 @@ class AirconditionerModel(Model):
                     self.coefficients[7] * self.average_temperature  * self.relative_humidity**2 + self.coefficients[8] * self.average_temperature **2 * self.relative_humidity**2
 
     def getCurrentProfileFromGui(self):
-        if not self.database_connection:
-            print("Cannot fetch data. Database connection not available.")
-            return None
-
-        try:
-            query = """
-                SELECT current_profile
-                FROM Gui
-                ORDER BY timestamp DESC
-            """
-
-            result = self.cursor.execute(query).fetchone()
-            print(f"PROFILE RESULT: {result}")
-            if result:
-                self.current_profile = result[0]
-
-        except sql.Error as e:
-            print(f"Error fetching profile: {e}")
+            query = "SELECT current_profile FROM Gui ORDER BY timestamp DESC;"
+            return query
 
     def getProfileMinimumPreferredTemperature(self):
         if not self.database_connection or not self.current_profile:
@@ -166,60 +143,37 @@ class AirconditionerModel(Model):
         return self.command_to_airconditioner
     
     def writeCommandToDatabase(self, command: str):
-        if not self.database_connection:
-            print("Cannot write data. Database connection not available.")
-            return
-
-        try:
-            query = """
-                INSERT INTO TemperatureModel (airconditioner_command)
-                VALUES (?);
-            """
-
-            self.cursor.execute(query, (command,))
-            self.database_connection.commit()
-
-        except sql.Error as e:
-            print(f"Error writing command to database: {e}")
-
-def test():
-    model = AirconditionerModel()
-    model.getAverageTemperature()
-    model.getAverageHumidity()
-    model.calculateFeelsLikeTemperature()
-    model.getCurrentProfileFromGui()
-    model.getProfileMaximumPreferredTemperature()
-    model.getProfileMinimumPreferredTemperature()
-    command = model.getCommandBasedOnCurrentProfile()
-    command = model.getCommandBasedOnCurrentProfile()
-    command = model.getCommandBasedOnCurrentProfile()
-    command = model.getCommandBasedOnCurrentProfile()
-    command = model.getCommandBasedOnCurrentProfile()
-    command = model.getCommandBasedOnCurrentProfile()
-    command = model.getCommandBasedOnCurrentProfile()
-    model.writeCommandToDatabase(command)
-    model.closeConnection()
-    print(model.average_temperature)
-    print(model.average_humidity)
-    print(model.feels_like_temperature)
-    print(model.current_profile)
-    print(model.profile_maximum_temp)
-    print(command)
+            query = f"INSERT INTO TemperatureModel (airconditioner_command) VALUES ({command});"
+            return query
 
 def main():
     temperature_model = AirconditionerModel()
+    client = Client()
+    client.connectToServer()
     while True:
-        temperature_model.getCurrentProfileFromGui()
+        client.waitForServerContinueFlag()
+        client.sendReadflag()
+
+        client.waitForServerContinueFlag()
+        client.sendData(temperature_model.getCurrentProfileFromGui())
+        temperature_model.current_profile = client.getData()
+        """
+        client.waitForServerContinueFlag()
+        client.sendReadflag()
         temperature_model.getProfileMaximumPreferredTemperature()
+        client.waitForServerContinueFlag()
+        client.sendReadflag()
         temperature_model.getProfileMinimumPreferredTemperature()
+
 
         temperature_model.getAverageTemperature()
         temperature_model.getAverageHumidity()
         temperature_model.calculateFeelsLikeTemperature()
 
         command = temperature_model.getCommandBasedOnCurrentProfile()
+
         temperature_model.writeCommandToDatabase(command)
         print(temperature_model.current_profile)
-
+        """
 if __name__ == "__main__":
     main()
