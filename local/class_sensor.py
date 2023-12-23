@@ -49,9 +49,8 @@ https://www.thegeekpub.com/236867/using-the-dht11-temperature-sensor-with-the-ra
 https://github.com/adafruit/Adafruit_Python_DHT/tree/master/examples
 **********************************************************************************
 """
-class Sensor(Database):
+class Sensor():
     def __init__(self, id: int, sensor_pinout: int=None):
-        super().__init__()
         self.sensor_id = id
         self.temperature = 0.0
         self.humidity = 0.0
@@ -64,16 +63,9 @@ class Sensor(Database):
     def setHumidity(self, value: float):
         self.humidity = value
 
-    def updateDatabase(self):
-        if not self.database_connection:
-            print("Cannot update database. Database connection not available.")
-            return None
-
+    def createSensorQuery(self):
         self.insert_query = f"""
             INSERT INTO Sensor (id, temperature, humidity)
             VALUES ({self.sensor_id}, {self.temperature}, {self.humidity});
         """
-
-        print("DATABASE UPDATED")
-        self.cursor.execute(self.insert_query)
-        self.database_connection.commit()
+        return self.insert_query
