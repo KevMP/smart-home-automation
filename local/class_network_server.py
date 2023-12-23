@@ -22,16 +22,6 @@ class Server:
         print("CLIENT ACCEPTED")
         return client, client_address
 
-    """
-    **********************************************************************************
-    Assuming that the data is being sent to our server as a 
-    list, we can use the eval() function to transform it into
-    a list object from the string that is being sent.
-    **********************************************************************************
-    """
-    def getDataAsList(self, client):
-        self.client_data = client.recv(1024).decode()
-        return eval(self.client_data)
     def getData(self, client):
         self.client_data = client.recv(1024).decode()
         return self.client_data
