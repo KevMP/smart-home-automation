@@ -19,12 +19,9 @@ class AirconditionerModel(Model):
         self.profile_maximum_temp = 70
     
     def getAverageTemperature(self):
-        query = "SELECT AVG(temperature) FROM sensor WHERE temperature IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE temperature IS NOT NULL GROUP BY id);"
-        return query
-    
+        return "SELECT AVG(temperature) FROM sensor WHERE temperature IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE temperature IS NOT NULL GROUP BY id);"
     def getAverageHumidity(self):
-            query = "SELECT AVG(humidity) FROM sensor WHERE humidity IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE humidity IS NOT NULL GROUP BY id);"
-            return query
+            return "SELECT AVG(humidity) FROM sensor WHERE humidity IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE humidity IS NOT NULL GROUP BY id);"
 
     def calculateFeelsLikeTemperature(self):
         self.coefficients = [-42.379, 2.04901523, 10.14333127, -0.22475541, -6.83783e-3,
@@ -38,19 +35,16 @@ class AirconditionerModel(Model):
                     self.coefficients[7] * self.average_temperature  * self.relative_humidity**2 + self.coefficients[8] * self.average_temperature **2 * self.relative_humidity**2
 
     def getCurrentProfileFromGui(self):
-            query = "SELECT current_profile FROM Gui ORDER BY timestamp DESC;"
-            return query
+            return "SELECT current_profile FROM Gui ORDER BY timestamp DESC;"
     def setCurrentProfile(self, data):
         if data != None and data != "None":
             self.current_profile = data
         print(self.current_profile)
     
     def getProfileMaximumPreferredTemperature(self):
-        query = f"SELECT max_temp FROM Profile WHERE name = '{self.current_profile}';"
-        return query
+        return f"SELECT max_temp FROM Profile WHERE name = '{self.current_profile}';"
     def getProfileMinimumPreferredTemperature(self):
-        query = f"SELECT min_temp FROM Profile WHERE name = '{self.current_profile}';"
-        return query
+        return f"SELECT min_temp FROM Profile WHERE name = '{self.current_profile}';"
 
     """
     **********************************************************************************
@@ -93,8 +87,7 @@ class AirconditionerModel(Model):
         return self.command_to_airconditioner
     
     def writeCommandToDatabase(self, command: str):
-            query = f"INSERT INTO TemperatureModel (airconditioner_command) VALUES ('{command}');"
-            return query
+            return f"INSERT INTO TemperatureModel (airconditioner_command) VALUES ('{command}');"
 
 def main():
     temperature_model = AirconditionerModel()
@@ -140,7 +133,6 @@ def main():
         print(tuple_average_temperature)
         temperature_model.average_temperature = tuple_average_temperature[0]
         
-        
         ## Gets the average humidity
         client.waitForServerContinueFlag()
         client.sendReadFlag()
@@ -148,7 +140,7 @@ def main():
         client.waitForServerContinueFlag()
         client.sendData(temperature_model.getAverageHumidity())
         tuple_average_humidity = eval(client.getData())
-        temperature_model.average_humidity = tuple_average_temperature[0]
+        temperature_model.average_humidity = tuple_average_humidity[0]
         
         client.waitForServerContinueFlag()
         client.sendWriteFlag()
