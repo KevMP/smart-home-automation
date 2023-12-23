@@ -114,7 +114,7 @@ an example of this process,
     client3.connectToServer()
 
     while True:
-        client.waitForContinueFlag(client)
+        client.waitForContinueFlag(client) ## This function needs to be called first before we send a read/write flag.
         client.sendReadFlag(client)
 
         data = eval(client.getData()) ## The eval flag allows us to convert a string into a datastructure,
