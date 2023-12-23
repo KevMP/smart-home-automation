@@ -1,5 +1,9 @@
 from database_root import *
-
+"""
+This file checks for a change in profile specific temperature,
+but since the way our clients are handled, we can honestly delete
+this file and write any functions we need inside the Gui file.
+"""
 class Updater(Database):
     def __init__(self):
         super().__init__()
