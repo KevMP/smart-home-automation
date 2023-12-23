@@ -84,3 +84,71 @@ Example on how to use this for the hardware side of things,
 online information sources used,
 https://www.thegeekpub.com/236867/using-the-dht11-temperature-sensor-with-the-raspberry-pi/
 https://github.com/adafruit/Adafruit_Python_DHT/tree/master/examples
+
+***********************************************************************
+************************ DATABASE SERVER ******************************
+***********************************************************************
+tags: server Server SERVER main Main MAIN
+
+Our database server accepts a number of connections, this is a constant
+variable that is defined in the beginning of the program.
+
+It will then run a loop for "n" amount of times depending on the amount
+of clients we will receive.
+
+As it loops each client is appended to a array, once each client connects
+and the array meets the size of the amount of expected clients the program
+then begins to iterate through every client.
+
+As it iterates through every client, a "CONTINUE" flag is sent to the current
+client in the loop, this prompts the client to start their series of operation.
+
+The client is then expected to send a flag of whether it wants information (READ)
+or whether it wants to write information to the database (WRITE)
+
+an example of this process,
+    CLIENT:
+
+    client.connectToServer() ## Note that the clients don't have to be in the same program/machine
+    client2.connectToServer()
+    client3.connectToServer()
+
+    while True:
+        client.waitForContinueFlag(client)
+        client.sendReadFlag(client)
+
+        data = eval(client.getData()) ## The eval flag allows us to convert a string into a datastructure,
+        ## client does stuff here     ## an example being a string tuple structure '(,)'
+
+client then loops back waiting for a continue flag from the server to begin its set
+of operations again.
+
+    SERVER:
+
+    AMOUNT_OF_CLIENTS = 3
+    database = Database() ## Creates a database object we can use to update or read from our db.
+    server = Server() ## Creates a server object, note that the server needs to be run first.
+
+    connected_clients = []
+    for connected_client in range(AMOUNT_OF_CLIENTS):
+        client, client_address = server.acceptClient() ## Server accepts clients in a range of the amount of clients possible
+        connected_clients.append(client)
+
+    while True:
+        for connected_client in connected_clients: ## choosing a client off the list we just made from index 0
+            server.SendData(connected_client, "CONTINUE") ## This prompts the first client to give us a flag.
+            client_flag = server.getData(connected_client)
+            if client_flag == "WRITE":
+                server.sendData(connected_client, "CONTINUE")
+                client_data = server.getData(connected_client)
+                database.writeToDatabase(client_data)
+            elif client_flag == "READ":
+                server.sendData(connected_client, "CONTINUE")
+                client_data = server.getData(connected_client)
+                database_data = database.getFromDatabase(client_data)
+                server.sendData(connected_client, database_data)
+                
+                database_data = ''
+            ## Resets the data.
+            client_data = ''
+            client_flag = ''
