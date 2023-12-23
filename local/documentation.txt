@@ -109,9 +109,7 @@ or whether it wants to write information to the database (WRITE)
 an example of this process,
     CLIENT:
 
-    client.connectToServer() ## Note that the clients don't have to be in the same program/machine
-    client2.connectToServer()
-    client3.connectToServer()
+    client.connectToServer()
 
     while True:
         client.waitForContinueFlag(client) ## This function needs to be called first before we send a read/write flag.
