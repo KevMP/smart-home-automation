@@ -10,14 +10,24 @@ class Database:
             self.database_connection = None
             self.cursor = None
     
-    def updateDatabase(self, query):
+    def writeToDatabase(self, query):
         if not self.database_connection:
             print("Cannot update database. Database connection not available.")
             return None
         else:
             self.cursor.execute(query)
             self.database_connection.commit()
-            print("DATABASE UPDATED")
+            print("DATABASE WRITE")
+    
+    def getFromDatabase(self, query):
+        if not self.database_connection:
+            print("Cannot update database. Database connection not available.")
+            return None
+        else:
+            result = self.cursor.execute(query)
+            self.database_connection.commit()
+            print("DATABASE READ")
+            return result
 
     def closeConnection(self):
         if self.database_connection:

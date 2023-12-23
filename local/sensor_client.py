@@ -17,6 +17,8 @@ def main():
     client.connectToServer()
     while True:
         waitForServer(client)
+        client.sendData("WRITE")
+        waitForServer(client)
         humidity, temperature = getSensorData()
         sensor.setHumidity(humidity)
         sensor.setTemperature(temperature)

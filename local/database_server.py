@@ -22,12 +22,25 @@ def main():
     for connected_client in range(AMOUNT_OF_CLIENTS):
         client, client_address = server.acceptClient()
         connected_clients.append(client)
-    
+    """
+    To prevent data overflow from drowning our socket,
+    we are sending each client a "CONTINUE" signal that
+    allows them to send data.
+    """
     while True:
         for connected_client in connected_clients:
             server.sendData(connected_client, "CONTINUE")
+            
             client_data = server.getData(connected_client)
-            database.updateDatabase(client_data)
+            if client_data == "WRITE":
+                server.sendData(connected_client, "CONTINUE")
+                client_data = server.getData(connected_client)
+                database.writeToDatabase(client_data)
+            elif client_data == "READ":
+                client_data = server.getData(connected_client)
+                server_data = database.getFromDatabase(client_data)
+                server.sendData(connected_client, server_data)
+            
 
 if __name__ == "__main__":
     main()
