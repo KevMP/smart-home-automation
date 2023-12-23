@@ -30,5 +30,5 @@ class Client:
         self.client.sendall(data.encode('utf-8'))
     def sendWriteFlag(self):
         self.sendData("WRITE")
-    def sendReadflag(self):
+    def sendReadFlag(self):
         self.sendData("READ")
