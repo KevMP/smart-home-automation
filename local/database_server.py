@@ -42,7 +42,7 @@ def main():
                 server_data = database.getFromDatabase(client_data)
                 server.sendData(connected_client, server_data)
             client_data = ''
-            time.sleep(0)
+            time.sleep(0.05)
 
 if __name__ == "__main__":
     main()
