@@ -76,6 +76,15 @@ class SmartThermostatApp(tk.Tk):
         self.temperature_label.config(text=f"Temperature: {self.feels_like_temperature}°F")
 
     def increase_temperature(self):
+        """
+        This will make a query to increase the profile min/max temperature,
+        this is so that the Ai will make note of the change, and therefore
+        try to correct the air conditioner.
+            query =
+                UPDATE Profile
+                SET min_temp = min_temp + 1, max_temp = max_temp + 1
+                WHERE name = ?;
+        """
         self.feels_like_temperature += 1
         self.slider.set(self.feels_like_temperature)
     def decrease_temperature(self):
