@@ -1,4 +1,3 @@
-from database_root import *
 """
 **********************************************************************************
 to install the Adafruit_DHT library,
@@ -64,8 +63,5 @@ class Sensor():
         self.humidity = value
 
     def createSensorQuery(self):
-        self.insert_query = f"""
-            INSERT INTO Sensor (id, temperature, humidity)
-            VALUES ({self.sensor_id}, {self.temperature}, {self.humidity});
-        """
+        self.insert_query = f"INSERT INTO Sensor (id, temperature, humidity) VALUES ({self.sensor_id}, {self.temperature}, {self.humidity});"
         return self.insert_query

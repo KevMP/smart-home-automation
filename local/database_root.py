@@ -15,7 +15,7 @@ class Database:
             print("Cannot update database. Database connection not available.")
             return None
         else:
-            self.cursor.execute(self.insert_query)
+            self.cursor.execute(query)
             self.database_connection.commit()
             print("DATABASE UPDATED")
 

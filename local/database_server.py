@@ -1,10 +1,10 @@
 from class_network_server import *
-from class_sensor import *
-import time
+from database_root import *
 
 def main():
     AMOUNT_OF_CLIENTS = 2    
-    sensor_object = Sensor(0)
+
+    database = Database()
 
     server = Server()
     server.bindServer()
@@ -17,11 +17,8 @@ def main():
     while True:
         for connected_client in connected_clients:
             server.sendData(connected_client, "CONTINUE")
-            client_data = server.getDataAsList(connected_client)
-            sensor_object.setSensorId(client_data[0])
-            sensor_object.setHumidity(client_data[1])
-            sensor_object.setTemperature(client_data[2])
-            sensor_object.updateDatabase()
+            client_data = server.getData(connected_client)
+            database.updateDatabase(client_data)
 
 if __name__ == "__main__":
     main()

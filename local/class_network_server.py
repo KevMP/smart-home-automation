@@ -32,5 +32,9 @@ class Server:
     def getDataAsList(self, client):
         self.client_data = client.recv(1024).decode()
         return eval(self.client_data)
+    def getData(self, client):
+        self.client_data = client.recv(1024).decode()
+        return self.client_data
+    
     def sendData(self, client, data):
         client.sendall(data.encode())
