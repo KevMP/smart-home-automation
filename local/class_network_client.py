@@ -18,17 +18,19 @@ class Client:
     and until that happens, our client won't be sending
     any data.
     """
-    def waitForServerContinueFlag(client):
-        client_data = client.getData()
+    def waitForServerContinueFlag(self, client):
+        client_data = self.getData()
         while client_data != "CONTINUE":
-            client_data = client.getData()
+            client_data = self.client.getData()
         print("CONTINUE CAPTURED")
 
     def getData(self):
         return self.client.recv(1024).decode('utf-8')
     def sendData(self, data):
         self.client.sendall(data.encode('utf-8'))
-    def sendWriteFlag(self):
+    def sendWriteFlag(self, client):
         self.sendData("WRITE")
-    def sendReadFlag(self):
+        self.waitForServerContinueFlag(client)
+    def sendReadFlag(self, client):
         self.sendData("READ")
+        self.waitForServerContinueFlag(client)

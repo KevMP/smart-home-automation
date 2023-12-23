@@ -10,10 +10,9 @@ def main():
     client = Client()
     client.connectToServer()
     while True:
-        client.waitForServerContinueFlag()
-        client.sendWriteFlag()
-
-        client.waitForServerContinueFlag()
+        client.waitForServerContinueFlag(client)
+        client.sendWriteFlag(client)
+        
         humidity, temperature = getSensorData()
         sensor.setHumidity(humidity)
         sensor.setTemperature(temperature)
