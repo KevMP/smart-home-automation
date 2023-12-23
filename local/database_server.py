@@ -27,6 +27,9 @@ def main():
     To prevent data overflow from drowning our socket,
     we are sending each client a "CONTINUE" signal that
     allows them to send data.
+
+    Which then prompts the client to send us a WRITE or READ
+    flag.
     """
     while True:
         for connected_client in connected_clients:
