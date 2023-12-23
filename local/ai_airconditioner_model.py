@@ -17,7 +17,14 @@ class AirconditionerModel(Model):
         self.current_profile = "default"
         self.profile_minimum_temp = 50
         self.profile_maximum_temp = 70
-    
+
+    def getCurrentProfileFromGui(self):
+        return "SELECT current_profile FROM Gui ORDER BY timestamp DESC;"
+    def getProfileMaximumPreferredTemperature(self):
+        return f"SELECT max_temp FROM Profile WHERE name = '{self.current_profile}';"
+    def getProfileMinimumPreferredTemperature(self):
+        return f"SELECT min_temp FROM Profile WHERE name = '{self.current_profile}';"
+
     def getAverageTemperature(self):
         return "SELECT AVG(temperature) FROM sensor WHERE temperature IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE temperature IS NOT NULL GROUP BY id);"
     def getAverageHumidity(self):
@@ -33,18 +40,6 @@ class AirconditionerModel(Model):
                     self.coefficients[3] * self.average_temperature  * self.relative_humidity + self.coefficients[4] * self.average_temperature **2 + \
                     self.coefficients[5] * self.relative_humidity**2 + self.coefficients[6] * self.average_temperature **2 * self.relative_humidity + \
                     self.coefficients[7] * self.average_temperature  * self.relative_humidity**2 + self.coefficients[8] * self.average_temperature **2 * self.relative_humidity**2
-
-    def getCurrentProfileFromGui(self):
-            return "SELECT current_profile FROM Gui ORDER BY timestamp DESC;"
-    def setCurrentProfile(self, data):
-        if data != None and data != "None":
-            self.current_profile = data
-        print(self.current_profile)
-    
-    def getProfileMaximumPreferredTemperature(self):
-        return f"SELECT max_temp FROM Profile WHERE name = '{self.current_profile}';"
-    def getProfileMinimumPreferredTemperature(self):
-        return f"SELECT min_temp FROM Profile WHERE name = '{self.current_profile}';"
 
     """
     **********************************************************************************
@@ -100,7 +95,9 @@ def main():
 
         client.waitForServerContinueFlag()
         client.sendData(temperature_model.getCurrentProfileFromGui())
-        temperature_model.setCurrentProfile(client.getData())
+        current_profile = client.getData()
+        if current_profile != "None":
+            temperature_model.current_profile = current_profile
         
         ## Gets the profiles maximum preferred temperature
         client.waitForServerContinueFlag()
