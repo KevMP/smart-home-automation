@@ -31,6 +31,7 @@ TemperatureModel
 # Client Server Network Diagram
 ![database network](https://github.com/KevMP/smart-home-automation/assets/100045145/5d55062b-8aab-47e7-b180-b555de59a255)
 clients need to connect to the same ip and port number as the main database server.
+and the amount of clients that the server will receive will also have to be configured intitially.
 
 # Ai
 * The ai will receive various pieces of information such as the current profile preferences that is informed by the Gui, and the profile data inside our profile table.
