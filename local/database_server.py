@@ -3,7 +3,7 @@ from database_root import *
 import time
 
 def main():
-    AMOUNT_OF_CLIENTS = 3
+    AMOUNT_OF_CLIENTS = 4
 
     database = Database()
 
