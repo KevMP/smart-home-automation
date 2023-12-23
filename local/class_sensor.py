@@ -69,11 +69,11 @@ class Sensor(Database):
             print("Cannot update database. Database connection not available.")
             return None
 
-        self.insert_query = """
+        self.insert_query = f"""
             INSERT INTO Sensor (id, temperature, humidity)
-            VALUES (?, ?, ?);
+            VALUES ({self.sensor_id}, {self.temperature}, {self.humidity});
         """
 
         print("DATABASE UPDATED")
-        self.cursor.execute(self.insert_query, (self.sensor_id, self.temperature, self.humidity))
+        self.cursor.execute(self.insert_query)
         self.database_connection.commit()
