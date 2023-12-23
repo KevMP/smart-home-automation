@@ -7,17 +7,13 @@ def database_airconditioner_scanner():
     client.connectToServer()
 
     while True:
-        client.waitForServerContinueFlag(client)
         client.sendReadFlag(client)
-
         print("READING DATA")
         client.sendData(airconditioner_object.get_command_from_ai())
         command = eval(client.getData())
         command = command[0]
         
-        client.waitForServerContinueFlag(client)
         client.sendWriteFlag(client)
-
         print("SENDING DATA")
         client.sendData(airconditioner_object.write_command_to_ac(command))
         print(f"COMMAND: {command} WRITTEN TO THE AIRCONDITIONER TABLE")

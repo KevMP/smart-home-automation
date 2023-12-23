@@ -29,8 +29,10 @@ class Client:
     def sendData(self, data):
         self.client.sendall(data.encode('utf-8'))
     def sendWriteFlag(self, client):
+        self.waitForServerContinueFlag(client)
         self.sendData("WRITE")
         self.waitForServerContinueFlag(client)
     def sendReadFlag(self, client):
+        self.waitForServerContinueFlag(client)
         self.sendData("READ")
         self.waitForServerContinueFlag(client)
