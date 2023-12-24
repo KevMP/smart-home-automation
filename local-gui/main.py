@@ -59,16 +59,13 @@ class SmartThermostatApp(tk.Tk):
                     self.coefficients[3] * self.average_temperature  * self.relative_humidity + self.coefficients[4] * self.average_temperature **2 + \
                     self.coefficients[5] * self.relative_humidity**2 + self.coefficients[6] * self.average_temperature **2 * self.relative_humidity + \
                     self.coefficients[7] * self.average_temperature  * self.relative_humidity**2 + self.coefficients[8] * self.average_temperature **2 * self.relative_humidity**2
-    def update_temperature(self):
-        self.client.waitForServerContinueFlag(client)
-        self.client.sendReadFlag(client)
         
+    def update_temperature(self):
+        self.client.sendReadFlag(client)
         self.average_temperature = eval(self.client.getData())
         self.average_temperature = self.average_temperature[0]
 
-        self.client.waitForServerContinueFlag(client)
         self.client.sendReadFlag(client)
-
         self.average_humidity = eval(self.client.getData())
         self.average_humidity = self.average_humidity[0]
 

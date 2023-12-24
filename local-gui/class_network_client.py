@@ -1,8 +1,5 @@
 import socket
-"""
-Since this Gui is in its own folder, I just copy/pasted
-the entire class here from the local folder.
-"""
+
 class Client:
     def __init__(self, ip: str="127.0.0.1", port: int=5000):
         self.ip = ip
@@ -32,8 +29,10 @@ class Client:
     def sendData(self, data):
         self.client.sendall(data.encode('utf-8'))
     def sendWriteFlag(self, client):
+        self.waitForServerContinueFlag(client)
         self.sendData("WRITE")
         self.waitForServerContinueFlag(client)
     def sendReadFlag(self, client):
+        self.waitForServerContinueFlag(client)
         self.sendData("READ")
         self.waitForServerContinueFlag(client)
