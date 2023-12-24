@@ -9,13 +9,13 @@ def database_airconditioner_scanner():
     while True:
         client.sendReadFlag(client)
         print("READING DATA")
-        client.sendData(airconditioner_object.get_command_from_ai())
+        client.sendData(airconditioner_object.getCommandFromModel())
         command = eval(client.getData())
         command = command[0]
         
         client.sendWriteFlag(client)
         print("SENDING DATA")
-        client.sendData(airconditioner_object.write_command_to_ac(command))
+        client.sendData(airconditioner_object.writeCommandToTable(command))
         print(f"COMMAND: {command} WRITTEN TO THE AIRCONDITIONER TABLE")
 
 if __name__ == "__main__":
