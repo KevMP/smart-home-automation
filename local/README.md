@@ -39,4 +39,5 @@ and the amount of clients that the server will receive will also have to be conf
 * The ai will receive various pieces of information such as the current profile preferences that is informed by the Gui, and the profile data inside our profile table.
 * Additionally we're also getting the temperature and humidity data so that we can calculate the "Feels Like" temperature.
 * The feels like temperature will be used to dictate whether or not our model is making the correct decisions and will be punished or rewarded accordingly.
+
 ![model-client](https://github.com/KevMP/smart-home-automation/assets/100045145/e615fe35-8acb-4aad-80aa-c2fed90dd479)
