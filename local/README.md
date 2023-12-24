@@ -30,6 +30,8 @@ TemperatureModel
 
 # Client Server Network Diagram
 ![database network](https://github.com/KevMP/smart-home-automation/assets/100045145/5d55062b-8aab-47e7-b180-b555de59a255)
+![smart-home-network](https://github.com/KevMP/smart-home-automation/assets/100045145/9f96d366-54b0-42b4-aff5-ccb2a754330b)
+
 clients need to connect to the same ip and port number as the main database server.
 and the amount of clients that the server will receive will also have to be configured intitially.
 
