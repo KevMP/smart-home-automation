@@ -86,9 +86,9 @@ https://www.thegeekpub.com/236867/using-the-dht11-temperature-sensor-with-the-ra
 https://github.com/adafruit/Adafruit_Python_DHT/tree/master/examples
 
 ***********************************************************************
-************************ DATABASE SERVER ******************************
+************************ CLIENT HANDLER *******************************
 ***********************************************************************
-tags: server Server SERVER main Main MAIN
+tags: server Server SERVER main Main MAIN client handler Client Handler CLIENT HANDLER
 
 Our database server accepts a number of connections, this is a constant
 variable that is defined in the beginning of the program.
