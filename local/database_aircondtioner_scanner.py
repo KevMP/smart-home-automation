@@ -1,13 +1,22 @@
 from class_aircondtioner import *
-import time
+from class_network_client import *
 
 def database_airconditioner_scanner():
-    ac = Airconditioner()
+    airconditioner_object = Airconditioner(0)
+    client = Client()
+    client.connectToServer()
+
     while True:
-        command = ac.get_command_from_ai()
-        if command:
-            ac.write_command_to_ac()
-            print(f"COMMAND: {command} WRITTEN TO THE AIRCONDITIONER TABLE")
+        client.sendReadFlag(client)
+        print("READING DATA")
+        client.sendData(airconditioner_object.getCommandFromModel())
+        command = eval(client.getData())
+        command = command[0]
+        
+        client.sendWriteFlag(client)
+        print("SENDING DATA")
+        client.sendData(airconditioner_object.writeCommandToTable(command))
+        print(f"COMMAND: {command} WRITTEN TO THE AIRCONDITIONER TABLE")
 
 if __name__ == "__main__":
     database_airconditioner_scanner()

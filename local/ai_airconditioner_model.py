@@ -90,18 +90,14 @@ def main():
     client.connectToServer()
     while True:
         ## Gets the current profile from the Gui table.
-        client.waitForServerContinueFlag(client)
         client.sendReadFlag(client)
-
         client.sendData(temperature_model.getCurrentProfileFromGui())
         current_profile = client.getData()
         if current_profile != "None":
             temperature_model.current_profile = current_profile
         
         ## Gets the profiles maximum preferred temperature
-        client.waitForServerContinueFlag(client)
         client.sendReadFlag(client)
-
         client.sendData(temperature_model.getProfileMaximumPreferredTemperature())
         ## Since the data is returned as a string in a tuple format "(data,)"
         ## we need to convert it to a tuple using the eval function, and then
@@ -110,33 +106,25 @@ def main():
         temperature_model.profile_maximum_temp = tuple_maximum_temperature[0]
 
         ## Gets the minimum preferred temperature
-        client.waitForServerContinueFlag(client)
         client.sendReadFlag(client)
-        
         client.sendData(temperature_model.getProfileMinimumPreferredTemperature())
         tuple_minimum_temperature = eval(client.getData())
         temperature_model.profile_minimum_temp = tuple_minimum_temperature[0]
         
         ## Gets the average temperature
-        client.waitForServerContinueFlag(client)
         client.sendReadFlag(client)
-        
         client.sendData(temperature_model.getAverageTemperature())
         tuple_average_temperature = eval(client.getData())
         temperature_model.average_temperature = tuple_average_temperature[0]
         
         ## Gets the average humidity
-        client.waitForServerContinueFlag(client)
         client.sendReadFlag(client)
-        
         client.sendData(temperature_model.getAverageHumidity())
         tuple_average_humidity = eval(client.getData())
         temperature_model.average_humidity = tuple_average_humidity[0]
         
         ## Writes the command to the database
-        client.waitForServerContinueFlag(client)
         client.sendWriteFlag(client)
-        
         command = temperature_model.getCommandBasedOnCurrentProfile()
         client.sendData(temperature_model.writeCommandToDatabase(command))
 if __name__ == "__main__":

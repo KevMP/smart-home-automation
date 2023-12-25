@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 import sqlite3
-import time
-from ttkthemes import ThemedTk
 
 class SmartThermostatApp(ThemedTk):
     def __init__(self):
