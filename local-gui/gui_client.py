@@ -51,7 +51,6 @@ class SmartThermostatApp(tk.Tk):
         self.getFeelsLikeTemperature()
         self.temperature_label.config(text=f"Temperature: {self.feels_like_temperature}°F")
 
-        # Schedule the next update after 10 seconds (adjust as needed)
         self.after(1, self.updateTemperature)
 
 if __name__ == '__main__':
