@@ -53,6 +53,18 @@ class SmartThermostatApp(tk.Tk):
 
         self.after(1, self.updateTemperature)
 
+        # sending shit to db
+    current_profile_data = self.getCurrentProfileData()
+    change_in_thermostat_data = self.getChangeInThermostatData()
+
+    self.client.sendReadFlag(self.client)
+
+    if current_profile_data != "nothing" and change_in_thermostat_data != "nothing":
+        query = f"INSERT INTO Gui (current_profile, change_in_thermostat) VALUES ({current_profile_data}, {change_in_thermostat_data})"
+        self.client.sendData(query)
+    # I DONT UNDERSTAND
+    
+
 if __name__ == '__main__':
     client = Client()
     client.connectToServer()

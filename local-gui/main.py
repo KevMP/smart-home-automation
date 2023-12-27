@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 import sqlite3
+from class_network_client import Client
 
 class SmartThermostatApp(ThemedTk):
-    def __init__(self):
+    def __init__(self, client):
         super().__init__()
 
         self.set_theme("arc")
@@ -56,6 +57,8 @@ class SmartThermostatApp(ThemedTk):
 
         self.show_vents_button = ttk.Button(self, text="Show Active Vents", command=self.show_active_vents)
         self.show_vents_button.grid(row=6, column=1, pady=5)
+
+        self.client = client
 
         self.house_label = None  # storing house label.
 
@@ -241,5 +244,9 @@ class VentsScreen(tk.Toplevel):
         self.ok_button.pack(pady=5)
 
 if __name__ == '__main__':
+
+    client = Client()
+    client.connectToServer()
+
     app = SmartThermostatApp()
     app.mainloop()
