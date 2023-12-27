@@ -108,7 +108,7 @@ or whether it wants to write information to the database (WRITE)
 
 an example of this process,
     CLIENT:
-
+    client = Client()
     client.connectToServer()
 
     while True:
