@@ -28,7 +28,7 @@ class Database:
         else:
             print(f"Executing query: {query}")
             self.cursor.execute(query)
-            result = self.cursor.fetchone()
+            result = self.cursor.fetchall()
             self.database_connection.commit()
             print(f"DATABASE READ {result}")
             return result
