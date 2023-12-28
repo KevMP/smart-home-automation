@@ -1,69 +1,75 @@
 import tkinter as tk
 from tkinter import ttk
-from class_network_client import *
+from class_network_client import Client
+import sqlite3
 
 class SmartThermostatApp(tk.Tk):
     def __init__(self, client):
         super().__init__()
 
         self.title("Smart AI Thermostat")
-        self.geometry("300x100")
-        
-        self.average_temperature = 0.0
-        self.average_humidity = 0.0
-        self.feels_like_temperature = 0.0
+        self.geometry("480x320")
 
-        self.temperature_label = ttk.Label(self, text=f"Temperature: {self.feels_like_temperature}°F", font=("Arial", 14))
-        self.temperature_label.pack(pady=10)
+        self.profile_names = self.fetch_profile_names()
+
+        self.profile_label = ttk.Label(self, text="Select Profile:")
+        self.profile_label.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W)
+
+        self.profile_combobox = ttk.Combobox(self, values=self.profile_names)
+        self.profile_combobox.grid(row=0, column=1, padx=5, pady=5, sticky=tk.W)
+        self.profile_combobox.set("")
+
+        self.fetch_profiles_button = ttk.Button(self, text="Select:", command=self.fetch_profiles)
+        self.fetch_profiles_button.grid(row=1, column=0, columnspan=2, pady=10)
+
+        self.save_changes_button = ttk.Button(self, text="Save Changes", command=self.save_changes)
+        self.save_changes_button.grid(row=2, column=0, columnspan=2, pady=5)
 
         self.client = client
-        self.updateTemperature()
+        self.update_temperature()
 
-    def getAverageTemperature(self):
-        self.client.sendReadFlag(self.client)
-        self.client.sendData("SELECT AVG(temperature) FROM sensor WHERE temperature IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE temperature IS NOT NULL GROUP BY id);")
-        self.tuple_average_temperature = eval(self.client.getData())
-        self.average_temperature = self.tuple_average_temperature[0]
-        print("AVERAGE TEMPERATURE CAPTURED")
+    def fetch_profile_names(self):
+        connection = sqlite3.connect("profiles.db")
+        cursor = connection.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS profiles (name TEXT, max_temp REAL, min_temp REAL, ac_mode TEXT, ai_sensitivity REAL)")
+        connection.commit()
 
-    def getAverageHumidity(self):
-        self.client.sendReadFlag(self.client)
-        self.client.sendData("SELECT AVG(humidity) FROM sensor WHERE humidity IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE humidity IS NOT NULL GROUP BY id);")
-        self.tuple_average_humidity = eval(self.client.getData())
-        self.average_humidity = self.tuple_average_humidity[0]
-        print("AVERAGE HUMIDITY CAPTURED")
+        cursor.execute("SELECT name FROM profiles")
+        profile_names = [row[0] for row in cursor.fetchall()]
 
-    def getFeelsLikeTemperature(self):
-        self.coefficients = [-42.379, 2.04901523, 10.14333127, -0.22475541, -6.83783e-3,
-            -5.481717e-2, 1.22874e-3, 8.5282e-4, -1.99e-6]
-        
-        self.relative_humidity = self.average_humidity / 100.0
+        connection.close()
+        return profile_names
 
-        self.feels_like_temperature = self.coefficients[0] + self.coefficients[1] * self.average_temperature + self.coefficients[2] * self.relative_humidity + \
-                    self.coefficients[3] * self.average_temperature  * self.relative_humidity + self.coefficients[4] * self.average_temperature **2 + \
-                    self.coefficients[5] * self.relative_humidity**2 + self.coefficients[6] * self.average_temperature **2 * self.relative_humidity + \
-                    self.coefficients[7] * self.average_temperature  * self.relative_humidity**2 + self.coefficients[8] * self.average_temperature **2 * self.relative_humidity**2
-        print("FEELS LIKE TEMPERATURE CALCULATED")
+    def fetch_profiles(self):
+        selected_profile = self.profile_combobox.get()
+        if selected_profile:
+            connection = sqlite3.connect("profiles.db")
+            cursor = connection.cursor()
 
-    def updateTemperature(self):
-        self.getAverageTemperature()
-        self.getAverageHumidity()
-        self.getFeelsLikeTemperature()
-        self.temperature_label.config(text=f"Temperature: {self.feels_like_temperature}°F")
+            cursor.execute("SELECT * FROM profiles WHERE name=?", (selected_profile,))
+            profile_data = cursor.fetchone()
 
-        self.after(1, self.updateTemperature)
+            connection.close()
 
-        # sending shit to db
-    current_profile_data = self.getCurrentProfileData()
-    change_in_thermostat_data = self.getChangeInThermostatData()
+            if profile_data:
+                print(f"Fetched Profile: {profile_data}")
+            else:
+                print(f"Profile not found: {selected_profile}")
+        else:
+            print("Select a profile first.")
 
-    self.client.sendReadFlag(self.client)
+    def save_changes(self):
+        selected_profile = self.profile_combobox.get()
+        if selected_profile:
+            print(f"Changes saved for {selected_profile}")
+        else:
+            print("Select a profile first.")
 
-    if current_profile_data != "nothing" and change_in_thermostat_data != "nothing":
-        query = f"INSERT INTO Gui (current_profile, change_in_thermostat) VALUES ({current_profile_data}, {change_in_thermostat_data})"
-        self.client.sendData(query)
-    # I DONT UNDERSTAND
-    
+    def update_temperature(self):
+        #self.get_average_temperature()
+        #self.get_average_humidity()
+        #self.get_feels_like_temperature()
+        self.after(1000, self.update_temperature)
 
 if __name__ == '__main__':
     client = Client()
