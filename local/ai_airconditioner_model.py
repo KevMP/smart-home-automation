@@ -86,6 +86,7 @@ class AirconditionerModel(Model):
 
 def main():
     temperature_model = AirconditionerModel()
+    print(temperature_model.current_profile)
     client = Client()
     client.connectToServer()
     while True:
@@ -93,7 +94,7 @@ def main():
         client.sendReadFlag(client)
         client.sendData(temperature_model.getCurrentProfileFromGui())
         current_profile = client.getData()
-        if current_profile != "None":
+        if current_profile != "[]":
             temperature_model.current_profile = current_profile
         
         ## Gets the profiles maximum preferred temperature
@@ -103,25 +104,25 @@ def main():
         ## we need to convert it to a tuple using the eval function, and then
         ## select the first index where our temperature is being stored.
         tuple_maximum_temperature = eval(client.getData())
-        temperature_model.profile_maximum_temp = tuple_maximum_temperature[0]
+        temperature_model.profile_maximum_temp = tuple_maximum_temperature[0][0]
 
         ## Gets the minimum preferred temperature
         client.sendReadFlag(client)
         client.sendData(temperature_model.getProfileMinimumPreferredTemperature())
         tuple_minimum_temperature = eval(client.getData())
-        temperature_model.profile_minimum_temp = tuple_minimum_temperature[0]
+        temperature_model.profile_minimum_temp = tuple_minimum_temperature[0][0]
         
         ## Gets the average temperature
         client.sendReadFlag(client)
         client.sendData(temperature_model.getAverageTemperature())
         tuple_average_temperature = eval(client.getData())
-        temperature_model.average_temperature = tuple_average_temperature[0]
+        temperature_model.average_temperature = tuple_average_temperature[0][0]
         
         ## Gets the average humidity
         client.sendReadFlag(client)
         client.sendData(temperature_model.getAverageHumidity())
         tuple_average_humidity = eval(client.getData())
-        temperature_model.average_humidity = tuple_average_humidity[0]
+        temperature_model.average_humidity = tuple_average_humidity[0][0]
         
         ## Writes the command to the database
         client.sendWriteFlag(client)
