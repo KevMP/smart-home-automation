@@ -11,7 +11,7 @@ def database_airconditioner_scanner():
         print("READING DATA")
         client.sendData(airconditioner_object.getCommandFromModel())
         command = eval(client.getData())
-        command = command[0]
+        command = command[0][0]
         
         client.sendWriteFlag(client)
         print("SENDING DATA")
