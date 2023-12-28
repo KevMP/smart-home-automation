@@ -112,9 +112,8 @@ an example of this process,
     client.connectToServer()
 
     while True:
-        client.waitForContinueFlag(client) ## This function needs to be called first before we send a read/write flag.
         client.sendReadFlag(client)
-
+        client.sendData("SQL QUERY")
         data = eval(client.getData()) ## The eval flag allows us to convert a string into a datastructure,
         ## client does stuff here     ## an example being a string tuple structure '(,)'
 
