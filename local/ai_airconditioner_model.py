@@ -94,7 +94,7 @@ def main():
         client.sendReadFlag(client)
         client.sendData(temperature_model.getCurrentProfileFromGui())
         current_profile = client.getData()
-        if current_profile != "[]":
+        if current_profile != "[]": ## This is because the SQLite3 database is giving us a list.
             temperature_model.current_profile = current_profile
         
         ## Gets the profiles maximum preferred temperature
