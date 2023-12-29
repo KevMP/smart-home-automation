@@ -21,11 +21,12 @@ class Client:
     def waitForServerContinueFlag(self, client):
         client_data = self.getData()
         while client_data != "CONTINUE":
-            client_data = self.client.getData()
+            client_data = self.getData()
         print("CONTINUE CAPTURED")
 
     def getData(self):
         return self.client.recv(1024).decode('utf-8')
+
     def sendData(self, data):
         self.client.sendall(data.encode('utf-8'))
     def sendWriteFlag(self, client):
