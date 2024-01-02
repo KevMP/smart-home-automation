@@ -2,31 +2,27 @@ from class_network_server import *
 from database_root import *
 import time
 
-def main():
-    AMOUNT_OF_CLIENTS = 6
+def acceptClients(AMOUNT_OF_CLIENTS=1, server=None):
+    client_counter = 0
+    connected_clients = []
+    server.listenForConnection(AMOUNT_OF_CLIENTS)
 
+    for connected_client in range(AMOUNT_OF_CLIENTS):
+        print(f"Clients connected {client_counter}/{AMOUNT_OF_CLIENTS}")
+        client, client_address = server.acceptClient()
+        connected_clients.append(client)
+
+        client_counter += 1
+    print("ALL CLIENTS ACCEPTED, STARTING MAIN LOOP")
+    time.sleep(1)
+    return connected_clients
+
+def main():
     database = Database()
 
     server = Server()
     server.bindServer()
-    server.listenForConnection(AMOUNT_OF_CLIENTS)
-    """
-    Our server waits for every available client to connect,
-    to add more clients, simply change the constant value of
-    the AMOUNT_OF_CLIENTS.
-
-    This is so that we can use a round-robin algorithm to
-    allow for each client to send/receive data in a sequential
-    format.
-    """
-    connected_clients = []
-    connected_client_counter = 0
-    for connected_client in range(AMOUNT_OF_CLIENTS):
-        print(f"Clients connected {connected_client_counter}/{AMOUNT_OF_CLIENTS}")
-        client, client_address = server.acceptClient()
-        connected_clients.append(client)
-        
-        connected_client_counter += 1
+    connected_clients = acceptClients(1, server)
     """
     To prevent data overflow from drowning our socket,
     we are sending each client a "CONTINUE" signal that
