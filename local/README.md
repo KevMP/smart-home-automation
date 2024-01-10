@@ -34,32 +34,47 @@ def main():
 ```
 
 # Database Schema
+<details><summary>SHOW IMAGE SCHEMA</summary>
+
 ![database](https://github.com/KevMP/smart-home-automation/assets/100045145/46788cd0-9f58-401e-a2ac-2d669e2e6a58)
 
+</details>
+
 ## Database Schema (written)
-Profile
-* name
-* min_temp
-* max_temp
+<details><summary>SHOW WRITTEN SCHEMA</summary>
 
-Sensor
-* id
-* timestamp
+```
+"Profile" Table
 
-Gui
-* timestamp
-* current_profile
-* change_in_thermostat
+| name  | min_temp | max_temp |
+===============================
+| "bob" | 73       | 75       |
 
-Airconditioner
-* id
-* timestamp
-* command
+"Sensor" Table
 
-TemperatureModel
-* timestamp
-* airconditioner_command
+| id | timestamp | temperature | humidity |
+===========================================
+| 0 | 12:00:44   | 75          | 40       |
 
+"Gui" Table
+
+| timestamp | current_profile | change_in_thermostat |
+======================================================
+| 12:00:44  | "bob"           | "increase"           |
+
+"Airconditioner" Table
+| id | timestamp | command    |
+===============================
+| 0  | 12:00:44  | "increase" |
+
+"TemperatureModel" Table
+| timestamp | airconditioner_command |
+======================================
+| 12:00:44  | "increase"             |
+
+```
+
+</details>
 # Database Backup
 * This file "database_backup.py" will backup our database every hour each day, it will have to be run as its own process on the same machine that the database will be stored.
 
@@ -70,10 +85,6 @@ TemperatureModel
 ![smart-home-network](https://github.com/KevMP/smart-home-automation/assets/100045145/9f96d366-54b0-42b4-aff5-ccb2a754330b)
 
 </details>
-
-clients need to connect to the same ip and port number as the main database server.
-and the amount of clients that the server will receive will also have to be configured intitially.
-
 
 # Ai
 * The ai will receive various pieces of information such as the current profile preferences that is informed by the Gui, and the profile data inside our profile table.
