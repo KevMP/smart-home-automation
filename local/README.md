@@ -55,6 +55,25 @@ def main():
 
 </details>
 
+## Setup : Working with the Airconditioner
+Just like the previous step, we need to make sure that the ```database_client_handler.py``` is configured to secure a connection for our airconditioner.
+
+The ```database_airconditioner_scanner.py``` sole purpose is to check what command the Ai is outputting, note that this step can be completely bypassed and instead we could just read from the Ai Table (Would be faster this way and reduce the cycles that our Client Handler would have to move through).
+
+But for the sake of clarification, there is a seperate table that can be used to read the commands dedicated to run our airconditioner hardware.
+
+Note that configuring the IPv4 and the PORT number is still required to connect to the Client Handler.
+
+<details><summary>SHOW WHERE TO CONFIGURE</summary>
+
+```
+def database_airconditioner_scanner():
+    airconditioner_object = Airconditioner(0)
+    client = Client() ## Configure the IPv4 address and PORT number to the Client Handler.
+    client.connectToServer()
+```
+
+</details>
 
 # Database : SQL
 ## Database : Schema (written)

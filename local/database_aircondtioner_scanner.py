@@ -3,7 +3,7 @@ from class_network_client import *
 
 def database_airconditioner_scanner():
     airconditioner_object = Airconditioner(0)
-    client = Client()
+    client = Client() ## Configure the IPv4 address and PORT number to the Client Handler.
     client.connectToServer()
 
     while True:
