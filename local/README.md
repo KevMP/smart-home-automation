@@ -33,6 +33,29 @@ def main():
     client = Client("128.0.4.1", 5000) ## Note that 128.0.4.1 is just an example IPv4 address, we'd need to figure out exactly what address the client handler will be running on, same deal with the port number.
 
 ```
+
+## Setup : Running the Ai Model
+Just like the previous step, we need to make sure that the ```database_client_handler.py``` is configured to secure a connection for our model.
+
+After that step is done, we need to configure the ```ai_airconditioner_model.py``` client code.
+
+<details><summary>SHOW CONFIGURATION</summary>
+
+```
+ai_airconditioner_model.py
+
+def main():
+    temperature_model = AirconditionerModel()
+    print(temperature_model.current_profile)
+    client = Client() ## <-- Include the IPv4 and PORT number inside the class declaration Client()
+    client.connectToServer()
+```
+
+Our Client() object call needs to have the IPv4 address and the PORT number that our ```database_client_handler.py``` is using.
+
+</details>
+
+
 # Database : SQL
 ## Database : Schema (written)
 <details><summary>SHOW WRITTEN SCHEMA</summary>
