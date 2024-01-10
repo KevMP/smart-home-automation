@@ -1,3 +1,10 @@
+# Introduction : Why this way
+This program is meant to serve as separated processes, which we will call clients, all being controlled by one central process, which we will call the client handler.
+
+As the name suggests it will be handling which clients read/write data to the database. Due to some constraints from the SQLite3 library, only one connection can be made at a time to the Database, so to get around this blocker for parallel reading/writing from multiple computers/clients, the Client Handler was made.
+
+The Client Handler doesn't allow for parallel computing, it's still one connection, what it does do however is allow for a Round Robin algorithm to go through each client, ask them whether they want to read/write, and give them back that information. This configuration allows us to add more and more computers, expanding horizontally.
+
 # Setup : How to run
 ## Setup : Configuring the Client Handler
 Depending on the amount of clients you may want to modify the clients that are accepted in the ```database_client_handler.py``` file. 
