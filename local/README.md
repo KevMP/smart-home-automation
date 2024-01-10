@@ -68,6 +68,7 @@ def main():
 ```
 
 </details>
+
 # Database Backup
 * This file "database_backup.py" will backup our database every hour each day, it will have to be run as its own process on the same machine that the database will be stored.
 
