@@ -13,7 +13,7 @@ def main():
     connected_clients = acceptClients(1, server) ## Modify the first argument to add more clients.
 
 ```
-After configuring the client handler we can start the file, tart the ```database_client_handler.py```
+After configuring the client handler we can start the file, start the ```database_client_handler.py```
 
 ## Running the Sensor clients
 Once the ```sensor_client.py``` is configured to their own sensor hardware, 
