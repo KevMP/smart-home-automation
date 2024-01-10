@@ -3,8 +3,6 @@ This program is meant to serve as separated processes, which we will call client
 
 As the name suggests it will be handling which clients read/write data to the database. Due to some constraints from the SQLite3 library, only one connection can be made at a time to the Database, so to get around this blocker for parallel reading/writing from multiple computers/clients, the Client Handler was made.
 
-The Client Handler doesn't allow for parallel computing, it's still one connection, what it does do however is allow for a Round Robin algorithm to go through each client, ask them whether they want to read/write, and give them back that information. This configuration allows us to add more and more computers, expanding horizontally.
-
 # Setup : How to run
 ## Setup : Configuring the Client Handler
 Depending on the amount of clients you may want to modify the clients that are accepted in the ```database_client_handler.py``` file. 
@@ -27,6 +25,12 @@ After configuring the client handler we can start the file, start the ```databas
 
 ![database network](https://github.com/KevMP/smart-home-automation/assets/100045145/5d55062b-8aab-47e7-b180-b555de59a255)
 ![smart-home-network](https://github.com/KevMP/smart-home-automation/assets/100045145/9f96d366-54b0-42b4-aff5-ccb2a754330b)
+
+</details>
+
+<details><summary>HOW THE CLIENT HANDLER WORKS</summary>
+
+The Client Handler doesn't allow for parallel computing, it's still one connection to the Database, what it does do however is allow for a Round Robin algorithm to go through each client, ask them whether they want to read/write, and either give them back that information(read) or write information to a table(write). This configuration allows us to add more and more computers, expanding horizontally infinitely.
 
 </details>
 
