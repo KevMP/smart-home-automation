@@ -2,7 +2,7 @@
 ## Setup : Configuring the Client Handler
 Depending on the amount of clients you may want to modify the clients that are accepted in the ```database_client_handler.py``` file. 
 
-Additionally, modifying the IPv4 and the PORT number to the local LAN must be configured to accept clients.
+Additionally, modifying the IPv4 and the PORT number to the LAN must be configured to accept clients.
 ```
 database_client_handler.py file
 
