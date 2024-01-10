@@ -16,6 +16,13 @@ def main():
 ```
 After configuring the client handler we can start the file, start the ```database_client_handler.py```
 
+<details><summary>SHOW DIAGRAM</summary>
+
+![database network](https://github.com/KevMP/smart-home-automation/assets/100045145/5d55062b-8aab-47e7-b180-b555de59a255)
+![smart-home-network](https://github.com/KevMP/smart-home-automation/assets/100045145/9f96d366-54b0-42b4-aff5-ccb2a754330b)
+
+</details>
+
 ## Setup : Running the Sensor clients
 Once the ```sensor_client.py``` is configured to their own sensor hardware, 
 we can run each file on their after first starting up the client handler.
@@ -114,14 +121,6 @@ def database_airconditioner_scanner():
 
 ## Database : Automatic Backups
 * This file ```database_backup.py``` will backup our database every hour each day, it will have to be run as its own process on the same machine that the database will be stored.
-
-# Client Server Network Diagram
-<details><summary>SHOW DIAGRAM</summary>
-
-![database network](https://github.com/KevMP/smart-home-automation/assets/100045145/5d55062b-8aab-47e7-b180-b555de59a255)
-![smart-home-network](https://github.com/KevMP/smart-home-automation/assets/100045145/9f96d366-54b0-42b4-aff5-ccb2a754330b)
-
-</details>
 
 # Ai
 * The ai will receive various pieces of information such as the current profile preferences that is informed by the Gui, and the profile data inside our profile table.
