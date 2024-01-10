@@ -122,7 +122,7 @@ def database_airconditioner_scanner():
 ## Database : Automatic Backups
 * This file ```database_backup.py``` will backup our database every hour each day, it will have to be run as its own process on the same machine that the database will be stored.
 
-# Ai
+# Artificial Intelligence : About
 * The ai will receive various pieces of information such as the current profile preferences that is informed by the Gui, and the profile data inside our profile table.
 * Additionally we're also getting the temperature and humidity data so that we can calculate the "Feels Like" temperature.
 * The feels like temperature will be used to dictate whether or not our model is making the correct decisions and will be punished or rewarded accordingly.
