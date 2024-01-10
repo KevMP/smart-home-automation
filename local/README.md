@@ -1,5 +1,4 @@
 # Setup : How to run
-
 ## Setup : Configuring the Client Handler
 Depending on the amount of clients you may want to modify the clients that are accepted in the ```database_client_handler.py``` file. 
 
@@ -34,8 +33,8 @@ def main():
     client = Client("128.0.4.1", 5000) ## Note that 128.0.4.1 is just an example IPv4 address, we'd need to figure out exactly what address the client handler will be running on, same deal with the port number.
 
 ```
-
-## Database Schema (written)
+# Database : SQL
+## Database : Schema (written)
 <details><summary>SHOW WRITTEN SCHEMA</summary>
 
 ```
@@ -71,8 +70,8 @@ def main():
 
 </details>
 
-# Database Backup
-* This file "database_backup.py" will backup our database every hour each day, it will have to be run as its own process on the same machine that the database will be stored.
+## Database : Automatic Backups
+* This file ```database_backup.py``` will backup our database every hour each day, it will have to be run as its own process on the same machine that the database will be stored.
 
 # Client Server Network Diagram
 <details><summary>SHOW DIAGRAM</summary>
