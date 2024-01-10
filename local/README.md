@@ -39,7 +39,9 @@ Just like the previous step, we need to make sure that the ```database_client_ha
 
 After that step is done, we need to configure the ```ai_airconditioner_model.py``` client code.
 
-<details><summary>SHOW CONFIGURATION</summary>
+Our Client() object call needs to have the IPv4 address and the PORT number that our ```database_client_handler.py``` is using.
+
+<details><summary>SHOW WHERE TO CONFIGURE</summary>
 
 ```
 ai_airconditioner_model.py
@@ -50,8 +52,6 @@ def main():
     client = Client() ## Configure the IPv4 address and PORT number to the Client Handler.
     client.connectToServer()
 ```
-
-Our Client() object call needs to have the IPv4 address and the PORT number that our ```database_client_handler.py``` is using.
 
 </details>
 
