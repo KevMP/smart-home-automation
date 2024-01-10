@@ -1,13 +1,14 @@
-# How to run
-Depending on the amount of clients you may want to modify the clients that are accepted in the ```database_client_handler.py`` file.
+# Setup : How to run
+Depending on the amount of clients you may want to modify the clients that are accepted in the ```database_client_handler.py`` file. 
 
+Additionally, modifying the IPv4 and the PORT number to the local LAN must be configured to accept clients.
 ```
 database_client_handler.py file
 
 def main():
     database = Database()
 
-    server = Server()
+    server = Server("128.0.0.1", 5000)           ## Modify the IPv4 and PORT number to the local LAN address of the machine.
     server.bindServer()
     connected_clients = acceptClients(1, server) ## Modify the first argument to add more clients.
 
@@ -15,7 +16,22 @@ def main():
 After configuring the client handler we can start the file, tart the ```database_client_handler.py```
 
 ## Running the Sensor clients
-Once the ```sensor_client.py``` is configured to their own sensor hardware, we can run each file on their after first starting up the client handler.
+Once the ```sensor_client.py``` is configured to their own sensor hardware, 
+we can run each file on their after first starting up the client handler.
+
+Note that our current default values are configured to run on the same local machine, 
+to configure the client to connect to the respective ip/port addresses of the client_handler, 
+we'd need to declare the network client object with those arguments (IPv4 address followed by the PORT number).
+
+```
+sensor_client.py
+
+def main():
+    sensor = Sensor(0)
+
+    client = Client("128.0.4.1", 5000) ## Note that 128.0.4.1 is just an example IPv4 address, we'd need to figure out exactly what address the client handler will be running on, same deal with the port number.
+
+```
 
 # Database Schema
 ![database](https://github.com/KevMP/smart-home-automation/assets/100045145/46788cd0-9f58-401e-a2ac-2d669e2e6a58)
