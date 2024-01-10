@@ -33,13 +33,6 @@ def main():
 
 ```
 
-# Database Schema
-<details><summary>SHOW IMAGE SCHEMA</summary>
-
-![database](https://github.com/KevMP/smart-home-automation/assets/100045145/46788cd0-9f58-401e-a2ac-2d669e2e6a58)
-
-</details>
-
 ## Database Schema (written)
 <details><summary>SHOW WRITTEN SCHEMA</summary>
 
