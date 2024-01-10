@@ -7,7 +7,7 @@ def getSensorData():
 def main():
     sensor = Sensor(0)
 
-    client = Client()
+    client = Client() ## Configure the IPv4 address and PORT number to the Client Handler.
     client.connectToServer()
     while True:
         client.sendWriteFlag(client)
