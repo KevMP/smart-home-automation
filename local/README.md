@@ -1,3 +1,22 @@
+# How to run
+Depending on the amount of clients you may want to modify the clients that are accepted in the ```database_client_handler.py`` file.
+
+```
+database_client_handler.py file
+
+def main():
+    database = Database()
+
+    server = Server()
+    server.bindServer()
+    connected_clients = acceptClients(1, server) ## Modify the first argument to add more clients.
+
+```
+After configuring the client handler we can start the file, tart the ```database_client_handler.py```
+
+## Running the Sensor clients
+Once the ```sensor_client.py``` is configured to their own sensor hardware, we can run each file on their after first starting up the client handler.
+
 # Database Schema
 ![database](https://github.com/KevMP/smart-home-automation/assets/100045145/46788cd0-9f58-401e-a2ac-2d669e2e6a58)
 
