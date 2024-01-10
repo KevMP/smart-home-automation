@@ -27,7 +27,7 @@ we'd need to declare the network client object with those arguments (IPv4 addres
 sensor_client.py
 
 def main():
-    sensor = Sensor(0)
+    sensor = Sensor(0)                 ## The 0 is the identifier of the hardware sensor, must be configured to the different sensors we are collecting data from.
 
     client = Client("128.0.4.1", 5000) ## Note that 128.0.4.1 is just an example IPv4 address, we'd need to figure out exactly what address the client handler will be running on, same deal with the port number.
 
