@@ -47,7 +47,7 @@ ai_airconditioner_model.py
 def main():
     temperature_model = AirconditionerModel()
     print(temperature_model.current_profile)
-    client = Client() ## <-- Include the IPv4 and PORT number inside the class declaration Client()
+    client = Client() ## Configure the IPv4 address and PORT number to the Client Handler.
     client.connectToServer()
 ```
 
