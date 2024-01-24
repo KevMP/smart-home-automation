@@ -4,9 +4,12 @@ import Adafruit_DHT
 
 
 def getSensorData(DHT_SENSOR, DHT_PIN: int):
-    humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
-    if humidity is not None and temperature is not None:
-        return humidity, temperature
+    humidity = None
+    temperature = None
+
+    while humidity is None or temperature is None:
+        humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
+    return humidity, temperature
 
 def main():
     DHT_SENSOR = Adafruit_DHT.DHT11
