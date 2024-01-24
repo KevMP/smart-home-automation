@@ -35,6 +35,17 @@ The Client Handler doesn't allow for parallel computing, it's still one connecti
 </details>
 
 ## Setup : Running the Sensor clients
+
+<details><summary>DEPENDENCIES</summary>
+
+The Adafruit_DHT library is required for getting our sensor data, therefore run the following command.
+```pip3 install Adafruit_DHT```
+
+it can be imported as,
+```import Adafruit_DHT```
+
+</details>
+
 Once the ```sensor_client.py``` is configured to their own sensor hardware, 
 we can run each file on their after first starting up the client handler.
 
