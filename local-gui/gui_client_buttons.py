@@ -6,8 +6,8 @@ from class_network_client import *
 class ThermostatButton(tk.Tk):
     def __init__(self, client):
         super().__init__()
-        self.INCREASE_TEMPERATURE_BUTTON = 21 ## GPIO Pin number.
-        self.DECREASE_TEMPERATURE_BUTTON = 28 ## GPIO Pin number.
+        self.INCREASE_TEMPERATURE_BUTTON = Button(21) ## GPIO Pin number.
+        self.DECREASE_TEMPERATURE_BUTTON = Button(28) ## GPIO Pin number.
         self.DEFAULT_PROFILE = "default"
         
         self.title("Smart AI Thermostat")
@@ -68,6 +68,6 @@ class ThermostatButton(tk.Tk):
 if __name__ == '__main__':
     client = Client()
     client.connectToServer()
-    
+
     thermostat_buttons = ThermostatButton(client)
     thermostat_buttons.mainloop()
