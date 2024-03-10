@@ -48,21 +48,21 @@ class ThermostatButton(tk.Tk):
         ## Sends the database the change in temperature to use.
         if (self.increase_temperature_active == True):
             self.client.sendWriteFlag()
-            self.data = self.client.writeQuery("increase")
+            self.data = self.writeQuery("increase")
             self.client.sendData(self.data)
             
             ## Resets the temperature increase.
             self.increase_temperature_active = False
         elif (self.decrease_temperature_active == True):
             self.client.sendWriteFlag()
-            self.data = self.client.writeQuery("decrease")
+            self.data = self.writeQuery("decrease")
             self.client.sendData(self.data)
 
             ## Resets the temperature decrease.
             self.decrease_temperature_active = False
         else:
             self.client.sendWriteFlag()
-            self.data = self.client.writeQuery("no change")
+            self.data = self.writeQuery("no change")
             self.client.sendData(self.data)
 
 if __name__ == '__main__':
