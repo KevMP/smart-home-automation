@@ -6,7 +6,9 @@ from class_network_client import *
 class SmartThermostatApp(tk.Tk):
     def __init__(self, client):
         super().__init__()
-
+        self.INCREASE_TEMPERATURE_BUTTON = 21 ## GPIO Pin number.
+        self.DECREASE_TEMPERATURE_BUTTON = 28 ## GPIO Pin number.
+        
         self.title("Smart AI Thermostat")
         self.geometry("300x100")
 
