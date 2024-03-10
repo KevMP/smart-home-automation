@@ -3,7 +3,7 @@ from tkinter import ttk
 from gpiozero import Button
 from class_network_client import *
 
-class SmartThermostatApp(tk.Tk):
+class ThermostatButton(tk.Tk):
     def __init__(self, client):
         super().__init__()
         self.INCREASE_TEMPERATURE_BUTTON = 21 ## GPIO Pin number.
@@ -15,23 +15,28 @@ class SmartThermostatApp(tk.Tk):
 
         self.increase_temperature_active = False
         self.decrease_temperature_active = False
+        self.button_action = ""
         
         self.temperature_label = ttk.Label(self, text=f"AGENT_COMMAND: {self.button_action}", font=("Arial", 14))
         self.temperature_label.pack(pady=10)
 
         self.client = client
+        self.sendQueryToDatabase()
 
     def detectButtonCommands(self):
         if self.INCREASE_TEMPERATURE_BUTTON.is_pressed:
             print("INCREASE BUTTON HAS BEEN PRESSED")
             self.increase_temperature_active = True
+            self.button_action = "increasing"
 
         elif self.DECREASE_TEMPERATURE_BUTTON.is_pressed:
             print("DECREASE BUTTON HAS BEEN PRESSED")
             self.decrease_temperature_active = True
+            self.button_action = "decreasing"
 
         else:
             print("NO ACTION DETECTED")
+            self.button_action = "no action detected"
     
     def writeQuery(self, temperature_change):
         self.insert_query = f"INSERT INTO Gui (current_profile, change_in_thermostat) VALUES ({self.DEFAULT_PROFILE}, {temperature_change});"
@@ -63,6 +68,6 @@ class SmartThermostatApp(tk.Tk):
 if __name__ == '__main__':
     client = Client()
     client.connectToServer()
-
-    app = SmartThermostatApp(client)
-    app.mainloop()
+    
+    thermostat_buttons = ThermostatButton(client)
+    thermostat_buttons.mainloop()
