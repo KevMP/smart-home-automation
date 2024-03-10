@@ -29,10 +29,13 @@ class SmartThermostatApp(tk.Tk):
         elif self.DECREASE_TEMPERATURE_BUTTON.is_pressed:
             print("DECREASE BUTTON HAS BEEN PRESSED")
             self.decrease_temperature_active = True
-            
+
         else:
             print("NO ACTION DETECTED")
     
+    def writeQuery(self, temperature_change):
+        self.insert_query = f"INSERT INTO Gui (current_profile, change_in_thermostat) VALUES ({self.DEFAULT_PROFILE}, {temperature_change});"
+        return self.insert_query
 
 
 if __name__ == '__main__':
