@@ -39,7 +39,7 @@ class SmartThermostatApp(tk.Tk):
 
     def sendQueryToDatabase(self):
         print("DETECTING CHANGE IN BUTTON COMMAND")
-        self.getButtonAction()
+        self.detectButtonCommands()
         ## Sends the database the change in temperature to use.
         if (self.increase_temperature_active == True):
             self.client.sendWriteFlag()
