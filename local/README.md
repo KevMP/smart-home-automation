@@ -110,19 +110,16 @@ def database_airconditioner_scanner():
 
 ```
 "Profile" Table
-
 | name  | min_temp | max_temp |
 ===============================
 | "bob" | 73       | 75       |
 
 "Sensor" Table
-
 | id | timestamp | temperature | humidity |
 ===========================================
 | 0 | 12:00:44   | 75          | 40       |
 
 "Gui" Table
-
 | timestamp | current_profile | change_in_thermostat |
 ======================================================
 | 12:00:44  | "bob"           | "increase"           |
