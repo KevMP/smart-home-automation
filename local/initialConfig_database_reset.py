@@ -10,13 +10,13 @@ it in the documentation.txt and the README.md
 def deleteDatabase():
     print("REMOVING FILE")
     time.sleep(2)
-    os.remove("local/database.db")
+    os.remove("database.db")
     print("FILE REMOVED")
     
 def createDatabase():
     print("CREATING DATABASE")
     time.sleep(1)
-    file = open("local/database.db", 'w')
+    file = open("database.db", 'w')
     file.close()
     print("DATABASE CREATED")
 
