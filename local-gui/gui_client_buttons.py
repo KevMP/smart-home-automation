@@ -12,7 +12,8 @@ class SmartThermostatApp(tk.Tk):
         self.title("Smart AI Thermostat")
         self.geometry("300x100")
 
-        self.button_action = None
+        self.increase_temperature_active = False
+        self.decrease_temperature_active = False
 
         self.temperature_label = ttk.Label(self, text=f"AGENT_COMMAND: {self.button_action}", font=("Arial", 14))
         self.temperature_label.pack(pady=10)
