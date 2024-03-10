@@ -17,8 +17,8 @@ class ThermostatButton(tk.Tk):
         self.decrease_temperature_active = False
         self.button_action = ""
         
-        self.temperature_label = ttk.Label(self, text=f"AGENT_COMMAND: {self.button_action}", font=("Arial", 14))
-        self.temperature_label.pack(pady=10)
+        self.agent_command = ttk.Label(self, text=f"AGENT_COMMAND: {self.button_action}", font=("Arial", 14))
+        self.agent_command.pack(pady=10)
 
         self.client = client
         self.sendQueryToDatabase()
@@ -37,6 +37,9 @@ class ThermostatButton(tk.Tk):
         else:
             print("NO ACTION DETECTED")
             self.button_action = "no action detected"
+        
+        self.agent_command.config(text=f"AGENT_COMMAND: {self.button_action}")
+
     
     def writeQuery(self, temperature_change):
         self.insert_query = f"INSERT INTO Gui (current_profile, change_in_thermostat) VALUES ('{self.DEFAULT_PROFILE}', '{temperature_change}');"
@@ -47,21 +50,21 @@ class ThermostatButton(tk.Tk):
         self.detectButtonCommands()
         ## Sends the database the change in temperature to use.
         if (self.increase_temperature_active == True):
-            self.client.sendWriteFlag()
+            self.client.sendWriteFlag(self.client)
             self.data = self.writeQuery("increase")
             self.client.sendData(self.data)
             
             ## Resets the temperature increase.
             self.increase_temperature_active = False
         elif (self.decrease_temperature_active == True):
-            self.client.sendWriteFlag()
+            self.client.sendWriteFlag(self.client)
             self.data = self.writeQuery("decrease")
             self.client.sendData(self.data)
 
             ## Resets the temperature decrease.
             self.decrease_temperature_active = False
         else:
-            self.client.sendWriteFlag()
+            self.client.sendWriteFlag(self.client)
             self.data = self.writeQuery("no change")
             self.client.sendData(self.data)
 
