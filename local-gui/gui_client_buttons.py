@@ -39,7 +39,7 @@ class ThermostatButton(tk.Tk):
             self.button_action = "no action detected"
     
     def writeQuery(self, temperature_change):
-        self.insert_query = f"INSERT INTO Gui (current_profile, change_in_thermostat) VALUES ({self.DEFAULT_PROFILE}, {temperature_change});"
+        self.insert_query = f"INSERT INTO Gui (current_profile, change_in_thermostat) VALUES ('{self.DEFAULT_PROFILE}', '{temperature_change}');"
         return self.insert_query
 
     def sendQueryToDatabase(self):
