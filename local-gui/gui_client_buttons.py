@@ -37,6 +37,28 @@ class SmartThermostatApp(tk.Tk):
         self.insert_query = f"INSERT INTO Gui (current_profile, change_in_thermostat) VALUES ({self.DEFAULT_PROFILE}, {temperature_change});"
         return self.insert_query
 
+    def sendQueryToDatabase(self):
+        print("DETECTING CHANGE IN BUTTON COMMAND")
+        self.getButtonAction()
+        ## Sends the database the change in temperature to use.
+        if (self.increase_temperature_active == True):
+            self.client.sendWriteFlag()
+            self.data = self.client.writeQuery("increase")
+            self.client.sendData(self.data)
+            
+            ## Resets the temperature increase.
+            self.increase_temperature_active = False
+        elif (self.decrease_temperature_active == True):
+            self.client.sendWriteFlag()
+            self.data = self.client.writeQuery("decrease")
+            self.client.sendData(self.data)
+
+            ## Resets the temperature decrease.
+            self.decrease_temperature_active = False
+        else:
+            self.client.sendWriteFlag()
+            self.data = self.client.writeQuery("no change")
+            self.client.sendData(self.data)
 
 if __name__ == '__main__':
     client = Client()
