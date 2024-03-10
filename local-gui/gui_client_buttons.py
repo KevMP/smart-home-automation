@@ -66,6 +66,7 @@ class ThermostatButton(tk.Tk):
             self.client.sendData(self.data)
 
 if __name__ == '__main__':
+    ## Configure with custom ip/port number for the Client() object.
     client = Client()
     client.connectToServer()
 
