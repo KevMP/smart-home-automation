@@ -19,7 +19,7 @@ class AirconditionerModel(Model):
         self.profile_maximum_temp = 70
 
     def getCurrentProfileFromGui(self):
-        return "SELECT current_profile FROM Gui ORDER BY timestamp DESC;"
+        return "SELECT current_profile FROM Gui ORDER BY timestamp LIMIT 1;"
     def getProfileMaximumPreferredTemperature(self):
         return f"SELECT max_temp FROM Profile WHERE name = '{self.current_profile}';"
     def getProfileMinimumPreferredTemperature(self):
@@ -94,8 +94,10 @@ def main():
         client.sendReadFlag(client)
         client.sendData(temperature_model.getCurrentProfileFromGui())
         current_profile = client.getData()
-        if current_profile != "[]": ## This is because the SQLite3 database is giving us a list.
-            temperature_model.current_profile = current_profile
+        ## We parse the data we're getting into a string.
+        current_profile = eval(current_profile)
+        current_profile = current_profile[0][0]
+        print(current_profile)
         
         ## Gets the profiles maximum preferred temperature
         client.sendReadFlag(client)
@@ -104,6 +106,7 @@ def main():
         ## we need to convert it to a tuple using the eval function, and then
         ## select the first index where our temperature is being stored.
         tuple_maximum_temperature = eval(client.getData())
+        print(tuple_maximum_temperature, "DATA DEBUGGING")
         temperature_model.profile_maximum_temp = tuple_maximum_temperature[0][0]
 
         ## Gets the minimum preferred temperature

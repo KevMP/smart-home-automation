@@ -24,7 +24,7 @@ def fakeGuiData():
         return
 
     gui_data = [
-        {"current_profile": "bob", "change_in_thermostat": "increase"},
+        {"current_profile": "default", "change_in_thermostat": "increase"},
         # Add more entries as needed
     ]
 
