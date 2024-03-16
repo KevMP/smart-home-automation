@@ -63,7 +63,7 @@ class ThermostatButton(tk.Tk):
         self.data = self.writeQuery(self.temperature_change)
         client.sendData(self.data)
         
-        self.after(10, self.sendQueryToDatabase)
+        self.after(1, self.sendQueryToDatabase)
 
 if __name__ == '__main__':
     ## Configure with custom ip/port number for the Client() object.
