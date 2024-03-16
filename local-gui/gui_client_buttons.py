@@ -6,8 +6,8 @@ from class_network_client import *
 class ThermostatButton(tk.Tk):
     def __init__(self, client):
         super().__init__()
-        self.INCREASE_TEMPERATURE_BUTTON = Button(26) ## GPIO Pin number.
-        self.DECREASE_TEMPERATURE_BUTTON = Button(16) ## GPIO Pin number.
+        self.INCREASE_TEMPERATURE_BUTTON = Button(6) ## GPIO Pin number.
+        self.DECREASE_TEMPERATURE_BUTTON = Button(5) ## GPIO Pin number.
         self.DEFAULT_PROFILE = "default"
         
         self.title("Smart AI Thermostat")
@@ -53,21 +53,22 @@ class ThermostatButton(tk.Tk):
         
         if (self.increase_temperature_active == True):
             self.temperature_change = "increase"
+            self.increase_temperature_active = False
         elif (self.decrease_temperature_active == True):
             self.temperature_change = "decrease"
+            self.decrease_temperature_active = False
         
         client.sendWriteFlag()
         ## Sends the database the change in temperature to use.
         self.data = self.writeQuery(self.temperature_change)
         client.sendData(self.data)
-
-        self.increase_temperature_active = False
-        self.decrease_temperature_active = False
+        
+        self.after(10, self.sendQueryToDatabase)
 
 if __name__ == '__main__':
     ## Configure with custom ip/port number for the Client() object.
     client = Client()
-    
+
     ## For debugging...
     client.setIp()
     client.setPort()
