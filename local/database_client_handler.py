@@ -33,18 +33,29 @@ def main():
     """
     while True:
         for connected_client in connected_clients:
+            """The following sequence is based on our network client
+               flag structure. i.e.
+
+                def sendWriteFlag(self, client):
+                    self.waitForServerContinueFlag(client)
+                    self.sendData("WRITE")
+                    self.waitForServerContinueFlag(client)
+                def sendReadFlag(self, client):
+                    self.waitForServerContinueFlag(client)
+                    self.sendData("READ")
+                    self.waitForServerContinueFlag(client)
+            """
             server.sendData(connected_client, "CONTINUE")
             client_flag = server.getData(connected_client)
+            server.sendData(connected_client, "CONTINUE")
+
+            client_query = server.getData(connected_client)
             if client_flag == "WRITE":
-                server.sendData(connected_client, "CONTINUE")
-                client_data = server.getData(connected_client)
-                database.writeToDatabase(client_data)
+                database.writeToDatabase(client_query)
             elif client_flag == "READ":
-                server.sendData(connected_client, "CONTINUE")
-                client_data = server.getData(connected_client)
-                database_data = database.getFromDatabase(client_data)
+                database_data = database.getFromDatabase(client_query)
                 server.sendData(connected_client, database_data)
-            client_data = ''
+            client_query = ''
             client_flag = ''
             ## time.sleep(1)
 
