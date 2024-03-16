@@ -6,6 +6,13 @@ class Client:
         self.port = port
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    def setIp(self):
+        print("ENTER IP ADDRESS")
+        self.ip = input(">> ")
+    def setPort(self):
+        print("ENTER PORT ADDRESS")
+        self.port = int(input(">> "))
+
     def connectToServer(self):
         self.client.connect((self.ip, self.port))
     """
@@ -44,5 +51,5 @@ class Client:
         print("Sending read flag...")
         self.sendData("READ")
         print("READ FLAG SENT")
-        
+
         self.waitForServerContinueFlag()
