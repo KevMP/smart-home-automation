@@ -53,7 +53,7 @@ class SmartThermostatApp(tk.Tk):
         self.after(1, self.updateTemperature)
 
 if __name__ == '__main__':
-    client = Client()
+    client = Client("192.168.0.111", 5000)
     client.connectToServer()
 
     app = SmartThermostatApp(client)

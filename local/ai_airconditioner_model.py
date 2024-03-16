@@ -87,7 +87,7 @@ class AirconditionerModel(Model):
 def main():
     temperature_model = AirconditionerModel()
     print(temperature_model.current_profile)
-    client = Client() ## Configure the IPv4 address and PORT number to the Client Handler.
+    client = Client("192.168.0.111", 5000) ## Configure the IPv4 address and PORT number to the Client Handler.
     client.connectToServer()
     while True:
         ## Gets the current profile from the Gui table.

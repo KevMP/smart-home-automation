@@ -20,7 +20,7 @@ def acceptClients(AMOUNT_OF_CLIENTS=1, server=None):
 def main():
     database = Database()
 
-    server = Server()
+    server = Server("192.168.0.111", 5000)
     server.bindServer()
     connected_clients = acceptClients(1, server)
     """
