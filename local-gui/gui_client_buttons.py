@@ -23,6 +23,8 @@ class ThermostatButton(tk.Tk):
         self.sendQueryToDatabase()
 
     def detectButtonCommands(self):
+        print("DETECTING CHANGE IN BUTTONS")
+        
         if self.INCREASE_TEMPERATURE_BUTTON.is_pressed:
             print("INCREASE BUTTON HAS BEEN PRESSED")
             self.increase_temperature_active = True
@@ -34,8 +36,8 @@ class ThermostatButton(tk.Tk):
             self.button_action = "decreasing"
 
         else:
-            print("NO ACTION DETECTED")
-            self.button_action = "no action detected"
+            print("NO CHANGE DETECTED")
+            self.button_action = "no change detected"
         
         self.agent_command.config(text=f"AGENT_COMMAND: {self.button_action}")
 
@@ -44,8 +46,9 @@ class ThermostatButton(tk.Tk):
         return self.insert_query
 
     def sendQueryToDatabase(self):
-        print("DETECTING CHANGE IN BUTTON COMMAND")
         self.detectButtonCommands()
+
+        print("SETTING INITIAL TEMPERATURE CHANGE VALUE TO no change")
         self.temperature_change = "no change"
         
         if (self.increase_temperature_active == True):
