@@ -24,7 +24,7 @@ class ThermostatButton(tk.Tk):
 
     def detectButtonCommands(self):
         print("DETECTING CHANGE IN BUTTONS")
-        
+
         if self.INCREASE_TEMPERATURE_BUTTON.is_pressed:
             print("INCREASE BUTTON HAS BEEN PRESSED")
             self.increase_temperature_active = True
@@ -67,6 +67,11 @@ class ThermostatButton(tk.Tk):
 if __name__ == '__main__':
     ## Configure with custom ip/port number for the Client() object.
     client = Client()
+    
+    ## For debugging...
+    client.setIp()
+    client.setPort()
+
     client.connectToServer()
 
     thermostat_buttons = ThermostatButton(client)
