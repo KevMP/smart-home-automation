@@ -20,7 +20,6 @@ class ThermostatButton(tk.Tk):
         self.agent_command = ttk.Label(self, text=f"AGENT_COMMAND: {self.button_action}", font=("Arial", 14))
         self.agent_command.pack(pady=10)
 
-        self.client = client
         self.sendQueryToDatabase()
 
     def detectButtonCommands(self):
@@ -48,25 +47,20 @@ class ThermostatButton(tk.Tk):
     def sendQueryToDatabase(self):
         print("DETECTING CHANGE IN BUTTON COMMAND")
         self.detectButtonCommands()
-        ## Sends the database the change in temperature to use.
+        self.temperature_change = "no change"
+        
         if (self.increase_temperature_active == True):
-            self.client.sendWriteFlag(self.client)
-            self.data = self.writeQuery("increase")
-            self.client.sendData(self.data)
-            
-            ## Resets the temperature increase.
-            self.increase_temperature_active = False
+            self.temperature_change = "increase"
         elif (self.decrease_temperature_active == True):
-            self.client.sendWriteFlag(self.client)
-            self.data = self.writeQuery("decrease")
-            self.client.sendData(self.data)
+            self.temperature_change = "decrease"
+        
+        client.sendWriteFlag()
+        ## Sends the database the change in temperature to use.
+        self.data = self.writeQuery(self.temperature_change)
+        client.sendData(self.data)
 
-            ## Resets the temperature decrease.
-            self.decrease_temperature_active = False
-        else:
-            self.client.sendWriteFlag(self.client)
-            self.data = self.writeQuery("no change")
-            self.client.sendData(self.data)
+        self.increase_temperature_active = False
+        self.decrease_temperature_active = False
 
 if __name__ == '__main__':
     ## Configure with custom ip/port number for the Client() object.

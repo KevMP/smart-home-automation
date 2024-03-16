@@ -16,19 +16,18 @@ class SmartThermostatApp(tk.Tk):
         self.temperature_label = ttk.Label(self, text=f"Temperature: {self.feels_like_temperature}°F", font=("Arial", 14))
         self.temperature_label.pack(pady=10)
 
-        self.client = client
         self.updateTemperature()
 
     def getAverageTemperature(self):
-        self.client.sendReadFlag(self.client)
-        self.client.sendData("SELECT AVG(temperature) FROM sensor WHERE temperature IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE temperature IS NOT NULL GROUP BY id);")
+        client.sendReadFlag()
+        client.sendData("SELECT AVG(temperature) FROM sensor WHERE temperature IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE temperature IS NOT NULL GROUP BY id);")
         self.tuple_average_temperature = eval(self.client.getData())
         self.average_temperature = self.tuple_average_temperature[0][0]
         print("AVERAGE TEMPERATURE CAPTURED")
 
     def getAverageHumidity(self):
-        self.client.sendReadFlag(self.client)
-        self.client.sendData("SELECT AVG(humidity) FROM sensor WHERE humidity IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE humidity IS NOT NULL GROUP BY id);")
+        client.sendReadFlag()
+        client.sendData("SELECT AVG(humidity) FROM sensor WHERE humidity IS NOT NULL AND (id, timestamp) IN (SELECT id, MAX(timestamp) as max_timestamp FROM sensor WHERE humidity IS NOT NULL GROUP BY id);")
         self.tuple_average_humidity = eval(self.client.getData())
         self.average_humidity = self.tuple_average_humidity[0][0]
         print("AVERAGE HUMIDITY CAPTURED")
