@@ -39,7 +39,6 @@ class ThermostatButton(tk.Tk):
         
         self.agent_command.config(text=f"AGENT_COMMAND: {self.button_action}")
 
-    
     def writeQuery(self, temperature_change):
         self.insert_query = f"INSERT INTO Gui (current_profile, change_in_thermostat) VALUES ('{self.DEFAULT_PROFILE}', '{temperature_change}');"
         return self.insert_query
