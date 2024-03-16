@@ -2,7 +2,6 @@ from class_network_client import *
 from class_sensor import *
 import Adafruit_DHT
 
-
 def getSensorData(DHT_SENSOR, DHT_PIN: int):
     humidity = None
     temperature = None
