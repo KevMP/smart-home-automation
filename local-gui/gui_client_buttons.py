@@ -41,10 +41,30 @@ class ThermostatButton(tk.Tk):
         
         self.agent_command.config(text=f"AGENT_COMMAND: {self.button_action}")
 
-    def writeQuery(self, temperature_change):
+    def updateGuiTable(self, temperature_change):
         self.insert_query = f"INSERT INTO Gui (current_profile, change_in_thermostat) VALUES ('{self.DEFAULT_PROFILE}', '{temperature_change}');"
         return self.insert_query
-
+    
+    def updateProfilePreferences(self, temperature_change):
+        if (temperature_change == "increase"):
+            ## Increases the min_temp and max_temp by one.
+            self.increase_preferred_temperature_range = f"""U
+                UPDATE Profile
+                SET min_temp = min_temp + 1,
+                    max_temp = max+temp + 1
+                WHERE name = '{self.DEFAULT_PROFILE}';
+                """
+        elif (temperature_change == "decrease"):
+            ## Decreases the min_temp and max_temp by one.
+            self.decrease_preferred_temperature_range = f"""U
+                UPDATE Profile
+                SET min_temp = min_temp - 1,
+                    max_temp = max+temp - 1
+                WHERE name = '{self.DEFAULT_PROFILE}';
+                """
+        else:
+            return ""
+    
     def sendQueryToDatabase(self):
         self.detectButtonCommands()
 
@@ -60,8 +80,14 @@ class ThermostatButton(tk.Tk):
         
         client.sendWriteFlag()
         ## Sends the database the change in temperature to use.
-        self.data = self.writeQuery(self.temperature_change)
+        self.data = self.updateGuiTable(self.temperature_change)
         client.sendData(self.data)
+
+        ## Updates the profile preferences.
+        self.data = self.updateProfilePreferences(self.temperature_change)
+        if self.data != "":
+            client.sendWriteFlag()
+            client.sendData(self.data)
         
         self.after(1, self.sendQueryToDatabase)
 
