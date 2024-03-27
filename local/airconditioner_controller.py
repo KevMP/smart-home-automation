@@ -36,5 +36,10 @@ def main():
         client.sendReadFlag()
         client.sendData(getCommandFromDatabase())
 
-        command = client.getData()
+        raw_command = client.getData()
+        ## Parses to a string.
+        command = eval(raw_command)
+        command = command[0][0]
+
+        ## Command gets sent out to the relay based on client data.
         writeCommandToAirconditioner(command)
