@@ -37,3 +37,4 @@ def main():
         client.sendData(getCommandFromDatabase())
 
         command = client.getData()
+        writeCommandToAirconditioner(command)
