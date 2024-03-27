@@ -30,3 +30,10 @@ def getCommandFromDatabase():
 
 def main():
     client = Client("127.0.0.1", 5000) ## Configure to correct addresses.
+    client.connectToServer()
+    while True:
+        ## Tells the client handler to prepare for our communication.
+        client.sendReadFlag()
+        client.sendData(getCommandFromDatabase())
+
+        command = client.getData()
