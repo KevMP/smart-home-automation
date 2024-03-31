@@ -11,15 +11,6 @@ def writeCommandToAirconditioner(command):
         off = 00000000 ## Binary value of 0 example.
         write_data_byte_to_relay(off, relay_address)
 
-def isAirconditionerOn():
-    ## This function should return a true/false based
-    ## on if the airconditioner is activated or not.
-    airconditioner_status = False
-    if airconditioner_status == True:
-        return True
-    else:
-        return False
-
 def getCommandFromDatabase():
     query = """
             SELECT command 
