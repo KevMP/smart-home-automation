@@ -1,4 +1,5 @@
 from class_network_client import *
+import RPi.GPIO as GPIO
 
 def writeCommandToAirconditioner(command):
     ## This function writes a command to the air conditioner.
