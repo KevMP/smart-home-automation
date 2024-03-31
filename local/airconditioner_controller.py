@@ -33,5 +33,5 @@ def main():
         command = eval(raw_command)
         command = command[0][0]
 
-        ## Command gets sent out to the relay based on client data.
+        ## Command gets sent out to the relay based on database data.
         writeCommandToAirconditioner(command)
