@@ -48,7 +48,7 @@ class ThermostatButton(tk.Tk):
     def updateProfilePreferences(self, temperature_change):
         if (temperature_change == "increase"):
             ## Increases the min_temp and max_temp by one.
-            self.increase_preferred_temperature_range = f"""U
+            self.increase_preferred_temperature_range = f"""
                 UPDATE Profile
                 SET min_temp = min_temp + 1,
                     max_temp = max+temp + 1
@@ -56,7 +56,7 @@ class ThermostatButton(tk.Tk):
                 """
         elif (temperature_change == "decrease"):
             ## Decreases the min_temp and max_temp by one.
-            self.decrease_preferred_temperature_range = f"""U
+            self.decrease_preferred_temperature_range = f"""
                 UPDATE Profile
                 SET min_temp = min_temp - 1,
                     max_temp = max+temp - 1
