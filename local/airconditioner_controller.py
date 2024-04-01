@@ -1,15 +1,18 @@
 from class_network_client import *
 import RPi.GPIO as GPIO
 
-def writeCommandToAirconditioner(command):
-    ## This function writes a command to the air conditioner.
-    relay_address = 0xF1 ## change to whatever the relay Address is set to.
+def setupGPIO(relay_pin):
+    # Set up GPIO using BCM numbering
+    GPIO.setmode(GPIO.BCM)
+    # Set the relay pin as output
+    GPIO.setup(relay_pin, GPIO.OUT)
+
+def writeCommandToAirconditioner(command, relay_pin):
+    # This function writes a command to the air conditioner via relay.
     if command == "increase":
-        on  = 10000000 ## Binary value of 1 example.
-        write_data_byte_to_relay(on, relay_address)
+        GPIO.output(relay_pin, GPIO.HIGH)  # Turn relay on
     elif command == "decrease":
-        off = 00000000 ## Binary value of 0 example.
-        write_data_byte_to_relay(off, relay_address)
+        GPIO.output(relay_pin, GPIO.LOW)  # Turn relay off
 
 def getCommandFromDatabase():
     query = """
@@ -21,6 +24,9 @@ def getCommandFromDatabase():
     return query
 
 def main():
+    RELAY_PIN = 17
+    setupGPIO(RELAY_PIN)
+
     client = Client("127.0.0.1", 5000) ## Configure to correct addresses.
     client.connectToServer()
     while True:
@@ -34,4 +40,4 @@ def main():
         command = command[0][0]
 
         ## Command gets sent out to the relay based on database data.
-        writeCommandToAirconditioner(command)
+        writeCommandToAirconditioner(command, RELAY_PIN)
